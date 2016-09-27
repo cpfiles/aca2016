@@ -13,7 +13,7 @@ public class Runner{
         Person steve = new Person();
         
         // set the person's name
-        steve.setFirstName("Steve");
+            steve.setFirstName("Steve");
         steve.setMiddleInitial('R');
         steve.setLastName("Smith");
 
