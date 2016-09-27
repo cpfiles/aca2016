@@ -1,7 +1,11 @@
 package edu.uca.aca2016.basics;
 
+/**
+ * The code in this class was taken from the Oracle Documentation on Java:
+ * https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html
+ */
 class Operators{
-    public void doAsignment() {
+    public void doAssignment() {
         int x = 0;
         int y = 0;
         int z = 1;
@@ -180,19 +184,29 @@ class Operators{
         Operators ops = new Operators();
 
         // Assignment, Arithmetic, and Unary Operators
-        ops.doAsignment();
+        System.out.println("==== Assignment Example ====");
+        ops.doAssignment();
+        System.out.println("==== Arithemtic Example ====");
         ops.doMath();
+        System.out.println("==== Concatenation Example ====");
         ops.doConcatenation();
+        System.out.println("==== Unary Example ====");
         ops.doUnary();
+        System.out.println("==== Pre/Post Unary Example ====");
         ops.doPrePost();
         
         // Equality, Relational, and Conditional Operators
+        System.out.println("==== Comparison Example ====");
         ops.doComparison();
+        System.out.println("==== Conditional Example ====");
         ops.doConditional();
+        System.out.println("==== Ternary Example ====");
         ops.doTernary();
+        System.out.println("==== Instance Example ====");
         ops.doInstance();
         
         // Bitwise and Bit Shift Operators
+        System.out.println("==== Bitwise Example ====");
         ops.doBits();
     }
 }
