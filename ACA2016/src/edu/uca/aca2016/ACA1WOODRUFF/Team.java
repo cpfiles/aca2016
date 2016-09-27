@@ -20,8 +20,7 @@ public class Team {
    public void setName(String value) {       
      this.name = value;
     }
-   
-   public void setSport(String value) {
+     public void setSport(String value) {
         this.sport = value;
     }
   public void setCity (String value) {
