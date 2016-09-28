@@ -16,9 +16,9 @@ public class Increment {
      */
     public static void main(String[] args) {
         //creating breakloop for the loop function
-        boolean breakLoop = false;
+        //boolean breakLoop = false;
         //creating a while loop first
-        while (!breakLoop) {
+        //while (!breakLoop) {
             //setting for loop to count to 200
             for(int i=0; i<=200; i++){
                 //if the number is divisible by 10                
@@ -28,14 +28,13 @@ public class Increment {
                 }if (i == 50){
                 System.out.println ("Number is divided by 5: " + i/5);
                 //if the number is greater or equal to 100 then stop the loop
-                }if (i ==100){ 
-                breakLoop = true;
-                System.out.println ("Final Number is: " + i);
+                }else if (i ==100){ 
+                    System.out.println ("Final Number is: " + i);
                 }
             }
         }
     }
-}
+
         
     
 
