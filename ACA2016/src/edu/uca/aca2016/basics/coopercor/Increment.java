@@ -28,10 +28,10 @@ public class Increment {
                     if (i == 50)
                 System.out.println ("Number is divided by 5: " + i/5);
                 //if the number is greater or equal to 100 then stop the loop
-                    if (i <=100) {
+                    if (i <=100) 
                 breakLoop = true;
                 System.out.println ("Final Number is: " + i);
-                }
+                
             }
         }
     }
