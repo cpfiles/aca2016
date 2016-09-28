@@ -15,17 +15,9 @@ public class Team {
     private String City;
     private String State;
     private int Number_of_players; 
-    
-//*
-    private String getName;
-    private String getSport;
-    private String getCity;
-    private String getState;
-//
-    
-    /*used insert code
-    for getters and setters
-    */
+
+   
+
     
     public String getName() {
         return Name;
@@ -38,31 +30,55 @@ public class Team {
     public String getSport() {
         return Sport;
     }
-
+    
     public void setSport(String Sport) {
         this.Sport = Sport;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCity() {
         return City;
     }
 
+    /**
+     *
+     * @param City
+     */
     public void setCity(String City) {
         this.City = City;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getState() {
         return State;
     }
 
+    /**
+     *
+     * @param State
+     */
     public void setState(String State) {
         this.State = State;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumber_of_players() {
         return Number_of_players;
     }
 
+    /**
+     *
+     * @param Number_of_players
+     */
     public void setNumber_of_players(int Number_of_players) {
         this.Number_of_players = Number_of_players;
     }    
@@ -71,6 +87,12 @@ public class Team {
         return this.Name;
         }
         }*/
+
+    /**
+     *
+     * @param args
+     */
+
             
         public static void main(String[] args) {
             Team myTeam = new Team();
@@ -81,10 +103,10 @@ public class Team {
             myTeam.setNumber_of_players(32);
             
             
-        System.out.println(myTeam.getName);
-        System.out.println(myTeam.getSport);
-        System.out.println(myTeam.getCity);
-        System.out.println(myTeam.getState);
+        System.out.println(myTeam.getName());
+        System.out.println(myTeam.getSport());
+        System.out.println(myTeam.getCity());
+        System.out.println(myTeam.getState());
         System.out.println(myTeam.Number_of_players);
         }
 }
