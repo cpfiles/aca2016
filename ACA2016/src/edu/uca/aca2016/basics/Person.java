@@ -99,7 +99,7 @@ public class Person{
      * Return the first name of the Person
      * @return Person's first name
      */
-    public String getFirstName() {
+    public String getFirstName () {
         return this.first_name;
     }
     

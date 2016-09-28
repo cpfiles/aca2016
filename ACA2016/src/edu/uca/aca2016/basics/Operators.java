@@ -153,6 +153,8 @@ class Operators{
         int result;
         boolean someCondition = true;
         result = someCondition ? value1 : value2;
+        //if this, else that example
+        
 
         System.out.println(result);
     }
