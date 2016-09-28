@@ -17,7 +17,7 @@ public class ForLoop {
     public static void main(String[] args) {
         // TODO code application logic here
         //for loop checks int i and increments by 1.
-        for (int i = 0; i < 201; i++) {
+        for (int i = 0; i <= 200; i++) {
             //checks if i is divisible by 10 and prints out when true.  
             if (i % 10 == 0) {
                 System.out.println(i + " is divisible by 10.");
