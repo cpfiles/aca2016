@@ -23,10 +23,10 @@ public class Increment {
             for(int i=0; i<=200; i++){
                 //if the number is divisible by 10                
                 if (i%10 == 00)
-                System.out.println("Number is: " + i);
+                System.out.println("Divisible by 10 the number is: " + i);
                 //if the nuber is equal to 50 then divid by 5
                 else if (i == 50)
-                System.out.println ("Number is divided by 5: " + i/5);
+                System.out.println ("Number is divided by 5: " + (i/5));
                 //if the number is greater or equal to 100 then stop the loop
                 else if (i <=100) {
                 breakLoop = true;
