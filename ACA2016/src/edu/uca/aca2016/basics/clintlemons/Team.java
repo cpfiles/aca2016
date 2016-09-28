@@ -16,8 +16,6 @@ public class Team {
     private String State;
     private int Number_of_players; 
 
-   
-
     
     public String getName() {
         return Name;
