@@ -30,6 +30,7 @@ public class Increment {
                 //if the number is greater or equal to 100 then stop the loop
                 }else if (i ==100){ 
                     System.out.println ("Final Number is: " + i);
+                    break;
                 }
             }
         }
