@@ -37,10 +37,11 @@ public class Team {
         this.State = value;
     }
 
-    public int setNumberOfPlayers() {
-        return NumberOfPlayers;
+    public void setNumberOfPlayers(int value) {
+        this.NumberOfPlayers = value;
     }
-
+    
+        
     //Set the getters
     public String getName() {
         return this.Name;
@@ -58,24 +59,29 @@ public class Team {
         return this.State;
     }
 
-    public short getNumberOfPlayers() {
+    public int getNumberOfPlayers() {
         return this.NumberOfPlayers;
     }
 
     //Not sure how to retrieve them
     public static void main(String[] args) {
-        Team my_team = new Team();
-        my_team.setName(Cats);
-
-    }
+        
+        Team MyTeam = new Team();
+        MyTeam.setName("Werecats");
+        MyTeam.setSport("Tennis");
+        MyTeam.setCity("Conway");
+        MyTeam.setState("AR");
+        MyTeam.setNumberOfPlayers(8);
+        
+       
+    
 
     //output the values to the screen using System.out.println()
-    System.out.println (
-
-"MyTeam.getName")
-    System.out.println("City")
-    System.out.println("Name")
-    System.out.println("Name")
-    System.out.println("Name")
-    System.out.println("Name")
+    
+    System.out.println(MyTeam.getName());
+    System.out.println(MyTeam.getSport());
+    System.out.println(MyTeam.getCity());
+    System.out.println(MyTeam.getState());
+    System.out.println(MyTeam.getNumberOfPlayers());
+    }
 }
