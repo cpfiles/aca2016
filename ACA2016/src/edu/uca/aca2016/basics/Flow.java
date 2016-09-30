@@ -24,7 +24,7 @@ public class Flow {
             if (i == 50) {
               int  j = i / 5;
             System.out.println("50 divided by 5 is" + " " + j );
-            // Once it gets to 100 it will stop and display the number
+            // Once it gets to 100 it will stop and display the numbers
             }
             if (i == 100) {
                 System.out.println(i + " " + "is the final increment number");
