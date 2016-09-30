@@ -17,14 +17,20 @@ public class assignment001 {
     public static void main(String[] args) {
         // TODO code application logic here
         for(int i = 0; i < 200; i++){
-            System.out.println("Count is: " + i);
-            
-          
+            int max;
+            max = 101;
+            if (i >= max){
+                break;
+            }
         
-    
+        
+       
+            System.out.println("Count is: " + i);
+   
           
        }
            
        
     }
+   
 }
