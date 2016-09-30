@@ -17,14 +17,16 @@ public class Flow {
     public static void main(String[] args) {
         for (int i= 0; i<201; i++) {
             if (i % 10 == 0)
-            System.out.println(i + ":" + "is Divisible by 10");
+            System.out.println(i + ":" + "is divisible by 10");
             
             if (i == 50) {
               int  j = i / 5;
             System.out.println("50 divided by 5 is" + " " + j );
             }
-            if (i == 100)
+            if (i == 100) {
+                System.out.println(i + ":" + "is the final increment number");
             break;
+            }
                 
         }
         
