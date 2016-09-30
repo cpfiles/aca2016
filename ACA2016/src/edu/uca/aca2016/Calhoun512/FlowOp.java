@@ -7,7 +7,7 @@ package edu.uca.aca2016.Calhoun512;
 
 /**
  *
- * @author calho
+ * @author calhoun512
  */
 public class FlowOp {
 
@@ -23,13 +23,13 @@ public class FlowOp {
         }
 
             if (i % 10 == 0) {
-                System.out.print(i + " is divisible by 10. ");
+                System.out.println(i +" is divisible by 10. ");
 
             }
 
             if (i == 50) {
                 int divide = i / 5;
-                System.out.println("50 divided by 5 is - " + divide + ".");
+                System.out.println("50 divided by 5 is " + divide + ".");
 
             }
 
