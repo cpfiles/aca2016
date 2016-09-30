@@ -15,15 +15,14 @@ public class assignment001 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        // initial i to 0 and increment at 1 and end 199
         for(int i = 0; i < 200; i++){
+            // max is the max number of times I should increment then the system will break out of loop.
             int max;
             max = 101;
             if (i >= max){
                 break;
             }
-        
-        
        
             System.out.println("Count is: " + i);
    
