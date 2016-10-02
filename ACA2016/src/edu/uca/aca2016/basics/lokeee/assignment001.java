@@ -16,25 +16,23 @@ public class assignment001 {
      */
     public static void main(String[] args) {
 
-	int index = 0; //Start index at 0
+        int index = 0; //Start index at 0
         int max = 100; // max index number
-	// Using a while-loop expression.
-	while (index++ <200) {  
+        // Using a while-loop expression.
+        while (index++ < 200) {
 
-	    
-	    if ((index % 10) == 0) {  // using modulo to determine if the index is divisible by 10
-                System.out.println(index + " Divisible by 10" ); // if index is divisible by 10 this line will print
-                
+            if ((index % 10) == 0) {  // using modulo to determine if the index is divisible by 10
+                System.out.println(index + " Divisible by 10"); // if index is divisible by 10 this line will print
+
                 if (index == 50) {
-                 System.out.println("50 divided by 5 is " + index/5); // when index hits 50 it will print the quotient of the division operation.    
+                    System.out.println("50 divided by 5 is " + index / 5); // when index hits 50 it will print the quotient of the division operation.    
                 }
-                if (index == max) { 
+                if (index == max) {
                     System.out.println(index + " is the final increment value."); //once index reaches max this is the output
                     break; //break out of loop.
                 }
-                    
-		
-	    }
-	}
+
+            }
+        }
     }
 }
