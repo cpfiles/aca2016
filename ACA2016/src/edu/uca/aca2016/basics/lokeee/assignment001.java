@@ -7,7 +7,7 @@ package edu.uca.aca2016.basics.lokeee;
 
 /**
  *
- * @author lokeee
+ * @author Bill Morgan
  */
 public class assignment001 {
 
@@ -15,21 +15,26 @@ public class assignment001 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // initial i to 0 and increment at 1 and end 199
-        for(int i = 0; i < 200; i++){
-            // max is the max number of times I should increment then the system will break out of loop.
-            int max;
-            max = 101;
-            if (i >= max){
-                break;
-            }
-       
-            System.out.println("Count is: " + i);
-   
-          
-       }
-           
-       
+
+	int index = 0; //Start index at 0
+        int max = 100; // max index number
+	// Using a while-loop expression.
+	while (index++ <200) {
+
+	    
+	    if ((index % 10) == 0) {  // using modulo to determine if the index is divisible by 10
+                System.out.println(index + " Divisible by 10" ); // if index is divisible by 10 this line will print
+                
+                if (index == 50) {
+                 System.out.println("50 divided by 5 is " + index/5);       
+                }
+                if (index == max) { 
+                    System.out.println(index + " is the final increment value."); //once index reaches max this is the output
+                    break;
+                }
+                    
+		
+	    }
+	}
     }
-   
 }
