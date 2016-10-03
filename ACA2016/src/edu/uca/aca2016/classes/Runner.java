@@ -11,10 +11,11 @@ public class Runner{
         int x = obj.subtractValues();
         System.out.println("Values after subtraction: " + x);
 
-        // static method calling
+        // static methods and fields
         String r = MoreClasses.getFoo();
         System.out.println("Return from static method: " + r);
         System.out.println("The value of PI is: " + MoreClasses.PI);
+        System.out.println("Multiply 3 x 5: " + MoreClasses.multiply(3, 5));
 
         obj.tellItLikeItIs(MoreClasses.Day.MONDAY);
         obj.tellItLikeItIs(MoreClasses.Day.WEDNESDAY);

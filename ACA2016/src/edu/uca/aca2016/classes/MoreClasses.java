@@ -47,6 +47,10 @@ public class MoreClasses{
     public static String getFoo(){
         return MoreClasses.FOO;
     }
+    
+    public static int multiply(int v1, int v2) {
+        return v1 * v2;
+    }
 
     public void tellItLikeItIs(Day day){
         switch(day){
