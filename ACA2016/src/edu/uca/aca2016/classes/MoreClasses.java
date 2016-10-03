@@ -7,7 +7,7 @@ public class MoreClasses{
 
     static final double PI = 3.141592653589793;
 
-    private static final String foo = "bar";
+    private static final String FOO = "bar";
 
     public enum Day{
         SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
@@ -45,7 +45,7 @@ public class MoreClasses{
     }
 
     public static String getFoo(){
-        return MoreClasses.foo;
+        return MoreClasses.FOO;
     }
 
     public void tellItLikeItIs(Day day){
