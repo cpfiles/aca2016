@@ -27,14 +27,13 @@ public class Loop{
         
         for(int i=0; i<200; i++){
          //if number is divisible by 10
-        if(i%10 == 0);{        
+        if(i%10 == 0){        
         System.out.println ("number is divisible by 10"+1);
         //if i is 50 divide by 5
-        }if(i == 50);{
+        }if(i == 50){
         System.out.println ("number is divisible by 5"+i/5);
         //if i is 100 break the loop
-        }if (i == 100);
-            else {
+        }else if (i==100){
             System.out.println ("number is the final increment value"+i);
             break;
             }
