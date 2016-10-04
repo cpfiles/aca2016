@@ -23,10 +23,8 @@ public class FlowOp {
             increments, and prints the values. 
             **/
         
-        // you have a few extra braces right here. there should only be one set
-        // that wrap around then entire loop body. --cpf
         for (int i = 1; i <= 200; i++){ {
-            System.out.println("count is:" + i); // this statement is unnecessary --cpf
+            System.out.println("count is:" + i);
             
         }
         
