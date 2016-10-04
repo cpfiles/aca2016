@@ -24,12 +24,13 @@ Print “<number>" is the final increment value” where "<number>" is the final
 public class Loop{
   // create loop that steps through 0-200 incrementally //
     public static void main(String[] args){
-        for(int i=0; i<200; i++){
+        for(int i = 0; i <= 200; i++){
          //if number is divisible by 10
-        if( 200 == i%10){
-        System.out.println ("is divisible by 10");
-        //if i is 50 divide by 5
-        }if(i == 50){
+        if (i%10 == 0){
+            System.out.println (i + " is divisible by 10");
+            //if i is 50 divide by 5
+        }
+        if(i == 50){
         System.out.println (i/5+" is divisible by 5");
         //if i is 100 break the loop
         }if (i!=100){
