@@ -27,4 +27,10 @@ public class Student extends Person {
     public void firstTeacher(Person teacher) {
         teacher.setFirstName("Janet");
     }
+    
+    public String getFullName() {
+        String n = super.getFullName();
+        n += " (Student)";
+        return n;
+    }
 }
