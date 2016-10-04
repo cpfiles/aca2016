@@ -33,6 +33,13 @@ public class Runner{
         
         steve.setParents(betty, john);
         
+        System.out.println("Profile of " + steve.getFullName() + ":");
+        
+        Student martha = new Student();
+        martha.setFirstName("Martha");
+        martha.setLastName("Smith");
+        System.out.println("Profile of " + martha.getFullName() + ":");
+        
         // print steve's profile
         /*
         System.out.println("Profile of " + steve.getFullName() + ":");
@@ -41,12 +48,6 @@ public class Runner{
         System.out.println("\tIncome: $" + steve.getIncome());
         System.out.println("\tMother: " + steve.getMother().getFullName());
         System.out.println("\tFather: " + steve.getFather().getFullName());
-        */
-        
-        Student martha = new Student();
-        martha.setFirstName("Martha");
-        martha.setLastName("Smith");
-        System.out.println("Profile of " + martha.getFullName() + ":");
         
         Student bob = new Student("Bob", "Smith");
         System.out.println("Profile of " + bob.getFullName() + ":");
@@ -62,6 +63,7 @@ public class Runner{
         // object's fields can be changed in the method, if they have the proper access level.
         bob.firstTeacher(betty);
         System.out.println("\tFirst Teacher: " + betty.getFullName());
+        */
     }
     
 }
