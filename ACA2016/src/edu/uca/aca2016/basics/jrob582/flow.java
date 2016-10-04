@@ -18,22 +18,29 @@ public class flow {
         int i;
         // TODO code application logic here
         //for loop checks int i and increments by 1.
+        int n = 200;
         for (i = 0; i <= 200; i++) {
             // check if i is divisible by 10
             if (i % 10 == 0) {
                 System.out.println(i + "is divisible by 10.");
-            }
+            } else
+                System.out.println(i);
             // check when i = 50
             if (i == 50) {
                 int divide = i / 5;
                 System.out.println("50 divided by 5 is " + divide + ".");
-            
-            if (i == 100){
-                System.out.println(i + "is the final increment value.");
             }
-                        
+            
+            // i is the final increment
+            if (i == 100){
+                System.out.println(i + "is the final increment value");
+                break;
             }
         }
     }
-    
 }
+
+            
+            
+            
+            
