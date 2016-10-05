@@ -16,7 +16,7 @@ class Automoblie {
     private double weight;
     
 Automoblie (int num_of_wheels, double h, double w){
-    num_of_wheels = num_of_wheels:
+    int num_of_wheels = num_of_wheels;
        
        
 

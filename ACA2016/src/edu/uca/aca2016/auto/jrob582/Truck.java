@@ -12,7 +12,7 @@ package edu.uca.aca2016.auto.jrob582;
 
 class Truck extends Automoblie{ 
     
-
+changes
         
     }
     
