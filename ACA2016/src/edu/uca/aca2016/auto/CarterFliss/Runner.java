@@ -30,7 +30,7 @@ public class Runner {
         Silverado.setWheelNum(6);
         Silverado.setPayload(5764);
         Silverado.setTowCap(9900);
-        Silverado.isFourWheel();
+        Silverado.isFourWheel(false);
         
         //Prints initial stats for Chevy Silverado
         System.out.println("The 2004 Chevy Silverado 3500 has " + Silverado.WheelNum + " wheels.");
@@ -40,7 +40,7 @@ public class Runner {
         System.out.println("And a max towing capacity of " + Silverado.TowCap + " pounds.");
         
         //checks isFourWheel to print whether Silverado does or doesn't have 4-wheel drive
-        if (Silverado.FourWheel = true) {
+        if (Silverado.FourWheel == true) {
             System.out.println("It has 4-wheel drive.");
         }
         else {

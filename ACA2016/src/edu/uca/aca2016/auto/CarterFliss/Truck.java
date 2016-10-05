@@ -25,6 +25,10 @@ public class Truck extends Automobile {
         return TowCap;
     }
 
+    public boolean isFourWheel(boolean value) {
+        return FourWheel;
+    }
+    
     public boolean isFourWheel() {
         return FourWheel;
     }
