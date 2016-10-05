@@ -30,9 +30,8 @@ public class FlowControl {
             }
 
             // Breaking the loop at 100 and printing the break value
-            int number = 100;
             if (i == 100) {
-                System.out.println(number + " is the final increment value");
+                System.out.println(i + " is the final increment value");
                 break;
             }
         }
