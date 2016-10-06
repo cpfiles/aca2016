@@ -35,25 +35,22 @@ public class Truck extends Automobile {
     
     //sets fields for Truck
 
-    public void setPayload(int Payload) {
-        this.Payload = Payload;
+    public void setPayload(int value) {
+        this.Payload = value;
     }
 
-    public void setTowCap(int TowCap) {
-        this.TowCap = TowCap;
+    public void setTowCap(int value) {
+        this.TowCap = value;
     }
 
-    public void setFourWheel(boolean FourWheel) {
-        this.FourWheel = FourWheel;
+    public void setFourWheel(boolean value) {
+        this.FourWheel = value;
     }
     
     //initializes Truck w/ parameters
-    public Truck (int Payload, int TowCap, boolean FourWheel) {
-        this.setWheelNum(WheelNum);
-        this.setHeight(Height);
-        this.setWeight(Weight);
-        this.setPayload(Payload);
-        this.setTowCap(TowCap);
+    public Truck (int valPayload, int valTowCap, boolean boolFourWheel) {
+        this.setPayload(valPayload);
+        this.setTowCap(valTowCap);
         this.isFourWheel();
         
     }

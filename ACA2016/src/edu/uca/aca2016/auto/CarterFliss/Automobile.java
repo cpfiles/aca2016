@@ -11,9 +11,9 @@ package edu.uca.aca2016.auto.CarterFliss;
  */
 public class Automobile  {
     //defines fields for Automobile class
-    protected int WheelNum;
-    protected int Height;
-    protected int Weight;
+    private int WheelNum;
+    private int Height;
+    private int Weight;
     
     //gets the fields we need for Automobile
     public int getWheelNum() {
@@ -29,23 +29,23 @@ public class Automobile  {
     }
     
     //sets Automobile fields
-    public void setWheelNum(int WheelNum) {
-        this.WheelNum = WheelNum;
+    public void setWheelNum(int value) {
+        this.WheelNum = value;
     }
 
-    public void setHeight(int Height) {
-        this.Height = Height;
+    public void setHeight(int value) {
+        this.Height = value;
     }
 
-    public void setWeight(int Weight) {
-        this.Weight = Weight;
+    public void setWeight(int value) {
+        this.Weight = value;
     }
     
     //initializes Automobile w/ parameters
-    public Automobile (int WheelNum, int Height, int Weight) {
-        this.setHeight(Height);
-        this.setWheelNum(WheelNum);
-        this.setWeight(Weight);
+    public Automobile (int valWheel, int valHeight, int valWeight) {
+        this.setHeight(valHeight);
+        this.setWheelNum(valWheel);
+        this.setWeight(valWeight);
     }
     
     //initializes Automobile w/o parameters
