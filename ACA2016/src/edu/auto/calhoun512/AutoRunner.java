@@ -16,6 +16,25 @@ public class AutoRunner {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        Vehicle truck = new Vehicle ();
+        
+        truck.setNumber_of_wheels(4);
+        truck.setHeight(68);
+        truck.setWeight(3500);
+        
+        Truck F150 = new Truck ();
+        
+        F150.setPayload_in_Pounds (2000);
+        F150.setTowing_in_Pounds(6500);
+        F150.four_wheel_drive(true);
+
+        System.out.println("Number of Wheels:" + truck.getNumberOfWheels());
+        System.out.println("Height(inches):" + truck.getHeight());
+        System.out.println("Weight(lbs):" + truck.getWeight());
+        System.out.println("Payload(lbs):" + F150.getPayload_in_Pounds());
+        System.out.println("Towing Capacity(lbs):" + F150.getTowing_in_Pounds());
+        System.out.print("Four Wheel Drive" + true);
     }
     
 }
