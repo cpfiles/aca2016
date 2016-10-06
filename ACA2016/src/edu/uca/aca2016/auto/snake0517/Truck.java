@@ -14,8 +14,8 @@ public class Truck extends Automobile {
      private double towing_capacity;
      private boolean four_wheel_drive = true;
 
-    public Truck(double payload, double towing_capacity, int number_of_wheels, double weight_in_inches, double weight_in_pounds) {
-        super(number_of_wheels, weight_in_inches, weight_in_pounds);
+    public Truck(double payload, double towing_capacity, int number_of_wheels, double height_in_inches, double weight_in_pounds) {
+        super(number_of_wheels, height_in_inches, weight_in_pounds);
         this.payload = payload;
         this.towing_capacity = towing_capacity;
     }
