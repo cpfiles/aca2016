@@ -11,9 +11,9 @@ package edu.uca.aca2016.auto.CarterFliss;
  */
 public class Truck extends Automobile {
     //define fields for Truck class
-    protected int Payload;
-    protected int TowCap;
-    protected boolean FourWheel;
+    private int Payload;
+    private int TowCap;
+    private boolean FourWheel;
     
     //gets fields for Truck
 
@@ -48,10 +48,14 @@ public class Truck extends Automobile {
     }
     
     //initializes Truck w/ parameters
-    public Truck (int valPayload, int valTowCap, boolean boolFourWheel) {
+    public Truck (int valWheel, int valHeight, int valWeight, 
+                  int valPayload, int valTowCap, boolean boolFourWheel) {
+        this.setHeight(valHeight);
+        this.setWheelNum(valWheel);
+        this.setWeight(valWeight);
         this.setPayload(valPayload);
         this.setTowCap(valTowCap);
-        this.isFourWheel();
+        this.setFourWheel(boolFourWheel);
         
     }
     
