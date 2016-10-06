@@ -43,6 +43,15 @@ public class Truck extends AutomobileACS {
         return towing_in_pounds;
     }
     
+    public void four_wheel_drive(boolean four_wheel_drive){
+        this.four_wheel_drive = four_wheel_drive;
+    }
+    
+    public boolean four_wheel_drive(){
+        return four_wheel_drive;
+    }
+    
+}
 
     
     
