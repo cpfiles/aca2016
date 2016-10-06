@@ -32,8 +32,8 @@ public class Runner {
         myTruck.setFour_wheel_drive(true);
         
         System.out.println("Payload:" + " " + myTruck.getPayload());
-        System.out.println("Towing capasity" + " " + myTruck.getTowing_capacity());
-        System.out.println("Four wheel drive" + " " + myTruck.isFour_wheel_drive());
+        System.out.println("Towing capasity:" + " " + myTruck.getTowing_capacity());
+        System.out.println("Four wheel drive:" + " " + myTruck.isFour_wheel_drive());
     }
     
 }
