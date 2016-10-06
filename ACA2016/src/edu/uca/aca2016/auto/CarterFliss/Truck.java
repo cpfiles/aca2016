@@ -50,9 +50,7 @@ public class Truck extends Automobile {
     //initializes Truck w/ parameters
     public Truck (int valWheel, int valHeight, int valWeight, 
                   int valPayload, int valTowCap, boolean boolFourWheel) {
-        this.setHeight(valHeight);
-        this.setWheelNum(valWheel);
-        this.setWeight(valWeight);
+        super(valWheel, valHeight, valWeight);
         this.setPayload(valPayload);
         this.setTowCap(valTowCap);
         this.setFourWheel(boolFourWheel);
