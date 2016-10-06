@@ -7,7 +7,7 @@ package edu.uca.aca2016.auto.lokeee;
 
 /**
  *
- * @author lokeee
+ * @author Bill Morgan
  */
 public class truck extends automobile{
     // truck payload, towing capacity and if it is four wheel drive.

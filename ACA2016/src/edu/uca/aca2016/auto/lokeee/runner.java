@@ -7,7 +7,7 @@ package edu.uca.aca2016.auto.lokeee;
 
 /**
  *
- * @author lokeee
+ * @author Bill Morgan
  */
 public class runner {
     
