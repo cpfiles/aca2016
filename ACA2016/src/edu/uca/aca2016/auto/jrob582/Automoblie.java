@@ -14,9 +14,15 @@ class Automoblie {
     private int num_of_wheels;
     private double height;
     private double weight;
+
+    public Automoblie(int num_of_wheels, double height, double weight) {
+        this.num_of_wheels = num_of_wheels;
+        this.height = height;
+        this.weight = weight;
+    }
     
-Automoblie (int num_of_wheels, double h, double w){
-    int num_of_wheels = num_of_wheels;
+        public Automoblie() {
+
        
        
 
