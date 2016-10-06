@@ -19,13 +19,17 @@ public class Runner {
     public static void main(String[] args) {
         Automobile corvette = new Automobile();
         // TODO code application logic here
-        corvette.getNumber_of_wheels(4);
-        corvette.getHeight(48);
-        corvette.getWeight(2800f);
+        corvette.setNumber_of_wheels(4);
+        corvette.setHeight(48);
+        corvette.setWeight(2800f);
 
      System.out.println("The profile of 2002 Corvette Coup has" + getNumber_of_wheels(4);
      System.out.println("at a height of" + getHeight (48);
      System.out.println ("coming in at a weight of" + getWeight + "lbs.");
+
+    private static String getNumber_of_wheels(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
      
      
     public Automobile(int number_of_wheels, double height, double weight) {
