@@ -30,6 +30,7 @@ public class Runner {
         Silverado.setWheelNum(6);
         Silverado.setPayload(5764);
         Silverado.setTowCap(9900);
+        //isFourWheel method doesn't require parameters, but defaults to "true"
         Silverado.isFourWheel(false);
         
         //Prints initial stats for Chevy Silverado
