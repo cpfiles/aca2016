@@ -26,10 +26,24 @@ public class Truck extends AutomobileACS {
         this.towing_in_pounds = towing_in_pounds;
     }
     
-   
+    public void setPayload_in_Pounds (double payload_in_pounds){
+            this.payload_in_pounds = payload_in_pounds;
+                    
     }
     
+    public double getPayload_in_Pounds (){
+        return payload_in_pounds;
+    }
+    
+    public void setTowing_in_Pounds (double towing_in_pounds){
+        this.towing_in_pounds = towing_in_pounds;
+    }
+    
+    public double getTowing_in_Pounds (){
+        return towing_in_pounds;
+    }
+    
+
     
     
-    
-}
+
