@@ -5,7 +5,7 @@
  */
 package edu.uca.aca2016.auto.ACA1WOODRUFF;
 
-import edu.uca.aca2016.basics.Person;
+//import edu.uca.aca2016.basics.Person;
 
 /**
  *
@@ -21,22 +21,21 @@ public class Runner {
         // TODO code application logic here
         corvette.setNumber_of_wheels(4);
         corvette.setHeight(48);
-        corvette.setWeight(2800f);
+        corvette.setWeight(2800);
 
-     System.out.println("The profile of 2002 Corvette Coup has" + getNumber_of_wheels(4);
-     System.out.println("at a height of" + getHeight (48);
-     System.out.println ("coming in at a weight of" + getWeight + "lbs.");
+     System.out.println("The profile of 2002 Corvette Coup has" + corvette.getNumber_of_wheels());
+     System.out.println("at a height of" + corvette.getHeight ());
+     System.out.println("coming in at a weight of" + corvette.getWeight() + "lbs.");
 
-    private static String getNumber_of_wheels(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-     
-     
-    public Automobile(int number_of_wheels, double height, double weight) {
-        this.number_of_wheels = number_of_wheels;
-        this.height = height;
-        this.weight = weight;
-    }    
+     Truck silverado = new Truck();
+        // TODO code application logic here
+        silverado.setNumber_of_wheels(4);
+        silverado.setHeight(48);
+        silverado.setWeight(2800);
+
+     System.out.println("The profile of 2002 Corvette Coup has" + corvette.getNumber_of_wheels());
+     System.out.println("at a height of" + corvette.getHeight ());
+     System.out.println("coming in at a weight of" + corvette.getWeight() + "lbs.");
         
     }
     
