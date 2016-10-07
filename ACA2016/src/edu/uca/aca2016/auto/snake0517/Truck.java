@@ -15,7 +15,7 @@ public class Truck extends Automobile {
      private boolean four_wheel_drive = true;
 
     /**
-     *
+     *  Constructor for truck class
      * @param payload
      * @param towing_capacity
      * @param number_of_wheels
@@ -29,14 +29,14 @@ public class Truck extends Automobile {
     }
 
     /**
-     *
+     * empty constructor
      */
     public Truck() {
         
     }
 
     /**
-     *
+     * Lets you access payload
      * @return
      */
     public double getPayload() {
@@ -44,7 +44,7 @@ public class Truck extends Automobile {
     }
 
     /**
-     *
+     * Sets payload value
      * @param payload
      */
     public void setPayload(double payload) {
@@ -52,7 +52,7 @@ public class Truck extends Automobile {
     }
 
     /**
-     *
+     * Lets you access towing capacity 
      * @return
      */
     public double getTowing_capacity() {
@@ -60,7 +60,7 @@ public class Truck extends Automobile {
     }
 
     /**
-     *
+     * Sets towing capacity
      * @param towing_capacity
      */
     public void setTowing_capacity(double towing_capacity) {
