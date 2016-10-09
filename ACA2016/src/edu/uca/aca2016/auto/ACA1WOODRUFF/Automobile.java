@@ -15,49 +15,66 @@ public class Automobile {
     private double height;
     private double weight;
 
+    /**
+     *
+     * @param number_of_wheels
+     * @param height
+     * @param weight
+     */
     public Automobile(int number_of_wheels, double height, double weight) {
         this.number_of_wheels = number_of_wheels;
         this.height = height;
         this.weight = weight;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumber_of_wheels() {
         return number_of_wheels;
     }
 
+    /**
+     *
+     * @param number_of_wheels
+     */
     public void setNumber_of_wheels(int number_of_wheels) {
         this.number_of_wheels = number_of_wheels;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getHeight() {
         return height;
     }
 
+    /**
+     *
+     * @param height
+     */
     public void setHeight(double height) {
         this.height = height;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getWeight() {
         return weight;
     }
 
+    /**
+     *
+     * @param weight
+     */
     public void setWeight(double weight) {
         this.weight = weight;
-    }
-    public Automobile() {
-        
-    }
-
-    void getNumber_of_wheels(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }   
+    public Automobile(){
     }
 
-    void getHeight(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    void getWeight(float f) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-}
+  }
