@@ -19,7 +19,7 @@ public class Automobile {
     private double  height_inches;
     private double weight_lbs;
  
-// automobile constructor
+// Automobile constructor
 public Automobile (int number_of_wheels, double height_inches, double weight_lbs){
     this.number_of_wheels = number_of_wheels;
     this.height_inches = height_inches;
