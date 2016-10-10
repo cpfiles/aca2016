@@ -28,7 +28,7 @@ public class Truck extends Automobile {
         this.towing = towing;
     }
 
-    //empty Truck constructor
+    //empty Truck constructors
  public Truck (){
 }
 

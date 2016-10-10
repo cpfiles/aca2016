@@ -34,7 +34,7 @@ public void setnumber_of_wheels (int number_of_wheels){
     this.number_of_wheels = number_of_wheels;
 }
 
-// return the number of wheels
+// return the number of wheelss
 public int getnumber_of_wheels(){
     return this.number_of_wheels;
 }
