@@ -34,6 +34,7 @@ public class Runner {
         
         //priontout for oject values for ford truck using string to function
         System.out.println(ford);
+        
     }
     
 }
