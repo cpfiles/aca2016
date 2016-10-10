@@ -27,14 +27,18 @@ public class AutoRunner {
         
         F150.setPayload_in_Pounds (2000);
         F150.setTowing_in_Pounds(6500);
-        F150.four_wheel_drive(true);
+        F150.setfour_wheel_drive(true);
 
         System.out.println("Number of Wheels:" + truck.getNumberOfWheels());
         System.out.println("Height(inches):" + truck.getHeight());
         System.out.println("Weight(lbs):" + truck.getWeight());
         System.out.println("Payload(lbs):" + F150.getPayload_in_Pounds());
         System.out.println("Towing Capacity(lbs):" + F150.getTowing_in_Pounds());
-        System.out.print("Four Wheel Drive" + true);
+        System.out.println("Four Wheel Drive:" + F150.getFour_wheel_drive);
+      
+        
+    
+    }
     }
     
-}
+

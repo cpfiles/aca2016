@@ -30,8 +30,7 @@ public class AutomobileACS {
 
         
     public void setNumber_of_wheels (int value){
-        this.number_of_wheels = value;
-        
+        this.number_of_wheels = value;       
     }
     
     public int getNumberOfWheels (){
