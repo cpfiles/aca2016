@@ -87,7 +87,10 @@ package edu.auto.calhoun512;
         this.four_wheel_drive = four_wheel_drive;
     }
     
-
+    /**
+     *
+     * @return
+     */
     public boolean getFourWheelDrive(){
             return four_wheel_drive;
     }
