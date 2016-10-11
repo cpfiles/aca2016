@@ -5,7 +5,7 @@
  */
 
 
-package edu.uca.aca2016.Calhoun512;
+package edu.uca.aca2016.basics.Calhoun512;
 
 /**
  * The code in this class was taken from the Oracle Documentation on Java:
