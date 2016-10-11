@@ -21,9 +21,7 @@ public class StereoPlayer {
     private boolean isPlaying = false;
     private boolean isPaused = false;
     private boolean isStopped = false;
-    private boolean isUSBLoaded = false;
-    private boolean playingStraight = false;
-    private boolean playingRandom = false;
+    private boolean isUSBLoaded = false;    
     private int currentTrack;
 
     /*
@@ -38,7 +36,7 @@ public class StereoPlayer {
             trackTotal++;
             break;
         }
-        isPlaying = true;
+        
     }
 
     /*
@@ -64,9 +62,7 @@ public class StereoPlayer {
             trackTotal = 0;
             isPlaying = false;
             isPaused = false;
-            isStopped = false;
-            playingRandom = false;
-            playingStraight = false;
+            isStopped = false;            
             break;
         }
     }
@@ -92,9 +88,9 @@ public class StereoPlayer {
     * breaks for loop when paused or stopped
      */
     public void enableStraightPlayMode() {
-        playingStraight = true;
+        isPlaying = true;
         System.out.println("Straight play enabled.");
-        while (playingStraight == true || isPaused == false || isStopped == false
+        while (isPlaying == true || isPaused == false || isStopped == false
                 || isUSBLoaded == true) {
             while (currentTrack != trackTotal) {
                 currentTrack++;
@@ -112,9 +108,9 @@ public class StereoPlayer {
     * breaks while loop when paused or stopped
      */
     public void enableShufflePlayMode() {
-        playingRandom = true;
+        isPlaying = true;
         System.out.println("Shuffle play enabled.");
-        while (playingRandom == true || isPaused == false || isStopped == false
+        while (isPlaying == true || isPaused == false || isStopped == false
                 || isUSBLoaded == true || currentTrack != trackTotal) {
             while (currentTrack <= trackTotal) {
                 Random curTrack = new Random();
@@ -134,8 +130,7 @@ public class StereoPlayer {
         isStopped = true;
         currentTrack = 1;
         isPlaying = false;
-        playingRandom = false;
-        playingStraight = false;
+        
     }
 
     /*
@@ -143,9 +138,7 @@ public class StereoPlayer {
      */
     public void pause() {
         isPaused = true;
-        isPlaying = false;
-        playingStraight = false;
-        playingRandom = false;
+        isPlaying = false;        
         System.out.println("Music paused.");
     }
 
