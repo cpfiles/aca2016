@@ -93,8 +93,8 @@ public class StereoPlayer {
         while (isPlaying == true || isPaused == false || isStopped == false
                 || isUSBLoaded == true) {
             while (currentTrack != trackTotal) {
-                currentTrack++;
                 System.out.println("Currently playing Track " + currentTrack + " of " + trackTotal);
+                currentTrack++;              
 
             }
             break;
@@ -138,7 +138,8 @@ public class StereoPlayer {
      */
     public void pause() {
         isPaused = true;
-        isPlaying = false;        
+        isPlaying = false;
+        
         System.out.println("Music paused.");
     }
 
