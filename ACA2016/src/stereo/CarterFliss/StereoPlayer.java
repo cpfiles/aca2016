@@ -194,14 +194,14 @@ public class StereoPlayer {
     public static void main(String[] args) {
         // TODO code application logic here
         //testing code for Straight play.  Will test other functions here.
-        StereoPlayer straightStereoTest = new StereoPlayer();
-        straightStereoTest.loadUSB();
-        straightStereoTest.currentTrackNumber();
-        straightStereoTest.enableStraightPlayMode();
-        straightStereoTest.nextTrack();
-        straightStereoTest.stop();
-        straightStereoTest.previousTrack();
-        straightStereoTest.unloadUSB();
+//        StereoPlayer straightStereoTest = new StereoPlayer();
+//        straightStereoTest.loadUSB();
+//        straightStereoTest.currentTrackNumber();
+//        straightStereoTest.enableStraightPlayMode();
+//        straightStereoTest.nextTrack();
+//        straightStereoTest.stop();
+//        straightStereoTest.previousTrack();
+//        straightStereoTest.unloadUSB();
         //testing code for Shuffle play.
 //        StereoPlayer randStereoTest = new StereoPlayer();
 //        randStereoTest.loadUSB();
