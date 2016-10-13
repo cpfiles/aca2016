@@ -154,6 +154,9 @@ public class StereoPlayer {
     *  track
      */
     public void nextTrack() {
+        isPlaying = true;
+        isPaused = false;
+        isStopped = false;
         System.out.println("Next Track");
         if (currentTrack == trackTotal) {
             currentTrack = (trackTotal - (trackTotal - 1));
@@ -171,6 +174,9 @@ public class StereoPlayer {
     *  last track
      */
     public void previousTrack() {
+        isPlaying = true;
+        isPaused = false;
+        isStopped = false;
         System.out.println("Previous Track");
         if (currentTrack == (trackTotal - (trackTotal - 1))) {
             currentTrack = trackTotal;
