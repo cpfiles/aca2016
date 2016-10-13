@@ -134,6 +134,7 @@ public class StereoPlayer {
         isStopped = true;
         currentTrack = 1;
         isPlaying = false;
+        isPaused = false;
 
     }
 
@@ -143,6 +144,7 @@ public class StereoPlayer {
     public void pause() {
         isPaused = true;
         isPlaying = false;
+        isStopped = false;
 
         System.out.println("Music paused.");
     }
