@@ -16,9 +16,12 @@ public class MyStereo implements Stereo {
 private int NumberOfTracks;
 private boolean isUSBLoaded;
 private boolean unloadUSB;
-private boolean enableStraightPlayMode = false
-private boolean enableShufflePlayMode: = false
-
+private boolean enableStraightPlayMode; = false
+private boolean enableShufflePlayMode; = false
+private boolean enableStop; = false
+private boolean enablePause;
+private boolean enableNextTrack;
+private boolean enablePreviousTrack;
         
     @Override
         
