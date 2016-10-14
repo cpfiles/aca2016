@@ -13,7 +13,13 @@ import java.util.Random;
  * @author awood
  */
 public class MyStereo implements Stereo {
+private int NumberOfTracks;
+private boolean isUSBLoaded;
+private boolean unloadUSB;
+private boolean enableStraightPlayMode = false
+private boolean enableShufflePlayMode: = false
 
+        
     @Override
         
     public void loadUSB() {
@@ -25,7 +31,7 @@ public class MyStereo implements Stereo {
     }
 
     @Override
-    public boolean isUSBLoaded() {
+    public boolean isUSBLoaded(); {
         
         
       /**
@@ -49,7 +55,7 @@ public class MyStereo implements Stereo {
     }
 
     @Override
-    public void enableStraightPlayMode() {
+    public  enableStraightPlayMode() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
