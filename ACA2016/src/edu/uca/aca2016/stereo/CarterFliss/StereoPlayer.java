@@ -43,12 +43,13 @@ public class StereoPlayer {
     *  checks if USB device is loaded, providing appropriate message
     *  in relation to current device state
      */
-    public void isUSBLoaded() {
+    public boolean isUSBLoaded() {
         if (isUSBLoaded == true) {
             System.out.println("USB input recognized.  Loading tracks...");
         } else {
             System.err.println("No USB device detected.");
         }
+        return isUSBLoaded;
     }
 
     /*
