@@ -16,9 +16,10 @@ public interface Stereo{
 
     /**
      * This method should tell the caller if the USB drive has been scanned for
-     * mp3 files.
+     * mp3 files
+     * @return
      */
-    public void isUSBLoaded();
+    public boolean isUSBLoaded();
 
     /**
      * This method should unload the USB drive by resetting all of the counts
