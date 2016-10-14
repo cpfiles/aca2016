@@ -7,7 +7,7 @@ package edu.uca.aca2016.stereo.ACA1Woodruff;
 
 
 import edu.uca.aca2016.interfaces.Stereo;
-
+import java.util.Random;
 /**
  *
  * @author awood
@@ -15,13 +15,22 @@ import edu.uca.aca2016.interfaces.Stereo;
 public class MyStereo implements Stereo {
 
     @Override
+        
     public void loadUSB() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    int origin = 0;
+    int bound = 999;
+    Random r = new Random();
+    r.nextInt(1000 +1);
+        
     }
 
     @Override
     public void isUSBLoaded() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        
+      /**
+     * This method scans the USB drive for * mp3 files.
+     */   
     }
 
     @Override
