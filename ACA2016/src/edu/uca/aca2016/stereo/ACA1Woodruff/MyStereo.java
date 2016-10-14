@@ -25,7 +25,7 @@ public class MyStereo implements Stereo {
     }
 
     @Override
-    public void isUSBLoaded() {
+    public boolean isUSBLoaded() {
         
         
       /**
