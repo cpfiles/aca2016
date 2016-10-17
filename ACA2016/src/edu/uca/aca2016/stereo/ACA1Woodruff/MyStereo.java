@@ -31,7 +31,7 @@ private boolean isPaused;
         
     @Override
         
-    public void loadUSB() {
+    public boolean loadUSB() {
     int origin = 0;
     int bound = 999;
     Random r = new Random();
@@ -49,7 +49,7 @@ private boolean isPaused;
     }
 
     @Override
-    public void unloadUSB() {
+    public boolean unloadUSB() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -64,32 +64,32 @@ private boolean isPaused;
     }
 
     @Override
-    public  enableStraightPlayMode() {
+    public  boolean enableStraightPlayMode() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void enableShufflePlayMode() {
+    public boolean enableShufflePlayMode() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void stop() {
+    public boolean stop() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void pause() {
+    public boolean pause() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void nextTrack() {
+    public int nextTrack() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void previousTrack() {
+    public int previousTrack() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
