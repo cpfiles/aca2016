@@ -17,14 +17,10 @@ public class StereoImpl implements Stereo {
         // TODO code application logic here
     }
 
-    @Override
     public void loadUSB() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public boolean isUSBLoaded() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    while public boolean isUSBLoaded(true){
+        
     }
 
     @Override
