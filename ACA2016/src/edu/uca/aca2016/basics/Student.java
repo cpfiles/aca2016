@@ -9,7 +9,7 @@ package edu.uca.aca2016.basics;
  *
  * @author cfiles
  */
-public class Student extends Person {
+public class Student extends Person  implements Comparable<Student> {
     
     public Student(String first_name, String last_name) {
         this.setFirstName(first_name);
@@ -32,5 +32,31 @@ public class Student extends Person {
         String n = super.getFullName();
         n += " (Student)";
         return n;
+    }
+
+    @Override
+    public int compareTo(Student s){
+        int lastCmp = this.getLastName().compareTo(s.getLastName());
+        
+        return (lastCmp != 0 ? lastCmp : this.getFirstName().compareTo(s.getFirstName()));
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Student))
+            return false;
+        
+        Student s = (Student) o;
+        return s.getFirstName().equals(this.getFirstName()) && s.getLastName().equals(this.getLastName());
+    }
+
+    @Override
+    public int hashCode() {
+        return 31*this.getFirstName().hashCode() + this.getLastName().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return this.getFirstName() + " " + this.getLastName();
     }
 }
