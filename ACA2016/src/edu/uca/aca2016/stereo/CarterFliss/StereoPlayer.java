@@ -117,14 +117,16 @@ public class StereoPlayer {
         System.out.println("Shuffle play enabled.");
         while (isPlaying == true || isPaused == false || isStopped == false
                 || isUSBLoaded == true || currentTrack != trackTotal) {
-            while (currentTrack <= trackTotal) {
+            while (currentTrack != trackTotal) {
                 Random curTrack = new Random();
                 currentTrack = curTrack.nextInt(trackTotal + 1);
+                if(currentTrack == 0){
+                    currentTrack++;
+                }
                 System.out.println("Currently playing Track " + currentTrack + " of " + trackTotal);
             }
             break;
-        }
-        System.out.println("Currently playing Track " + currentTrack + " of " + trackTotal);
+        }        
     }
 
     /*
@@ -212,11 +214,11 @@ public class StereoPlayer {
 //        straightStereoTest.previousTrack();
 //        straightStereoTest.unloadUSB();
         //testing code for Shuffle play.
-//        StereoPlayer randStereoTest = new StereoPlayer();
-//        randStereoTest.loadUSB();
-//        randStereoTest.currentTrackNumber();
-//        randStereoTest.enableShufflePlayMode();
-//        randStereoTest.unloadUSB();
+        StereoPlayer randStereoTest = new StereoPlayer();
+        randStereoTest.loadUSB();
+        randStereoTest.currentTrackNumber();
+        randStereoTest.enableShufflePlayMode();
+        randStereoTest.unloadUSB();
 
     }
 
