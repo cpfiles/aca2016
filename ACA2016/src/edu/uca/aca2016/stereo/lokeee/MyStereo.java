@@ -29,4 +29,8 @@ System.out.println (Tracks);
 
 }
 
+ public static void main(String[] args) {
+     System.out.println (Tracks);
+ }
+ 
 }
