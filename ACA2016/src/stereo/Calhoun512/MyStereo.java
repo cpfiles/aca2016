@@ -82,6 +82,8 @@ public class MyStereo implements Stereo {
     public void enableShufflePlayMode() {
         this.enableShufflePlayMode = true;
         this.enableStraightPlayMode = false;
+        
+        
     }
 
     @Override
