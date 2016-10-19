@@ -108,12 +108,17 @@ public class MyStereo implements Stereo {
 
     @Override
     public boolean isPlaying() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        isPaused = false;
+        isStopped = false;
+        return isPlaying = true;
     }
 
     @Override
     public boolean isPaused() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        isPlaying = false;
+        isStopped = false;
+        return isPaused = true;
+        
     }
     
 }
