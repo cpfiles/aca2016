@@ -14,11 +14,11 @@ import java.util.Random;
  *
  * @author calho
  */
-public abstract class MyStereo implements Stereo {
+public class MyStereo implements Stereo {
     
     private int NumberOfTracks;
     private boolean isUSBLoaded = false;
-    private boolean enableStraightPlayMode = false;
+    private boolean enableStraightPlayMode = true;
     private boolean enableShufflePlayMode = false;
     private boolean isPlaying = false;
     private boolean isPaused = false;
@@ -47,26 +47,27 @@ public abstract class MyStereo implements Stereo {
         
         return this.isUSBLoaded = true;
         
-        else 
-        
     }
 
     @Override
-    public void unloadUSB() {
-        
-        
+    public void unloadUSB() {       
+        isUSBLoaded = false;
+        this.NumberOfTracks = 0;
+           
         
     }
 
     @Override
     public int currentTrackNumber() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.currentTrackNumber = 1;
+        return currentTrackNumber;
+       
     }
 
     @Override
     public int totalTrackCount() {
         
-        return NumberOfTracks;
+        return this.NumberOfTracks;
                 
     }
 
