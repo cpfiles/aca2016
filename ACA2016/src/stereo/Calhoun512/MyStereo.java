@@ -17,20 +17,15 @@ import java.util.Random;
 public abstract class MyStereo implements Stereo {
     
     private int NumberOfTracks;
-    private boolean isUSBLoaded;
-    private boolean enableStraightPlayMode;
-    private boolean enableShufflePlayMode;
-    private boolean isPlaying;
-    private boolean isPaused;
+    private boolean isUSBLoaded = false;
+    private boolean enableStraightPlayMode = false;
+    private boolean enableShufflePlayMode = false;
+    private boolean isPlaying = false;
+    private boolean isPaused = false;
+    private int currentTrackNumber;
     
-    public MyStereo (int NumberOfTracks, boolean isUSBLoaded, boolean enableStraightPlayMode,
-        boolean enableShufflePlayMode, boolean isPlaying, boolean isPaused){
-        
-        this.NumberOfTracks = NumberOfTracks;
-        this.isUSBLoaded = 
-    
-        }
-    //@Override
+
+    @Override
     
     public void loadUSB() {
         
@@ -39,6 +34,7 @@ public abstract class MyStereo implements Stereo {
         
         NumberOfTracks = r.nextInt(bound);
         NumberOfTracks++;
+        isUSBLoaded = true;
         
         }
         
@@ -49,13 +45,17 @@ public abstract class MyStereo implements Stereo {
 
     public boolean isUSBLoaded() {
         
-        this.isUSBLoaded = true;
+        return this.isUSBLoaded = true;
+        
+        else 
         
     }
 
     @Override
     public void unloadUSB() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        
+        
     }
 
     @Override
