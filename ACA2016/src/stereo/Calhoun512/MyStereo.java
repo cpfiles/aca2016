@@ -22,6 +22,7 @@ public class MyStereo implements Stereo {
     private boolean enableShufflePlayMode = false;
     private boolean isPlaying = false;
     private boolean isPaused = false;
+    private boolean isStopped = false;
     private int currentTrackNumber;
     
 
@@ -35,6 +36,7 @@ public class MyStereo implements Stereo {
         NumberOfTracks = r.nextInt(bound);
         NumberOfTracks++;
         isUSBLoaded = true;
+        currentTrackNumber = 1;
         
         }
         
@@ -59,8 +61,7 @@ public class MyStereo implements Stereo {
 
     @Override
     public int currentTrackNumber() {
-        this.currentTrackNumber = 1;
-        return currentTrackNumber;
+        return this.currentTrackNumber;
        
     }
 
@@ -73,32 +74,36 @@ public class MyStereo implements Stereo {
 
     @Override
     public void enableStraightPlayMode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.enableStraightPlayMode = true;
+        this.enableShufflePlayMode = false;
     }
 
     @Override
     public void enableShufflePlayMode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.enableShufflePlayMode = true;
+        this.enableStraightPlayMode = false;
     }
 
     @Override
     public void stop() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       isStopped = true;
+       isPlaying = false;
     }
 
     @Override
     public void pause() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        isPaused = true;
+        isPlaying = false;        
     }
 
     @Override
     public void nextTrack() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.currentTrackNumber++;
     }
 
     @Override
     public void previousTrack() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.currentTrackNumber--;
     }
 
     @Override
