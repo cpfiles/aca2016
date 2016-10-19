@@ -214,11 +214,11 @@ public class StereoPlayer {
 //        straightStereoTest.previousTrack();
 //        straightStereoTest.unloadUSB();
         //testing code for Shuffle play.
-        StereoPlayer randStereoTest = new StereoPlayer();
-        randStereoTest.loadUSB();
-        randStereoTest.currentTrackNumber();
-        randStereoTest.enableShufflePlayMode();
-        randStereoTest.unloadUSB();
+//        StereoPlayer randStereoTest = new StereoPlayer();
+//        randStereoTest.loadUSB();
+//        randStereoTest.currentTrackNumber();
+//        randStereoTest.enableShufflePlayMode();
+//        randStereoTest.unloadUSB();
 
     }
 
