@@ -12,13 +12,21 @@ package edu.uca.aca2016.stereo.CarterFliss;
 import edu.uca.aca2016.interfaces.Stereo;
 import java.util.Random;
 
-public class StereoPlayer {
+public class StereoPlayer implements Stereo {
 
     /**
      * @param args the command line arguments
+     * 
+     * instantiating the variables necessary for the rest of the program
+     * clarification: isPlaying only stores whether stereo is currently playing,
+     *  regardless of current play mode.
+     *  isPlayingStraight and isPlayingShuffle stores value of which play mode
+     *  stereo is currently in.
      */
     private int trackTotal;
     private boolean isPlaying = false;
+    private boolean isPlayingStraight = false;
+    private boolean isPlayingShuffle = false;
     private boolean isPaused = false;
     private boolean isStopped = false;
     private boolean isUSBLoaded = false;
@@ -29,14 +37,14 @@ public class StereoPlayer {
     *  such as isUSBLoaded, isPlaying, and generates trackTotal
      */
     public void loadUSB() {
+        isPlaying = true;
         isUSBLoaded = true;
         Random genTL = new Random();
         trackTotal = (genTL.nextInt(1000) + 1);
         while (trackTotal == 0) {
             trackTotal++;
             break;
-        }
-
+        }        
     }
 
     /*
@@ -61,6 +69,8 @@ public class StereoPlayer {
             System.out.println("Removing USB device.");
             currentTrack = 0;
             trackTotal = 0;
+            isPlayingStraight = false;
+            isPlayingShuffle = false;
             isPlaying = false;
             isPaused = false;
             isStopped = false;
@@ -72,7 +82,6 @@ public class StereoPlayer {
     *  Generates and returns a current track number, defaulting at first track
      */
     public int currentTrackNumber() {
-        currentTrack = (trackTotal - (trackTotal - 1));
         return currentTrack;
     }
 
@@ -90,11 +99,13 @@ public class StereoPlayer {
      */
     public void enableStraightPlayMode() {
         isPlaying = true;
+        isPlayingStraight = true;
+        isPlayingShuffle = false;
         isPaused = false;
         isStopped = false;
         System.out.println("Straight play enabled.");
-        while (isPlaying == true || isPaused == false || isStopped == false
-                || isUSBLoaded == true) {
+        while (isPlayingStraight == true && isPaused == false && isStopped == false
+                && isUSBLoaded == true) {
             while (currentTrack != trackTotal) {
                 System.out.println("Currently playing Track " + currentTrack + " of " + trackTotal);
                 currentTrack++;
@@ -112,21 +123,23 @@ public class StereoPlayer {
      */
     public void enableShufflePlayMode() {
         isPlaying = true;
+        isPlayingShuffle = true;
+        isPlayingStraight = false;
         isPaused = false;
         isStopped = false;
         System.out.println("Shuffle play enabled.");
-        while (isPlaying == true || isPaused == false || isStopped == false
-                || isUSBLoaded == true || currentTrack != trackTotal) {
+        while (isPlayingShuffle == true && isPaused == false && isStopped == false
+                && isUSBLoaded == true && currentTrack != trackTotal) {
             while (currentTrack != trackTotal) {
                 Random curTrack = new Random();
                 currentTrack = curTrack.nextInt(trackTotal + 1);
-                if(currentTrack == 0){
+                if (currentTrack == 0) {
                     currentTrack++;
                 }
                 System.out.println("Currently playing Track " + currentTrack + " of " + trackTotal);
             }
             break;
-        }        
+        }
     }
 
     /*
@@ -135,7 +148,7 @@ public class StereoPlayer {
     public void stop() {
         System.out.println("Stopping music.");
         isStopped = true;
-        currentTrack = 1;
+        currentTrack = 1;        
         isPlaying = false;
         isPaused = false;
 
@@ -146,6 +159,8 @@ public class StereoPlayer {
      */
     public void pause() {
         isPaused = true;
+        isPlayingStraight = false;
+        isPlayingShuffle = false;
         isPlaying = false;
         isStopped = false;
 
@@ -157,17 +172,21 @@ public class StereoPlayer {
     *  track
      */
     public void nextTrack() {
-        isPlaying = true;
         isPaused = false;
         isStopped = false;
         System.out.println("Next Track");
-        if (currentTrack == trackTotal) {
-            currentTrack = (trackTotal - (trackTotal - 1));
-        } else {
-            do {
-                currentTrack++;
-                break;
-            } while (currentTrack != trackTotal);
+        if (isPlayingStraight == true) {
+            if (currentTrack == trackTotal) {
+                currentTrack = (trackTotal - (trackTotal - 1));
+            } else {
+                do {
+                    currentTrack++;
+                    break;
+                } while (currentTrack != trackTotal);
+            }
+        } else if (isPlayingShuffle == true) {
+            Random curTrack = new Random();
+            currentTrack = (curTrack.nextInt(trackTotal) + 1);            
         }
         System.out.println("Currently playing Track " + currentTrack + " of " + trackTotal);
     }
@@ -177,23 +196,32 @@ public class StereoPlayer {
     *  last track
      */
     public void previousTrack() {
-        isPlaying = true;
         isPaused = false;
         isStopped = false;
         System.out.println("Previous Track");
-        if (currentTrack == (trackTotal - (trackTotal - 1))) {
-            currentTrack = trackTotal;
-        } else {
-            do {
-                currentTrack--;
-                break;
-            } while (currentTrack != trackTotal);
+        if (isPlayingStraight == true) {
+            if (currentTrack == (trackTotal - (trackTotal - 1))) {
+                currentTrack = trackTotal;
+            } else {
+                do {
+                    currentTrack--;
+                    break;
+                } while (currentTrack != trackTotal);
+            }
+        } else if (isPlayingShuffle == true) {
+            Random curTrack = new Random();
+            currentTrack = (curTrack.nextInt(trackTotal) + 1);            
         }
         System.out.println("Currently playing Track " + currentTrack + " of " + trackTotal);
     }
 
     //returns isPlaying
     public boolean isPlaying() {
+        if (isPlayingStraight == true) {
+            isPlaying = true;
+        } else if (isPlayingShuffle == true) {
+            isPlaying = true;
+        }
         return isPlaying;
     }
 
@@ -207,9 +235,7 @@ public class StereoPlayer {
         //testing code for Straight play.  Will test other functions here.
 //        StereoPlayer straightStereoTest = new StereoPlayer();
 //        straightStereoTest.loadUSB();
-//        straightStereoTest.currentTrackNumber();
-//        straightStereoTest.enableStraightPlayMode();
-//        straightStereoTest.nextTrack();
+//        
 //        straightStereoTest.stop();
 //        straightStereoTest.previousTrack();
 //        straightStereoTest.unloadUSB();
@@ -218,6 +244,8 @@ public class StereoPlayer {
 //        randStereoTest.loadUSB();
 //        randStereoTest.currentTrackNumber();
 //        randStereoTest.enableShufflePlayMode();
+//        randStereoTest.stop();
+//        randStereoTest.nextTrack();
 //        randStereoTest.unloadUSB();
 
     }
