@@ -25,6 +25,7 @@ public class MyStereo implements Stereo {
     private boolean isStopped = false;
     private int currentTrackNumber;
     
+    
 
     @Override
     
@@ -33,7 +34,7 @@ public class MyStereo implements Stereo {
         int bound = 1000;
         Random r = new Random();
         
-        NumberOfTracks = r.nextInt(bound);
+        NumberOfTracks = r.nextInt(bound +1);
         NumberOfTracks++;
         isUSBLoaded = true;
         currentTrackNumber = 1;
@@ -88,8 +89,11 @@ public class MyStereo implements Stereo {
 
     @Override
     public void stop() {
+       if (isUSBLoaded){
        isStopped = true;
        isPlaying = false;
+    }
+  
     }
 
     @Override
@@ -100,14 +104,45 @@ public class MyStereo implements Stereo {
 
     @Override
     public void nextTrack() {
-        this.currentTrackNumber++;
+      if (isUSBLoaded){
+        if (enableStraightPlayMode) {
+           this.currentTrackNumber++;
+            if (currentTrackNumber > NumberOfTracks) {
+                this.currentTrackNumber = 1;
+            } else {
+                    if (enableShufflePlayMode) {
+                    int bound = NumberOfTracks;
+                    Random r = new Random();
+                    currentTrackNumber = r.nextInt ((bound)+1);
+                    
+                  
+                }
+            }
+            }
+      }
     }
 
     @Override
     public void previousTrack() {
-        this.currentTrackNumber--;
+            if (isUSBLoaded){
+        if (enableStraightPlayMode) {
+           this.currentTrackNumber--;
+            if (currentTrackNumber < 1) {
+                this.currentTrackNumber = NumberOfTracks;
+            } else {
+                    if (enableShufflePlayMode) {
+                    int bound = NumberOfTracks;
+                    Random r = new Random();
+                    currentTrackNumber = r.nextInt ((bound) + 1);
+                    
+                  
+                }
+            }
+            }
+      }
     }
 
+        
     @Override
     public boolean isPlaying() {
         isPaused = false;
