@@ -35,6 +35,7 @@ public class StereoPlayer implements Stereo {
     /*
     *  loads USB device and enables starting variables
     *  such as isUSBLoaded, isPlaying, and generates trackTotal
+    *  Defaults on Straight Play mode.
      */
     public void loadUSB() {
         isUSBLoaded = true;
@@ -94,9 +95,7 @@ public class StereoPlayer implements Stereo {
     }
 
     /*
-    * for loop provides sequential counter for current track list, stopping at
-    * last track
-    * breaks for loop when paused or stopped
+    * establishes and stores appropriate states for Straight Play mode.
      */
     public void enableStraightPlayMode() {
         isPlaying = true;
@@ -109,9 +108,7 @@ public class StereoPlayer implements Stereo {
 
 
     /*
-    * changes currentTrack randomly w/in bounds of trackTotal (+1 because final
-    * track would be exclusive)
-    * breaks while loop when paused or stopped
+    * establishes and stores appropriate states for Shuffle Play mode.
      */
     public void enableShufflePlayMode() {
         isPlaying = true;
@@ -148,8 +145,9 @@ public class StereoPlayer implements Stereo {
     }
 
     /*
-    *  moves to next track in list. if on last track of list, loops back to first
-    *  track
+    *  moves to next track in list. if on last track of list while on Straight
+    *  Play mode, loops back to first track.  On Shuffle Play, moves to random
+    *  track w/in trackTotal
      */
     public void nextTrack() {
         isPaused = false;
@@ -172,8 +170,9 @@ public class StereoPlayer implements Stereo {
     }
 
     /*
-    *  moves to previous track in list. if on first track of list, loops back to 
-    *  last track
+    *  moves to previous track in list. if on first track of list while on Straight
+    *  Play mode, loops back to first track.  On Shuffle Play, moves to random
+    *  track w/in trackTotal
      */
     public void previousTrack() {
         isPaused = false;
@@ -197,11 +196,9 @@ public class StereoPlayer implements Stereo {
 
     //returns isPlaying
     public boolean isPlaying() {
-        if (isPlayingStraight == true) {
+        if (isPlayingStraight == true || isPlayingShuffle == true) {
             isPlaying = true;
-        } else if (isPlayingShuffle == true) {
-            isPlaying = true;
-        }
+        } 
         return isPlaying;
     }
 
