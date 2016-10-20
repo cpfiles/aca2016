@@ -37,8 +37,9 @@ public class StereoPlayer implements Stereo {
     *  such as isUSBLoaded, isPlaying, and generates trackTotal
      */
     public void loadUSB() {
-        isPlaying = true;
         isUSBLoaded = true;
+        isPlaying = true;
+        isPlayingStraight = true;
         Random genTL = new Random();
         trackTotal = (genTL.nextInt(1000) + 1);
         while (trackTotal == 0) {
