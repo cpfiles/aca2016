@@ -5,102 +5,109 @@
  */
 package edu.uca.aca2016.stereo.ACA1Woodruff;
 
-
 import edu.uca.aca2016.interfaces.Stereo;
 import java.util.Random;
+
 /**
  *
  * @author awood
  */
 public class MyStereo implements Stereo {
-private int NumberOfTracks;
-private boolean isUSBLoaded;
-private boolean unloadUSB;
-private int currentTrackNumber;
-private int totalTrackCount;
-private boolean enableStraightPlayMode;
-private boolean enableShufflePlayMode;
-private boolean enableStop;
-private boolean enablePause;
-private boolean enableNextTrack;
-private boolean enablePreviousTrack;
-private int nextTrack;
-private int previousPlaying;
-private boolean isPlaying;
-private boolean isPaused;
-        
+
+    private int NumberOfTracks;
+    private boolean isUSBLoaded = false;
+    private boolean enableStraightPlayMode = true;
+    private boolean enableShufflePlayMode = false;
+    private boolean isPlaying = false;
+    private boolean isPaused = false;
+    private boolean isStopped = false;
+    private int currentTrackNumber;
+
     @Override
-        
-    public boolean loadUSB() {
-    int origin = 0;
-    int bound = 999;
-    Random r = new Random();
-    r.nextInt(1000 +1);
-        
+
+    public void loadUSB() {
+        int bound = 1000;
+        Random r = new Random();
+
+        NumberOfTracks = r.nextInt(bound);
+        NumberOfTracks++;
+        isUSBLoaded = true;
+        currentTrackNumber = 1;
     }
 
     @Override
-    public boolean isUSBLoaded(); {
-        
-        
-      /**
-     * This method scans the USB drive for * mp3 files.
-     */   
+    public boolean isUSBLoaded() {
+        return isUSBLoaded;
+        /**
+         * This method scans the USB drive for * mp3 files.
+         */
     }
 
     @Override
-    public boolean unloadUSB() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void unloadUSB() {
+        isUSBLoaded = false;
+        this.NumberOfTracks = 0;
     }
 
     @Override
     public int currentTrackNumber() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return currentTrackNumber;
     }
 
     @Override
     public int totalTrackCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return NumberOfTracks;
     }
 
     @Override
-    public  boolean enableStraightPlayMode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void enableStraightPlayMode() {
+        enableStraightPlayMode = true;
+        enableShufflePlayMode = false;
+
+
+        /*while loops needed*/
     }
 
     @Override
-    public boolean enableShufflePlayMode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void enableShufflePlayMode() {
+        enableShufflePlayMode = true;
+        enableStraightPlayMode = false;
+
     }
 
     @Override
-    public boolean stop() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void stop() {
+        this.isPlaying = false;
+        this.isStopped = true;
     }
 
     @Override
-    public boolean pause() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void pause() {
+        this.isPlaying = true;
+        this.isStopped = false;
     }
 
     @Override
-    public int nextTrack() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void nextTrack() {
+        if (isUSBLoaded) {
+            if (enableStraightPlayMode);
+
+        }
     }
 
     @Override
     public int previousTrack() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
     public boolean isPlaying() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
     public boolean isPaused() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
-    
+
 }
