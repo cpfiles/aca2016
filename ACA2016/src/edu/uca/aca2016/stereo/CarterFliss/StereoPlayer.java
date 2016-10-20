@@ -105,9 +105,11 @@ public class StereoPlayer implements Stereo {
         isPaused = false;
         isStopped = false;
         System.out.println("Straight play enabled.");
-        while (isPlayingStraight == true && isPaused == false && isStopped == false
-                && isUSBLoaded == true) {
+        while (isPlayingStraight == true) {            
             while (currentTrack != trackTotal) {
+                if (currentTrack == 0) {
+                    currentTrack++;
+                }
                 System.out.println("Currently playing Track " + currentTrack + " of " + trackTotal);
                 currentTrack++;
             }
@@ -129,14 +131,13 @@ public class StereoPlayer implements Stereo {
         isPaused = false;
         isStopped = false;
         System.out.println("Shuffle play enabled.");
-        while (isPlayingShuffle == true && isPaused == false && isStopped == false
-                && isUSBLoaded == true && currentTrack != trackTotal) {
+        while (isPlayingShuffle == true) {
             while (currentTrack != trackTotal) {
-                Random curTrack = new Random();
-                currentTrack = curTrack.nextInt(trackTotal + 1);
                 if (currentTrack == 0) {
                     currentTrack++;
                 }
+                Random curTrack = new Random();
+                currentTrack = curTrack.nextInt(trackTotal + 1);                
                 System.out.println("Currently playing Track " + currentTrack + " of " + trackTotal);
             }
             break;
@@ -234,12 +235,12 @@ public class StereoPlayer implements Stereo {
     public static void main(String[] args) {
         // TODO code application logic here
         //testing code for Straight play.  Will test other functions here.
-//        StereoPlayer straightStereoTest = new StereoPlayer();
-//        straightStereoTest.loadUSB();
-//        
-//        straightStereoTest.stop();
-//        straightStereoTest.previousTrack();
-//        straightStereoTest.unloadUSB();
+        StereoPlayer straightStereoTest = new StereoPlayer();
+        straightStereoTest.loadUSB();
+        straightStereoTest.enableStraightPlayMode();
+        straightStereoTest.stop();
+        straightStereoTest.previousTrack();
+        straightStereoTest.unloadUSB();
         //testing code for Shuffle play.
 //        StereoPlayer randStereoTest = new StereoPlayer();
 //        randStereoTest.loadUSB();
