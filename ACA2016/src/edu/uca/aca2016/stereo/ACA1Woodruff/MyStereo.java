@@ -112,18 +112,9 @@ public class MyStereo implements Stereo {
         }
     @Override
         
-    public boolean isPlaying
-      
-    @Override
-            
-    public boolean isPaused
-
-        
-        
+    public boolean isPlaying(){      
+    }       
     
-
-() {
-
-    }
-
-}
+            
+            
+    public boolean isPaused(){}
