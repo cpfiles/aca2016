@@ -31,6 +31,7 @@ public class MyStereo implements Stereo {
     private int maxTrack = 1000;
     private boolean loadedUSB = false;
     Random rand = new Random();
+    //This method should load mp3s from a USB drive.
 
     @Override
     public void loadUSB() {
@@ -40,6 +41,7 @@ public class MyStereo implements Stereo {
         maxTrack = rand.nextInt(MAXTRACKS) + 1;
         loadedUSB = true;
     }
+    //This method tells the caller if the USB drive has been scanned for MP3 file
 
     @Override
     public void isUSBLoaded() {
@@ -50,6 +52,7 @@ public class MyStereo implements Stereo {
         }
     }
 
+    //This method unloads the USB drive by resetting counts & counters.
     @Override
     public void unloadUSB() {
         loadedUSB = false;
@@ -57,16 +60,23 @@ public class MyStereo implements Stereo {
         previousTrack = 1;
     }
 
+    /**
+     * This method returns the number of the current track that is "playing".
+     *
+     * @return The current track number.
+     */
     @Override
     public int currentTrackNumber() {
         return currentTrack;
     }
 
+    // Returns the total number of tracks loaded from the USB drive.
     @Override
     public int totalTrackCount() {
         return maxTrack;
     }
 
+    //Method plays tracks in sequential order.
     @Override
     public void enableStraightPlayMode() {
         shuffle = false;
@@ -74,6 +84,7 @@ public class MyStereo implements Stereo {
         previousTrack = 1;
     }
 
+    //Method plays tracks in random order.
     @Override
     public void enableShufflePlayMode() {
         shuffle = true;
@@ -81,11 +92,13 @@ public class MyStereo implements Stereo {
         previousTrack = currentTrack;
     }
 
+    //Method stops playing.
     @Override
     public void stop() {
         state = STOPPED;
     }
 
+    //Pauses playing when playing
     @Override
     public void pause() {
         if (state == PLAYING) {
@@ -94,6 +107,7 @@ public class MyStereo implements Stereo {
 
     }
 
+    //Method to advance to next track.
     @Override
     public void nextTrack() {
         if (!loadedUSB) {
@@ -111,6 +125,7 @@ public class MyStereo implements Stereo {
         }
     }
 
+    //Method to move to previous track.
     @Override
     public void previousTrack() {
         if (!loadedUSB) {
@@ -119,11 +134,13 @@ public class MyStereo implements Stereo {
         currentTrack = previousTrack;
     }
 
+    //Method tells caller if stereo is playing.
     @Override
     public boolean isPlaying() {
         return (state == PLAYING);
     }
 
+    //Method tells caller if stereo is paused.
     @Override
     public boolean isPaused() {
         return (state == PAUSED);
