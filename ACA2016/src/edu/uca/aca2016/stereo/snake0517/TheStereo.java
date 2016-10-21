@@ -55,7 +55,7 @@ public class TheStereo implements Stereo {
     @Override
     public int currentTrackNumber() {
 
-        return this.current_track;
+        return current_track;
     }
 
     @Override
@@ -92,20 +92,41 @@ public class TheStereo implements Stereo {
 
     @Override
     public void nextTrack() {
-        if (isUSBLoaded)
-        if (enableStraightPlayMode) {
-            this.current_track++;
-            if (this.current_track <= totalTrackCount()) {
-            } else {
-                this.current_track = 1;
-            }
+        if (isUSBLoaded) {
+            if (enableStraightPlayMode) {
+                this.current_track++;
+                if (this.current_track > number_of_tracks) {
+                
+                    this.current_track = 1;
+                }
+                if (enableShufflePlayMode) {
+                    int bound = number_of_tracks;
+                    Random r = new Random();
+                    this.current_track = r.nextInt((bound) + 1);
+                }
 
+            }
         }
     }
 
     @Override
     public void previousTrack() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        if (isUSBLoaded) {
+            if (enableStraightPlayMode) {
+                this.current_track--;
+                if (this.current_track > number_of_tracks) {
+                
+                    this.current_track = 1;
+                }
+                if (enableShufflePlayMode) {
+                    int bound = number_of_tracks;
+                    Random r = new Random();
+                    this.current_track = r.nextInt((bound) + 1);
+                }
+
+            }
+        }
     }
 
     @Override
