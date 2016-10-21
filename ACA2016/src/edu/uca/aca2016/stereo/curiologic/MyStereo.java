@@ -71,8 +71,9 @@ public class MyStereo implements Stereo {
         enableShufflePlayMode = false;
         enableStraightPlayMode = true;
         isPlaying = true;
+        isUSBLoaded = true;
         stop = false;
-        currentTrack++;
+        this.currentTrack++;
 
     }
 // allows tracks to move forward or backward to random tracks on USB
@@ -81,11 +82,11 @@ public class MyStereo implements Stereo {
     public void enableShufflePlayMode() {
         enableStraightPlayMode = false;
         enableShufflePlayMode = true;
-
+        isPlaying = true;
         int bound = number_of_tracks;
         Random genS = new Random();
         currentTrack = genS.nextInt(bound);
-        currentTrack++;
+        this.currentTrack++;
 
     }
 // setting the conditions for stopping playback
@@ -101,6 +102,7 @@ public class MyStereo implements Stereo {
 
     @Override
     public void pause() {
+        isUSBLoaded = true;
         isPlaying = false;
         stop = false;
         isPaused = true;
@@ -115,13 +117,14 @@ public class MyStereo implements Stereo {
             if (enableStraightPlayMode) {
                 if (currentTrack < number_of_tracks) {
                     this.currentTrack++;
-                    if (currentTrack > number_of_tracks )
+                    if (currentTrack > number_of_tracks) {
                         this.currentTrack = 1;
+                    }
                 }
 
                 System.out.println(this.currentTrack);
-            } else  { 
-                int bound = number_of_tracks ;
+            } else if (enableShufflePlayMode) {
+                int bound = number_of_tracks;
                 Random genSh = new Random();
                 this.currentTrack = genSh.nextInt(bound + 1);
             }
@@ -133,32 +136,28 @@ public class MyStereo implements Stereo {
 
     @Override
     public void previousTrack() {
-          if (isUSBLoaded && isPlaying) {
+        if (isUSBLoaded && isPlaying) {
 
             if (enableStraightPlayMode) {
-                if (currentTrack < 0) {
+                if (currentTrack > 0) {
                     this.currentTrack--;
-                    if (currentTrack < 1 )
+                    if (currentTrack < 1) {
                         currentTrack = number_of_tracks;
+                    }
                 }
 
                 System.out.println(currentTrack);
-            } else {
+            } else if (enableShufflePlayMode) {
                 int bound = number_of_tracks;
                 Random genSh = new Random();
                 this.currentTrack = genSh.nextInt(bound + 1);
             }
 
-        
-    
-
-            }
-
         }
 
-   
-// determines if the USB is playing
+    }
 
+// determines if the USB is playing
     @Override
     public boolean isPlaying() {
         isUSBLoaded = true;
@@ -171,6 +170,7 @@ public class MyStereo implements Stereo {
 
     @Override
     public boolean isPaused() {
+        isUSBLoaded = true;
         stop = false;
         isPlaying = false;
         return isPaused = true;
