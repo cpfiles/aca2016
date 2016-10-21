@@ -90,31 +90,45 @@ public class MyStereo implements Stereo {
     @Override
     public void nextTrack() {
         if (isUSBLoaded && isPlaying) {
-            if (enableStraightPlayMode);
+            if (enableStraightPlayMode)}
             this.currentTrackNumber++;
-            if (currentTrackNumber > NumberOfTracks);
+            if (currentTrackNumber > NumberOfTracks){
             this.currentTrackNumber = 1;
         } else {
             int bound = NumberOfTracks;
             Random r = new Random();
             currentTrackNumber = r.nextInt((bound) + 1);
         }
-
     }
 
     @Override
     public void previousTrack() {
         if (isUSBLoaded && isPlaying) {
-            if (enableStraightPlayMode);
+            if (enableStraightPlayMode){
             this.currentTrackNumber--;
-            if (currentTrackNumber < NumberOfTracks);
+            if (currentTrackNumber < NumberOfTracks){
             this.currentTrackNumber = 1;
+        } else {
+                        int bound = NumberOfTracks;
+                        Random r = new Random();
+                        currentTrackNumber = r.nextInt((bound) 
+                    }
         }
-    @Override
+
+        @Override
+        public boolean isPlaying
         
-    public boolean isPlaying(){      
-    }       
+            () {
+        isStopped = false;
+            isPaused = false;
+            return isPlaying = true;
+        }
+
     
-            
-            
-    public boolean isPaused(){}
+
+    public boolean isPaused() {
+        isStopped = false;
+        isPlaying = false;
+        return isPaused = true;
+    }
+}
