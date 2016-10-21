@@ -24,6 +24,7 @@ public class TheStereo implements Stereo {
     private int current_track;
     private boolean isStopped = false;
 
+    // Sets state of player to load and starts the player going.
     @Override
     public void loadUSB() {
         int bound = 1000;
@@ -37,12 +38,14 @@ public class TheStereo implements Stereo {
         isPlaying = true;
     }
 
+    //checks to see if device is loaded.
     @Override
     public boolean isUSBLoaded() {
         return isUSBLoaded;
 
     }
 
+    // unloads usb drive and restes values 
     @Override
     public void unloadUSB() {
         isUSBLoaded = false;
@@ -52,18 +55,21 @@ public class TheStereo implements Stereo {
 
     }
 
+    // shows current track number
     @Override
     public int currentTrackNumber() {
 
         return current_track;
     }
 
+    // Shows total track count
     @Override
     public int totalTrackCount() {
 
         return this.number_of_tracks;
     }
 
+    // Plays next in seqeuntial order.
     @Override
     public void enableStraightPlayMode() {
         enableStraightPlayMode = true;
@@ -71,12 +77,14 @@ public class TheStereo implements Stereo {
 
     }
 
+    // Plays random track within bound.
     @Override
     public void enableShufflePlayMode() {
         enableShufflePlayMode = true;
         enableStraightPlayMode = false;
     }
 
+    // Stops track from playing
     @Override
     public void stop() {
         isStopped = true;
@@ -84,15 +92,17 @@ public class TheStereo implements Stereo {
         isPaused = false;
     }
 
+    // Pauses track 
     @Override
     public void pause() {
         isPaused = true;
         isPlaying = false;
     }
 
+    // Plays next track depending on condition of straiaght play or shuffle.
     @Override
     public void nextTrack() {
-        if (isUSBLoaded) {
+        if (isUSBLoaded && isPlaying) {
             if (enableStraightPlayMode) {
                 this.current_track++;
                 if (this.current_track > number_of_tracks) {
@@ -107,13 +117,14 @@ public class TheStereo implements Stereo {
         }
     }
 
+    // Plays previous track depending on condition of striaght play or shuffle.
     @Override
     public void previousTrack() {
-        if (isUSBLoaded) {
+        if (isUSBLoaded && isPlaying) {
             if (enableStraightPlayMode) {
                 this.current_track--;
-                if (this.current_track > number_of_tracks) {
-                    this.current_track = 1;
+                if (this.current_track < number_of_tracks) {
+                    this.current_track = number_of_tracks;
                 }
             } else if (enableShufflePlayMode) {
                 int bound = number_of_tracks;
@@ -125,6 +136,7 @@ public class TheStereo implements Stereo {
     }
        
 
+    // display Playing
     @Override
     public boolean isPlaying() {
         isPaused = false;
@@ -133,6 +145,7 @@ public class TheStereo implements Stereo {
 
     }
 
+    // display paused
     @Override
     public boolean isPaused() {
         isPlaying = false;
