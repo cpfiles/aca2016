@@ -96,38 +96,34 @@ public class TheStereo implements Stereo {
             if (enableStraightPlayMode) {
                 this.current_track++;
                 if (this.current_track > number_of_tracks) {
-                
                     this.current_track = 1;
                 }
-                if (enableShufflePlayMode) {
-                    int bound = number_of_tracks;
-                    Random r = new Random();
-                    this.current_track = r.nextInt((bound) + 1);
-                }
-
+            } else if (enableShufflePlayMode) {
+                int bound = number_of_tracks;
+                Random r = new Random();
+                this.current_track = r.nextInt((bound) + 1);
             }
+
         }
     }
 
     @Override
     public void previousTrack() {
-
         if (isUSBLoaded) {
             if (enableStraightPlayMode) {
                 this.current_track--;
                 if (this.current_track > number_of_tracks) {
-                
                     this.current_track = 1;
                 }
-                if (enableShufflePlayMode) {
-                    int bound = number_of_tracks;
-                    Random r = new Random();
-                    this.current_track = r.nextInt((bound) + 1);
-                }
-
+            } else if (enableShufflePlayMode) {
+                int bound = number_of_tracks;
+                Random r = new Random();
+                this.current_track = r.nextInt((bound) + 1);
             }
+
         }
     }
+       
 
     @Override
     public boolean isPlaying() {
