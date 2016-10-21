@@ -16,12 +16,11 @@ public class StereoPlayer implements Stereo {
 
     /**
      * @param args the command line arguments
-     * 
+     *
      * instantiating the variables necessary for the rest of the program
      * clarification: isPlaying only stores whether stereo is currently playing,
-     *  regardless of current play mode.
-     *  isPlayingStraight and isPlayingShuffle stores value of which play mode
-     *  stereo is currently in.
+     * regardless of current play mode. isPlayingStraight and isPlayingShuffle
+     * stores value of which play mode stereo is currently in.
      */
     private int trackTotal;
     private boolean isPlaying = false;
@@ -46,7 +45,7 @@ public class StereoPlayer implements Stereo {
         while (trackTotal == 0) {
             trackTotal++;
             break;
-        }        
+        }
     }
 
     /*
@@ -103,7 +102,7 @@ public class StereoPlayer implements Stereo {
         isPlayingShuffle = false;
         isPaused = false;
         isStopped = false;
-        System.out.println("Straight play enabled.");        
+        System.out.println("Straight play enabled.");
     }
 
 
@@ -116,7 +115,7 @@ public class StereoPlayer implements Stereo {
         isPlayingStraight = false;
         isPaused = false;
         isStopped = false;
-        System.out.println("Shuffle play enabled.");          
+        System.out.println("Shuffle play enabled.");
     }
 
     /*
@@ -125,7 +124,7 @@ public class StereoPlayer implements Stereo {
     public void stop() {
         System.out.println("Stopping music.");
         isStopped = true;
-        currentTrack = 1;        
+        currentTrack = 1;
         isPlaying = false;
         isPaused = false;
 
@@ -164,7 +163,7 @@ public class StereoPlayer implements Stereo {
             }
         } else if (isPlayingShuffle == true) {
             Random curTrack = new Random();
-            currentTrack = (curTrack.nextInt(trackTotal) + 1);            
+            currentTrack = (curTrack.nextInt(trackTotal) + 1);
         }
         System.out.println("Currently playing Track " + currentTrack + " of " + trackTotal);
     }
@@ -189,7 +188,7 @@ public class StereoPlayer implements Stereo {
             }
         } else if (isPlayingShuffle == true) {
             Random curTrack = new Random();
-            currentTrack = (curTrack.nextInt(trackTotal) + 1);            
+            currentTrack = (curTrack.nextInt(trackTotal) + 1);
         }
         System.out.println("Currently playing Track " + currentTrack + " of " + trackTotal);
     }
@@ -198,7 +197,7 @@ public class StereoPlayer implements Stereo {
     public boolean isPlaying() {
         if (isPlayingStraight == true || isPlayingShuffle == true) {
             isPlaying = true;
-        } 
+        }
         return isPlaying;
     }
 
