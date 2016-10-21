@@ -12,131 +12,128 @@ import java.util.Random;
  * @author Username
  */
 public class StereoImp implements Stereo {
-
-    private boolean IsUSBLoaded=false;
-    private boolean loadUSB=true;
+      
+    //Constructor variables
+    private boolean Is_USB_Loaded;
+    private boolean Load_USB;
+    private int Max_Track;
+    private int Min_Track;
     private int Number_of_Tracks;
     private int Current_Track;
-    private boolean IsPlaying = false;
-    private boolean IsPaused = false;
-    private boolean IsStopped = false;
-    private boolean EnableShufflePlay = false;
-    private boolean EnableStraightPlay = false;
+    private boolean Is_Playing;
+    private boolean Is_Paused;
+    private boolean Is_Stopped;
+    private boolean Enable_Shuffle_Play;
+    private boolean Enable_Straight_Play;
+    //Initializer variables
+    public StereoImp() {
+        this.Enable_Straight_Play = false;
+        this.Enable_Shuffle_Play = false;
+        this.Is_Stopped = false;
+        this.Is_Paused = false;
+        this.Is_Playing = false;
+        this.Max_Track = 1000;
+        this.Is_USB_Loaded = false;
+        this.Load_USB = false;
+        this.Min_Track = 1;
+        this.Current_Track = 0;
+    }
     
-        
-    //public/private void loadUSB()?
+    //Loads USB and begins playing in Straight Play mode
+    @Override
     public void loadUSB(){
-        Current_Track = 1;
-        ShuffleTrack = new Random();
-    }   
-    //increment next track
+        Enable_Straight_Play = true;
+        Is_Playing = true;
+        Min_Track = 1;
+        Current_Track ++; 
+        Random ran = new Random();   
+ 
+    }
+    //Increment next Track
+    @Override
     public void nextTrack(){
-        if (IsUSBLoaded = true);
-        if (EnableStraightPlay = true);
-            Current_Track ++;
-            if (Current_Track > Number_of_Tracks)
-        if (EnableShufflePlay = true);
-            Current_Track = new Random;
-           // if (Current_Track < Number_of_Tracks);
+        if (Is_USB_Loaded = true&&Is_Playing){
+        if (Enable_Straight_Play = true)
+            Current_Track ++;}
+            if (Current_Track > Min_Track){
+                Current_Track = 1;}
+            else {Random ran = new Random();{
+                  Current_Track = ran.nextInt(Min_Track)+1;
+}
+    
+        }
     }
     //Decrement previous track
+      @Override
     public void previousTrack(){
-        if (IsUSBLoaded = true);
-        if (EnableStraightPlay = true);
-            Current_Track --;
-            if (Current_Track > Number_of_Tracks)
-            if (Current_Track < Number_of_Tracks);
-            
-        
-            
-    
-    
-//    @Override
-//    public void loadUSB() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public void isUSBLoaded() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public void unloadUSB() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public int currentTrackNumber() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public int totalTrackCount() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public void enableStraightPlayMode() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public void enableShufflePlayMode() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public void stop() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public void pause() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public void nextTrack() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public void previousTrack() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public boolean isPlaying() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public boolean isPaused() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//            
-//    
-//    //public/private void loadUSB()?
-//    public void loadUSB(){
-//        Current_Track = 1;
-//    }   
-//    //increment next track
-//    public void nextTrack(){
-//        IsUSBLoaded = true;
-//        EnableStraightPlay = true;
-//            Current_Track ++;
-//            Current_Track > Number_of_Tracks++;
-//            if (Current_Track < Number_of_Tracks);
-//    }
-//    //Decrement previous track
-//    public void previousTrack(){
-//        if (IsUSBLoaded = true);
-//        if (EnableStraightPlay = true);
-//            Current_Track --;
-//            if (Current_Track > Number_of_Tracks)
-//            if (Current_Track < Number_of_Tracks);
-//            
-//        
-    }
-    
+        if (Is_USB_Loaded = true&&Is_Playing){
+        if (Enable_Straight_Play = true)
+            Current_Track --;}
+            if (Current_Track < Min_Track){
+                Current_Track = 1;}
+            else {Random ran = new Random();{
+                  Current_Track = ran.nextInt(Min_Track)+1;
 }
+    
+        }
+    }
+    //Play in Straight mode if true
+    @Override
+    public void isUSBLoaded() {
+        Is_USB_Loaded = true;
+        Enable_Straight_Play = true;
+    }
+    //Stop if USB is unloaded
+    @Override
+    public void unloadUSB() {
+        Is_Playing = false;
+        Is_Stopped = true;
+        Is_Paused = false;
+        
+    }
+    //return current track
+    @Override
+    public int currentTrackNumber() {
+        return Current_Track;
+    }
+    //return total number of tracks
+    @Override
+    public int totalTrackCount() {
+        return Max_Track;
+    }
+    //Enables straight play mode
+    @Override
+    public void enableStraightPlayMode() {
+        Enable_Straight_Play = true;
+        Enable_Shuffle_Play = false;
+    }
+    //Enables shuffle play mode
+    @Override
+    public void enableShufflePlayMode() {
+        Enable_Shuffle_Play=true;
+        Enable_Straight_Play=false;
+    }
+    // Stops play
+    @Override
+    public void stop() {
+         Is_Stopped = true;
+         Is_Playing = false;
+    }
+    //Puases play
+    @Override
+    public void pause() {
+        Is_Stopped = false;
+        Is_Playing = false;
+    }
+    //Answers if USB is playing
+    @Override
+    public boolean isPlaying() {
+        return Is_Playing;
+    }
+    //Answers if USB is paused
+    @Override
+    public boolean isPaused() {
+        return Is_Paused;
+    }
+}
+                    
