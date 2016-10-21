@@ -24,9 +24,12 @@ public class Srun {
 //        Tracks.unloadUSB();
         
         System.out.println("Loaded " + Tracks.isUSBLoaded());
-        
+        Tracks.enableShufflePlayMode();
+        Tracks.previousTrack();
+        System.out.println("Track Number " + Tracks.currentTrackNumber());
         Tracks.nextTrack();
-        
+        Tracks.pause();
+       
         System.out.println("Track Number " + Tracks.currentTrackNumber());
     }
     
