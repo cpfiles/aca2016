@@ -23,7 +23,7 @@ public class MyStereo implements Stereo {
     private boolean isPlaying = false;
     private boolean isPaused = false;
     private boolean isStopped = false;
-    private int currentTrackNumber;
+    int currentTrackNumber;
     
     
 
@@ -68,7 +68,6 @@ public class MyStereo implements Stereo {
 
     @Override
     public int totalTrackCount() {
-        
         return this.NumberOfTracks;
                 
     }
