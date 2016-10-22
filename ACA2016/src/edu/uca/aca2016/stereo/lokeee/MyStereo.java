@@ -90,16 +90,23 @@ public class MyStereo implements Stereo {
 
     @Override
     public void stop() {
+        isStopped = true;
+        isPlaying = false;
+        Paused = false;
 
     }
 
     @Override
     public void pause() {
-
+        Paused = true;
+        isPlaying = false;
+        isStopped = false;
     }
 
-    @Override
-    public void nextTrack() {
+}
+
+@Override
+        public void nextTrack() {
         if (USBLoaded = true) {
             if (straightPlaymode == true) {
                 track++;
@@ -118,7 +125,7 @@ public class MyStereo implements Stereo {
     }
 
     @Override
-    public void previousTrack() {
+        public void previousTrack() {
         if (USBLoaded = true) {
             if (straightPlaymode == true) {
                 track--;
@@ -139,12 +146,12 @@ public class MyStereo implements Stereo {
     }
 
     @Override
-    public boolean isPlaying() {
+        public boolean isPlaying() {
         return Playing;
     }
 
     @Override
-    public boolean isPaused() {
+        public boolean isPaused() {
         return Paused;
 
     }
