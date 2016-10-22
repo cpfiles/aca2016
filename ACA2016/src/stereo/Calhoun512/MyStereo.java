@@ -15,6 +15,8 @@ import java.util.Random;
  * @author calho
  */
 public class MyStereo implements Stereo {
+
+    
     
     private int NumberOfTracks;
     private boolean isUSBLoaded = false;
