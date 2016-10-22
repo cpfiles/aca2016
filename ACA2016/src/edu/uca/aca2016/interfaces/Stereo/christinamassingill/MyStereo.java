@@ -71,6 +71,7 @@ public class MyStereo implements Stereo {
         isShufflePlayMode = true;
         isStraightPlayMode = false; 
     }
+    
 
     @Override
     public void stop() {
