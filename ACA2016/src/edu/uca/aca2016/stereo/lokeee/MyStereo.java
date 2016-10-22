@@ -27,7 +27,9 @@ public class MyStereo implements Stereo {
     private boolean Playing = false;
     private boolean Paused = false;
 
-    /* */
+    /*
+    loadUSB - generate the totalTracks on usb, enable straight play mode, start playing, sets usbloaded to true
+     */
     public void loadUSB() {
         Random rand = new Random();
         totalTracks = rand.nextInt(1000) + 1;
@@ -37,32 +39,50 @@ public class MyStereo implements Stereo {
 
     }
 
+    /*
+    is usb loaded should retun a boolean if it is loaded or not
+     */
     @Override
     public void isUSBLoaded() {
 
     }
 
+    /*
+    unloadusb - sets usb loaded to false and totalTracks to 0
+     */
     @Override
     public void unloadUSB() {
         USBLoaded = false;
         totalTracks = 0;
     }
 
+    /*
+    Current Track number should return the track
+     */
     @Override
     public int currentTrackNumber() {
         return totalTracks;
     }
 
+    /*
+    Total track count should return the total number of tracks on loadusb.
+     */
     @Override
     public int totalTrackCount() {
         return totalTracks;
     }
 
+    /*
+    enable straight play mode should be set to boolean true to turn on enable shuffle play should be false.
+     */
     @Override
     public void enableStraightPlayMode() {
 
     }
 
+    /*
+    enable shuffle play should return boolean true an enable straight play mode should return false
+     */
     @Override
     public void enableShufflePlayMode() {
 
@@ -88,6 +108,7 @@ public class MyStereo implements Stereo {
                 } else if (shufflePlaymode == true) {
                     Random rand = new Random();
                     randomTracks = rand.nextInt(totalTracks) + 1;
+                    randomTracks++;
                 }
 
             }
@@ -98,6 +119,22 @@ public class MyStereo implements Stereo {
 
     @Override
     public void previousTrack() {
+        if (USBLoaded = true) {
+            if (straightPlaymode == true) {
+                track--;
+                if (track == 1) {
+                    track = totalTracks;
+
+                } else if (shufflePlaymode == true) {
+                    Random rand = new Random();
+                    randomTracks = rand.nextInt(totalTracks) + 1;
+                    randomTracks--;
+
+                }
+
+            }
+
+        }
 
     }
 
@@ -113,8 +150,8 @@ public class MyStereo implements Stereo {
     }
 
     public static void main(String[] args) {
-        MyStereo bill = new MyStereo();
-        bill.loadUSB();
-        //System.out.println (bill.totalTracks());
+        MyStereo test = new MyStereo();
+        test.loadUSB();
+        //System.out.println (test.totalTracks());
     }
 }
