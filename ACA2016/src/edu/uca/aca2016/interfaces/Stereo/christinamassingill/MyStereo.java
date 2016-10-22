@@ -8,6 +8,7 @@ package edu.uca.aca2016.interfaces.stereo.christinamassingill;
 import edu.uca.aca2016.interfaces.Stereo;
 import java.util.Random;
 
+
 /**
  *
  * @author Chris
