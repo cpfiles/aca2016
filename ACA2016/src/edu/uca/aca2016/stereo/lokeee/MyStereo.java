@@ -192,4 +192,9 @@ public class MyStereo implements Stereo {
         //System.out.println (test.totalTracks());
     }
 
+    @Override
+    public void isUSBLoaded() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
