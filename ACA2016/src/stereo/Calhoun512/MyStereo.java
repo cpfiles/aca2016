@@ -62,24 +62,28 @@ public class MyStereo implements Stereo {
 
     @Override
     public int currentTrackNumber() {
+        if (isUSBLoaded){}
         return this.currentTrackNumber;
        
     }
 
     @Override
     public int totalTrackCount() {
+        if (isUSBLoaded){}
         return this.NumberOfTracks;
                 
     }
 
     @Override
     public void enableStraightPlayMode() {
+        if (isUSBLoaded){}
         this.enableStraightPlayMode = true;
         this.enableShufflePlayMode = false;
     }
 
     @Override
     public void enableShufflePlayMode() {
+        if (isUSBLoaded){}
         this.enableShufflePlayMode = true;
         this.enableStraightPlayMode = false;
         
@@ -97,8 +101,10 @@ public class MyStereo implements Stereo {
 
     @Override
     public void pause() {
+        if (isUSBLoaded){
         isPaused = true;
-        isPlaying = false;        
+        isPlaying = false;
+        }
     }
 
     @Override
@@ -144,15 +150,22 @@ public class MyStereo implements Stereo {
         
     @Override
     public boolean isPlaying() {
+        if (isUSBLoaded){
         isPaused = false;
         isStopped = false;
+        }
+        
         return isPlaying = true;
+        
+        
     }
 
     @Override
     public boolean isPaused() {
+        if (isUSBLoaded){
         isPlaying = false;
         isStopped = false;
+        }
         return isPaused = true;
         
     }
