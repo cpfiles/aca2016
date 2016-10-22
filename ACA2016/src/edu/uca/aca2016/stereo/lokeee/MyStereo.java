@@ -11,26 +11,32 @@ import java.util.Random;
  *
  * @author lokeee
  */
-public class MyStereo {
-private boolean isPlaying =false;
-private boolean isPaused = false;
+public class MyStereo implements Stereo {
+private boolean playing =false;
 private boolean isUSBLoaded = false;
 private boolean isStopped = false;
-private int Tracks;    
+private boolean straightPlaymode = false;
+private int track;   
+private int totalTracks =0;
+private int Numbers;
 
+/* */
+public void loadUSB(){
+    Random rand = new Random();
+    totalTracks = rand.nextInt(1000)+1 ;
+    totalTracks++ ;
+    straightPlaymode = true;
     
- public void loadUSB() {
-
-Random rand = new Random();
-
-int  Tracks =   rand.nextInt(1000)+1;
-System.out.println (Tracks);
-
-
+    
 }
 
- public static void main(String[] args) {
-     System.out.println (Tracks);
- }
- 
+   public void isUSBLoaded() {
+       isUSBLoaded = true;
+   }
+   
+   public static void main(String[] args) {
+       MyStereo bill = new MyStereo();
+       bill.loadUSB();
+       System.out.println (bill.totalTracks());
+   }
 }
