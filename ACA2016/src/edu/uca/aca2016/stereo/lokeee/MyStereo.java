@@ -42,9 +42,12 @@ public class MyStereo implements Stereo {
     /*
     is usb loaded should retun a boolean if it is loaded or not
      */
-    @Override
-    public void isUSBLoaded() {
-
+    //@Override
+    public boolean USBLoaded() {
+       if (USBLoaded == true || USBLoaded == false )
+           return USBLoaded;
+       else 
+           return USBLoaded;
     }
 
     /*
@@ -77,6 +80,9 @@ public class MyStereo implements Stereo {
      */
     @Override
     public void enableStraightPlayMode() {
+        Playing = true;
+        straightPlaymode = true;
+        shufflePlaymode = false;
 
     }
 
@@ -85,11 +91,15 @@ public class MyStereo implements Stereo {
      */
     @Override
     public void enableShufflePlayMode() {
+        Playing = true;
+        straightPlaymode = false;
+        shufflePlaymode = true;
 
     }
-/*
+
+    /*
     Stop boolean true if music has stopped or false if not
-    */
+     */
     @Override
     public void stop() {
         isStopped = true;
@@ -97,9 +107,10 @@ public class MyStereo implements Stereo {
         Paused = false;
 
     }
-/*
+
+    /*
     Pause boolean true if paused, false if not.
-    */
+     */
     @Override
     public void pause() {
         Paused = true;
@@ -107,10 +118,11 @@ public class MyStereo implements Stereo {
         isStopped = false;
     }
 
-
-
-@Override
-        public void nextTrack() {
+    /*
+    This should goto the next track 
+    */
+    @Override
+    public void nextTrack() {
         if (USBLoaded = true) {
             if (straightPlaymode == true) {
                 track++;
@@ -129,7 +141,11 @@ public class MyStereo implements Stereo {
     }
 
     @Override
-        public void previousTrack() {
+    
+    /*
+    This should go back one track.
+    */
+    public void previousTrack() {
         if (USBLoaded = true) {
             if (straightPlaymode == true) {
                 track--;
@@ -148,24 +164,29 @@ public class MyStereo implements Stereo {
         }
 
     }
-/*
+
+    /*
        Is Playing retrun true if playing false if not
-        */
+     */
     @Override
-        public boolean isPlaying() {
+    public boolean isPlaying() {
         return Playing;
     }
 
-        /*
+    /*
         Is paused retrun true if paused false if not
-        */
+     */
     @Override
-        public boolean isPaused() {
+    public boolean isPaused() {
         return Paused;
 
     }
 
-   public static void main(String[] args) {
+    /**
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
         MyStereo test = new MyStereo();
         test.loadUSB();
         //System.out.println (test.totalTracks());
