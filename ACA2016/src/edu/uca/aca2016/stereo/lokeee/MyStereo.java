@@ -103,7 +103,7 @@ public class MyStereo implements Stereo {
         isStopped = false;
     }
 
-}
+
 
 @Override
         public void nextTrack() {
@@ -155,10 +155,10 @@ public class MyStereo implements Stereo {
         return Paused;
 
     }
-
-    public static void main(String[] args) {
-        MyStereo test = new MyStereo();
-        test.loadUSB();
-        //System.out.println (test.totalTracks());
-    }
 }
+    //public static void main(String[] args) {
+     //   MyStereo test = new MyStereo();
+    //    test.loadUSB();
+        //System.out.println (test.totalTracks());
+    //}
+
