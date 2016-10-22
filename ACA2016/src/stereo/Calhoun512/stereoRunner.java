@@ -27,6 +27,13 @@ public class stereoRunner {
         
         
         
+        System.out.println("Number of Tracks: " + Tracks.totalTrackCount());
+        System.out.println("Currently Playing: " + Tracks.currentTrackNumber);
+        System.out.println("USB Loaded?: " + Tracks.isUSBLoaded());
+        
+        
+        
+        
         
                 
     }
