@@ -37,6 +37,6 @@ public void loadUSB(){
    public static void main(String[] args) {
        MyStereo bill = new MyStereo();
        bill.loadUSB();
-       System.out.println (bill.totalTracks());
+      // System.out.println (bill.totalTracks());
    }
 }
