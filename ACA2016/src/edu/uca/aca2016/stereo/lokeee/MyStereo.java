@@ -87,7 +87,9 @@ public class MyStereo implements Stereo {
     public void enableShufflePlayMode() {
 
     }
-
+/*
+    Stop boolean true if music has stopped or false if not
+    */
     @Override
     public void stop() {
         isStopped = true;
@@ -95,7 +97,9 @@ public class MyStereo implements Stereo {
         Paused = false;
 
     }
-
+/*
+    Pause boolean true if paused, false if not.
+    */
     @Override
     public void pause() {
         Paused = true;
@@ -144,21 +148,27 @@ public class MyStereo implements Stereo {
         }
 
     }
-
+/*
+       Is Playing retrun true if playing false if not
+        */
     @Override
         public boolean isPlaying() {
         return Playing;
     }
 
+        /*
+        Is paused retrun true if paused false if not
+        */
     @Override
         public boolean isPaused() {
         return Paused;
 
     }
-}
-    //public static void main(String[] args) {
-     //   MyStereo test = new MyStereo();
-    //    test.loadUSB();
-        //System.out.println (test.totalTracks());
-    //}
 
+   public static void main(String[] args) {
+        MyStereo test = new MyStereo();
+        test.loadUSB();
+        //System.out.println (test.totalTracks());
+    }
+
+}
