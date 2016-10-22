@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package edu.uca.aca2016.interfaces.stereo.christinamassingill;
+
 import edu.uca.aca2016.interfaces.Stereo;
 import java.util.Random;
 
@@ -11,14 +12,13 @@ import java.util.Random;
  *
  * @author Chris
  */
-
 public class MyStereo implements Stereo {
 
     private boolean isUSBLoaded = false;
     private boolean isPlaying = false;
     private boolean isPaused = false;
     private boolean isShufflePlayMode = false;
-    private boolean isStraightPlayMode = false; 
+    private boolean isStraightPlayMode = false;
     private int totalTrackCount = 0;
     private int currentTrackNumber = 0;
     private int previousTrack = 0;
@@ -52,6 +52,7 @@ public class MyStereo implements Stereo {
         totalTrackCount = 0;
         currentTrackNumber = 0;
     }
+
     @Override
     public int currentTrackNumber() {
         return currentTrackNumber;
@@ -61,17 +62,18 @@ public class MyStereo implements Stereo {
     public int totalTrackCount() {
         return totalTrackCount;
     }
+
     @Override
     public void enableStraightPlayMode() {
         isShufflePlayMode = false;
         isStraightPlayMode = true;
     }
+
     @Override
     public void enableShufflePlayMode() {
         isShufflePlayMode = true;
-        isStraightPlayMode = false; 
+        isStraightPlayMode = false;
     }
-    
 
     @Override
     public void stop() {
@@ -82,8 +84,8 @@ public class MyStereo implements Stereo {
     @Override
     public void pause() {
         isPaused = true;
-        isPlaying = false; 
-        
+        isPlaying = false;
+
     }
 
     @Override
@@ -102,32 +104,30 @@ public class MyStereo implements Stereo {
         }
     }
 
-    
     @Override
-    public void previousTrack() 
-    {   if (isUSBLoaded) {
+    public void previousTrack() {
+        if (isUSBLoaded) {
 
             if (isShufflePlayMode) {
                 currentTrackNumber = new Random(totalTrackCount).nextInt() - 1;
             } else if (currentTrackNumber == totalTrackCount) {
-            
+
             } else {
 
                 currentTrackNumber--;
-        
-    }
-    
+
+            }
+
+
+
 
     public boolean isPlaying() {
         return isPlaying;
     }
-      
-    @Override
-    public boolean isPaused() 
-    {
-        return isPaused; 
-    }
-  
-}
-    
 
+    @Override
+    public boolean isPaused() {
+        return isPaused;
+    }
+
+}
