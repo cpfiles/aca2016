@@ -12,19 +12,18 @@ import java.util.Random;
  *
  * @author awood
  */
-
 public class MyStereo implements Stereo {
 //public class MyStereo extends Object implements Stereo
 
     private int NumberOfTracks;
+    private int currentTrackNumber;
     private boolean isUSBLoaded = false;
     private boolean enableStraightPlayMode = true;
     private boolean enableShufflePlayMode = false;
     private boolean isPlaying = false;
     private boolean isPaused = false;
     private boolean isStopped = false;
-    private int currentTrackNumber;
-//
+    
     @Override
 
     public void loadUSB() {
@@ -42,10 +41,10 @@ public class MyStereo implements Stereo {
     @Override
     public boolean isUSBLoaded() {
         return isUSBLoaded;
-       
+
     }
 //**This method should tell the caller if the USB drive has been scanned for mp3 files */
-    
+
     @Override
     public void unloadUSB() {
         isUSBLoaded = false;
@@ -64,6 +63,7 @@ public class MyStereo implements Stereo {
         return NumberOfTracks;
     }
 //**Return the total number of tracks loaded from the USB drive.*/
+
     @Override
     public void enableStraightPlayMode() {
         enableStraightPlayMode = true;
@@ -71,7 +71,7 @@ public class MyStereo implements Stereo {
 
     }
 //**Plays the tracks in sequential order. This method should set the current track 
-//to the first track and keeps a record of the current track. Note the only way the 
+//to the first track and keep a record of the current track. Note the only way the 
 //program moves to the next track is by calls to nextTrack and previousTrack.*/
 
     @Override
@@ -83,23 +83,23 @@ public class MyStereo implements Stereo {
 //**Plays tracks in a random order. This method should set the current track to a random
 //track and keep a record of the current track. Note the only way the program moves to the 
 //next track is by calls to nextTrack and previousTrack.*/
-    
+
     @Override
     public void stop() {
         this.isPlaying = false;
         this.isStopped = true;
     }
 //**Stops the playing*/
-    
+
     @Override
     public void pause() {
         this.isPlaying = true;
         this.isStopped = false;
     }
 //*Pauses the playing*/
-    
+
     @Override
-    
+
     public void nextTrack() {
         if (isUSBLoaded && isPlaying) {
             if (enableStraightPlayMode) {
@@ -115,7 +115,7 @@ public class MyStereo implements Stereo {
         }
     }
 //**Advances to next track*/
-    
+
     @Override
     public void previousTrack() {
         if (isUSBLoaded && isPlaying) {
@@ -132,7 +132,7 @@ public class MyStereo implements Stereo {
         }
     }
 //**Moves to the next track/
-    
+
     @Override
     public boolean isPlaying() {
         isStopped = false;
