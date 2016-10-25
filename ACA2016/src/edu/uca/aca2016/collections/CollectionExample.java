@@ -106,10 +106,10 @@ public class CollectionExample{
      */
     public static void main(String[] args) throws InterruptedException{
         CollectionExample ce = new CollectionExample();
-  //      ce.simpleCollection();
-//      ce.simpleSet();
- //       ce.countdownQueue();
-//       ce.simpleMap();
+        ce.simpleCollection();
+        ce.simpleSet();
+        ce.countdownQueue();
+        ce.simpleMap();
         ce.studentList();
     }
 }
