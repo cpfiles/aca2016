@@ -79,9 +79,10 @@ public class StereoImp implements Stereo {
     }
     //Play in Straight mode if true
     @Override
-    public void isUSBLoaded() {
+    public boolean isUSBLoaded() {
         Is_USB_Loaded = true;
         Enable_Straight_Play = true;
+        return Is_USB_Loaded;
     }
     //Stop if USB is unloaded
     @Override

@@ -1,3 +1,5 @@
+package edu.uca.aca2016.stereo.coopecor;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -53,9 +55,10 @@ public class MyStereo implements Stereo {
     //Answering if the USB has been loaded.
     //Assume that it has and will play
     @Override
-    public void isUSBLoaded() {
+    public boolean isUSBLoaded() {
         loaded = true;
         straight = true;
+        return loaded;
     }
 
     //Answering if the USB is unloaded.

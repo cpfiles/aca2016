@@ -193,8 +193,8 @@ public class MyStereo implements Stereo {
     }
 
     @Override
-    public void isUSBLoaded() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean isUSBLoaded() {
+        return USBLoaded;
     }
 
 }

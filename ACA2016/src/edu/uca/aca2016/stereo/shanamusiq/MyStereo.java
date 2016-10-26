@@ -44,12 +44,13 @@ public class MyStereo implements Stereo {
     //This method tells the caller if the USB drive has been scanned for MP3 file
 
     @Override
-    public void isUSBLoaded() {
+    public boolean isUSBLoaded() {
         if (loadedUSB) {
             System.out.println("USB is loaded.");
         } else {
             System.out.println("USB is not loaded.");
         }
+        return loadedUSB;
     }
 
     //This method unloads the USB drive by resetting counts & counters.

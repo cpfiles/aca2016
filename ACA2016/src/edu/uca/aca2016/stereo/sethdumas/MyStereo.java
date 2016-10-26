@@ -32,11 +32,12 @@ public abstract class MyStereo implements Stereo {
 
     //tell if USB drive has been loaded
     @Override
-    public void isUSBLoaded(){
+    public boolean isUSBLoaded(){
         isUSBLoaded = true;
         while (isUSBLoaded = true) {
             isPlaying = true;
         }
+        return isUSBLoaded;
     }
 
     //unload USB drive and reset
