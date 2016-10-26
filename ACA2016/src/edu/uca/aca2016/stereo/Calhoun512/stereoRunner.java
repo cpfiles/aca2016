@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package stereo.Calhoun512;
+package edu.uca.aca2016.stereo.Calhoun512;
 
 
 
