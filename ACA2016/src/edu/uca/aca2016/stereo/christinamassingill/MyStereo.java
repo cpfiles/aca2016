@@ -1,9 +1,4 @@
-```````/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package edu.uca.aca2016.interfaces.stereo.christinamassingill;
+package edu.uca.aca2016.stereo.christinamassingill;
 
 import edu.uca.aca2016.interfaces.Stereo;
 import java.util.Random;
@@ -119,9 +114,11 @@ public class MyStereo implements Stereo {
 
             }
 
+        }
+    }
 
 
-
+    @Override
     public boolean isPlaying() {
         return isPlaying;
     }
