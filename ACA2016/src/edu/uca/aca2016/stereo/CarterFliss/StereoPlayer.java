@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package stereo.CarterFliss;
+package edu.uca.aca2016.stereo.CarterFliss;
 
 /**
  *
@@ -12,45 +12,53 @@ package stereo.CarterFliss;
 import edu.uca.aca2016.interfaces.Stereo;
 import java.util.Random;
 
-public class StereoPlayer {
+public class StereoPlayer implements Stereo {
 
     /**
      * @param args the command line arguments
+     *
+     * instantiating the variables necessary for the rest of the program
+     * clarification: isPlaying only stores whether stereo is currently playing,
+     * regardless of current play mode. isPlayingStraight and isPlayingShuffle
+     * stores value of which play mode stereo is currently in.
      */
     private int trackTotal;
     private boolean isPlaying = false;
+    private boolean isPlayingStraight = false;
+    private boolean isPlayingShuffle = false;
     private boolean isPaused = false;
     private boolean isStopped = false;
     private boolean isUSBLoaded = false;
-    private boolean playingStraight = false;
-    private boolean playingRandom = false;
     private int currentTrack;
 
     /*
     *  loads USB device and enables starting variables
     *  such as isUSBLoaded, isPlaying, and generates trackTotal
+    *  Defaults on Straight Play mode.
      */
     public void loadUSB() {
         isUSBLoaded = true;
+        isPlaying = true;
+        isPlayingStraight = true;
         Random genTL = new Random();
         trackTotal = (genTL.nextInt(1000) + 1);
         while (trackTotal == 0) {
             trackTotal++;
             break;
         }
-        isPlaying = true;
     }
 
     /*
     *  checks if USB device is loaded, providing appropriate message
     *  in relation to current device state
      */
-    public void isUSBLoaded() {
+    public boolean isUSBLoaded() {
         if (isUSBLoaded == true) {
             System.out.println("USB input recognized.  Loading tracks...");
         } else {
             System.err.println("No USB device detected.");
         }
+        return isUSBLoaded;
     }
 
     /*
@@ -62,11 +70,11 @@ public class StereoPlayer {
             System.out.println("Removing USB device.");
             currentTrack = 0;
             trackTotal = 0;
+            isPlayingStraight = false;
+            isPlayingShuffle = false;
             isPlaying = false;
             isPaused = false;
             isStopped = false;
-            playingRandom = false;
-            playingStraight = false;
             break;
         }
     }
@@ -75,7 +83,6 @@ public class StereoPlayer {
     *  Generates and returns a current track number, defaulting at first track
      */
     public int currentTrackNumber() {
-        currentTrack = (trackTotal - (trackTotal - 1));
         return currentTrack;
     }
 
@@ -87,43 +94,28 @@ public class StereoPlayer {
     }
 
     /*
-    * for loop provides sequential counter for current track list, stopping at
-    * last track
-    * breaks for loop when paused or stopped
+    * establishes and stores appropriate states for Straight Play mode.
      */
     public void enableStraightPlayMode() {
-        playingStraight = true;
+        isPlaying = true;
+        isPlayingStraight = true;
+        isPlayingShuffle = false;
+        isPaused = false;
+        isStopped = false;
         System.out.println("Straight play enabled.");
-        while (playingStraight == true || isPaused == false || isStopped == false
-                || isUSBLoaded == true) {
-            while (currentTrack != trackTotal) {
-                currentTrack++;
-                System.out.println("Currently playing Track " + currentTrack + " of " + trackTotal);
-
-            }
-            break;
-        }
     }
 
 
     /*
-    * changes currentTrack randomly w/in bounds of trackTotal (+1 because final
-    * track would be exclusive)
-    * breaks while loop when paused or stopped
+    * establishes and stores appropriate states for Shuffle Play mode.
      */
     public void enableShufflePlayMode() {
-        playingRandom = true;
+        isPlaying = true;
+        isPlayingShuffle = true;
+        isPlayingStraight = false;
+        isPaused = false;
+        isStopped = false;
         System.out.println("Shuffle play enabled.");
-        while (playingRandom == true || isPaused == false || isStopped == false
-                || isUSBLoaded == true || currentTrack != trackTotal) {
-            while (currentTrack <= trackTotal) {
-                Random curTrack = new Random();
-                currentTrack = curTrack.nextInt(trackTotal + 1);
-                System.out.println("Currently playing Track " + currentTrack + " of " + trackTotal);
-            }
-            break;
-        }
-
     }
 
     /*
@@ -134,8 +126,8 @@ public class StereoPlayer {
         isStopped = true;
         currentTrack = 1;
         isPlaying = false;
-        playingRandom = false;
-        playingStraight = false;
+        isPaused = false;
+
     }
 
     /*
@@ -143,46 +135,69 @@ public class StereoPlayer {
      */
     public void pause() {
         isPaused = true;
+        isPlayingStraight = false;
+        isPlayingShuffle = false;
         isPlaying = false;
-        playingStraight = false;
-        playingRandom = false;
+        isStopped = false;
+
         System.out.println("Music paused.");
     }
 
     /*
-    *  moves to next track in list. if on last track of list, loops back to first
-    *  track
+    *  moves to next track in list. if on last track of list while on Straight
+    *  Play mode, loops back to first track.  On Shuffle Play, moves to random
+    *  track w/in trackTotal
      */
     public void nextTrack() {
+        isPaused = false;
+        isStopped = false;
         System.out.println("Next Track");
-        do {
-            if (currentTrack != trackTotal) {
-                currentTrack++;
-            } else {
+        if (isPlayingStraight == true) {
+            if (currentTrack == trackTotal) {
                 currentTrack = (trackTotal - (trackTotal - 1));
+            } else {
+                do {
+                    currentTrack++;
+                    break;
+                } while (currentTrack != trackTotal);
             }
-        } while (currentTrack != trackTotal);
+        } else if (isPlayingShuffle == true) {
+            Random curTrack = new Random();
+            currentTrack = (curTrack.nextInt(trackTotal) + 1);
+        }
         System.out.println("Currently playing Track " + currentTrack + " of " + trackTotal);
     }
 
     /*
-    *  moves to previous track in list. if on first track of list, loops back to 
-    *  last track
+    *  moves to previous track in list. if on first track of list while on Straight
+    *  Play mode, loops back to first track.  On Shuffle Play, moves to random
+    *  track w/in trackTotal
      */
     public void previousTrack() {
+        isPaused = false;
+        isStopped = false;
         System.out.println("Previous Track");
-        do {
-            if (currentTrack != trackTotal) {
-                currentTrack--;
-            } else {
+        if (isPlayingStraight == true) {
+            if (currentTrack == (trackTotal - (trackTotal - 1))) {
                 currentTrack = trackTotal;
+            } else {
+                do {
+                    currentTrack--;
+                    break;
+                } while (currentTrack != trackTotal);
             }
-        } while (currentTrack != trackTotal);
+        } else if (isPlayingShuffle == true) {
+            Random curTrack = new Random();
+            currentTrack = (curTrack.nextInt(trackTotal) + 1);
+        }
         System.out.println("Currently playing Track " + currentTrack + " of " + trackTotal);
     }
 
     //returns isPlaying
     public boolean isPlaying() {
+        if (isPlayingStraight == true || isPlayingShuffle == true) {
+            isPlaying = true;
+        }
         return isPlaying;
     }
 
@@ -194,23 +209,30 @@ public class StereoPlayer {
     public static void main(String[] args) {
         // TODO code application logic here
         //testing code for Straight play.  Will test other functions here.
-        StereoPlayer straightStereoTest = new StereoPlayer();
-        straightStereoTest.loadUSB();
-        straightStereoTest.currentTrackNumber();
-        straightStereoTest.enableStraightPlayMode();
-        straightStereoTest.pause();
-        straightStereoTest.enableStraightPlayMode();
-        straightStereoTest.nextTrack();
-        straightStereoTest.enableStraightPlayMode();
-        straightStereoTest.previousTrack();
-        straightStereoTest.stop();
-        straightStereoTest.unloadUSB();
+//        StereoPlayer straightStereoTest = new StereoPlayer();
+//        straightStereoTest.loadUSB();
+//        straightStereoTest.enableStraightPlayMode();
+//        straightStereoTest.stop();
+//        straightStereoTest.previousTrack();
+//        straightStereoTest.unloadUSB();
         //testing code for Shuffle play.
 //        StereoPlayer randStereoTest = new StereoPlayer();
 //        randStereoTest.loadUSB();
 //        randStereoTest.currentTrackNumber();
 //        randStereoTest.enableShufflePlayMode();
+//        randStereoTest.stop();
+//        randStereoTest.nextTrack();
 //        randStereoTest.unloadUSB();
+//          StereoPlayer t = new StereoPlayer();
+//          t.loadUSB();
+//          t.enableStraightPlayMode();
+//          t.nextTrack();
+//          t.nextTrack();
+//          t.nextTrack();
+//          t.enableShufflePlayMode();
+//          t.previousTrack();
+//          t.stop();
+//          t.unloadUSB();
 
     }
 
