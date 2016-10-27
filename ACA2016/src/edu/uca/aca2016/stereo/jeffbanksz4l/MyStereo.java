@@ -19,10 +19,8 @@ public class MyStereo implements Stereo {
     private int currentTrackNumber;
     private boolean isUSBLoaded = false;
     private boolean enableStraightPlayMode = true;
-    private boolean enableShufflePlayMode = false;
     private boolean isPlaying = false;
     private boolean isPaused = false;
-    private boolean isStopped = false;
 
     /**
      * Setup the random generator between 1-1000. Defaulted Current Track Number
@@ -35,21 +33,21 @@ public class MyStereo implements Stereo {
 
         Random r = new Random();
 
-        number_of_tracks = r.nextInt(bound);
-        number_of_tracks++;
-        isUSBLoaded = true;
-        currentTrackNumber = 1;
-        isPlaying = true;
+        this.number_of_tracks = r.nextInt(bound);
+        this.number_of_tracks++;
+        this.isUSBLoaded = true;
+        this.currentTrackNumber = 1;
+        this.isPlaying = true;
     }
 
     /**
      * Returning true if USB has been loaded.
-     * 
+     *
      * @return
      */
     @Override
     public boolean isUSBLoaded() {
-        return isUSBLoaded;
+        return this.isUSBLoaded;
     }
 
     /**
@@ -58,8 +56,8 @@ public class MyStereo implements Stereo {
      */
     @Override
     public void unloadUSB() {
-        isUSBLoaded = false;
-        number_of_tracks = 0;
+        this.isUSBLoaded = false;
+        this.number_of_tracks = 0;
     }
 
     /**
@@ -69,7 +67,7 @@ public class MyStereo implements Stereo {
      */
     @Override
     public int currentTrackNumber() {
-        return currentTrackNumber;
+        return this.currentTrackNumber;
     }
 
     /**
@@ -80,7 +78,7 @@ public class MyStereo implements Stereo {
      */
     @Override
     public int totalTrackCount() {
-        return number_of_tracks;
+        return this.number_of_tracks;
     }
 
     /**
@@ -89,8 +87,7 @@ public class MyStereo implements Stereo {
      */
     @Override
     public void enableStraightPlayMode() {
-        enableStraightPlayMode = true;
-        enableShufflePlayMode = false;
+        this.enableStraightPlayMode = true;
     }
 
     /**
@@ -99,8 +96,7 @@ public class MyStereo implements Stereo {
      */
     @Override
     public void enableShufflePlayMode() {
-        enableShufflePlayMode = true;
-        enableStraightPlayMode = false;
+        this.enableStraightPlayMode = false;
     }
 
     /**
@@ -108,8 +104,8 @@ public class MyStereo implements Stereo {
      */
     @Override
     public void stop() {
-        isStopped = true;
-        isPlaying = false;
+        this.isPaused = true;
+        this.isPlaying = false;
     }
 
     /**
@@ -117,64 +113,68 @@ public class MyStereo implements Stereo {
      */
     @Override
     public void pause() {
-        isPaused = true;
-        isPlaying = false;
+        this.isPaused = true;
+        this.isPlaying = false;
     }
 
     /**
-     * Setup Next Track to advance forward one track if in Straight Play 
-     * Mode and to loop back to the beginning if the last track has been reached.
+     * Setup Next Track to advance forward one track if in Straight Play Mode
+     * and to loop back to the beginning if the last track has been reached.
      * Also, setup to generate a random number if Shuffle Play Mode in enabled.
      */
     @Override
     public void nextTrack() {
-        if (isUSBLoaded && isPlaying) {
-            if (enableStraightPlayMode) {
-                currentTrackNumber++;
-                if (currentTrackNumber > number_of_tracks) {
-                    currentTrackNumber = 1;
-                } else if (enableShufflePlayMode) {
-                    int bound = number_of_tracks;
-                    Random r = new Random();
-                    currentTrackNumber = r.nextInt(bound);
-                    currentTrackNumber++;
-                }
+        if (!isUSBLoaded && !isPlaying) {
+            return;
+        }
+
+        if (this.enableStraightPlayMode) {
+            this.currentTrackNumber++;
+
+            if (this.currentTrackNumber > this.number_of_tracks) {
+                this.currentTrackNumber = 1;
             }
+        } else {
+            int bound = number_of_tracks;
+            Random r = new Random();
+            this.currentTrackNumber = r.nextInt(bound);
+            this.currentTrackNumber++;
         }
     }
 
     /**
-     * Setup Previous Track to advance backwards one track if in Straight Play 
+     * Setup Previous Track to advance backwards one track if in Straight Play
      * Mode and to loop back to the end if at the first track has been reached.
      * Also, setup to generate a random number if Shuffle Play Mode in enabled.
      */
     @Override
     public void previousTrack() {
-        if (isUSBLoaded && isPlaying) {
-            if (enableStraightPlayMode) {
-                currentTrackNumber--;
-                if (currentTrackNumber < 1) {
-                    currentTrackNumber = number_of_tracks;
-                } else if (enableShufflePlayMode) {
-                    int bound = number_of_tracks;
-                    Random r = new Random();
-                    currentTrackNumber = r.nextInt(bound);
-                    currentTrackNumber++;
-                }
+        if (!isUSBLoaded && !isPlaying) {
+            return;
+        }
+
+        if (this.enableStraightPlayMode) {
+            this.currentTrackNumber--;
+
+            if (this.currentTrackNumber > this.number_of_tracks) {
+                this.currentTrackNumber = 1;
             }
+        } else {
+            int bound = this.number_of_tracks;
+            Random r = new Random();
+            this.currentTrackNumber = r.nextInt(bound);
+            this.currentTrackNumber++;
         }
     }
 
     /**
      * Returned isPlaying to true when isPaused and isStopped are false.
-     *      
+     *
      * @return
      */
     @Override
     public boolean isPlaying() {
-        isPaused = false;
-        isStopped = false;
-        return isPlaying = true;
+        return this.isPlaying;
     }
 
     /**
@@ -184,8 +184,6 @@ public class MyStereo implements Stereo {
      */
     @Override
     public boolean isPaused() {
-        isPlaying = false;
-        isStopped = false;
-        return isPaused = true;
+        return this.isPaused;
     }
 }
