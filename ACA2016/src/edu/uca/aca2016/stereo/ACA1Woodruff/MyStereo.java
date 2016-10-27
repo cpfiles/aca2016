@@ -6,13 +6,17 @@
 package edu.uca.aca2016.stereo.ACA1Woodruff;
 
 import edu.uca.aca2016.interfaces.Stereo;
+import edu.uca.aca2016.interfaces.StereoExtended;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
  *
  * @author awood
  */
-public class MyStereo implements Stereo {
+public class MyStereo implements StereoExtended {
 //public class MyStereo extends Object implements Stereo
 
     private int NumberOfTracks;
@@ -147,5 +151,25 @@ public class MyStereo implements Stereo {
         return isPaused = true;
     }
 //**Tells the caller if the stereo is playing.*/
+
+    @Override
+    public void loadTrackList(File trackListSource) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void play() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<String> getTrackList() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCurrentTrackFileName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }
