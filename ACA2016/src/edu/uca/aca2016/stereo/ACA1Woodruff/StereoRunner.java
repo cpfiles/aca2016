@@ -5,8 +5,8 @@
  */
 package edu.uca.aca2016.stereo.ACA1Woodruff;
 
-import edu.uca.aca2016.interfaces.Stereo;
-import java.util.Random;
+///*import edu.uca.aca2016.interfaces.Stereo;
+//import java.util.Random;*/
 
 /**
  *
@@ -68,20 +68,7 @@ public class StereoRunner {
            System.out.println("Playing (false): " + m.isPlaying());
            }
     }
-//    Tracks.currentTrackNumber();
-//    Tracks.isUSBLoaded();
-//    Tracks.NumberOfTracks ();
-//    Tracks.enableStraightPlayMode();
-//    Tracks.enableShufflePlayMode ();
-//    Tracks.isPlaying();
-//    Tracks.isPaused();
-//    Tracks.isStopped();
-//    
-//    System.out.println
-//    
-//    {
-//            
-//        // TODO code application logic here
+
     }
     
 
