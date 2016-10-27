@@ -6,6 +6,10 @@
 package edu.uca.aca2016.stereo.snake0517;
 
 import edu.uca.aca2016.interfaces.Stereo;
+import edu.uca.aca2016.interfaces.StereoExtended;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import java.util.Random;
 
@@ -13,7 +17,7 @@ import java.util.Random;
  *
  * @author brela
  */
-public class MyStereo implements Stereo {
+public class MyStereo implements StereoExtended {
 
     private int number_of_tracks = 0;
     private boolean isUSBLoaded = false;
@@ -149,6 +153,26 @@ public class MyStereo implements Stereo {
     public boolean isPaused() {
         
         return isPaused;
+    }
+
+    @Override
+    public void loadTrackList(File trackListSource) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void play() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<String> getTrackList() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCurrentTrackFileName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
