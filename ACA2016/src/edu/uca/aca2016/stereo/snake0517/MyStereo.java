@@ -28,7 +28,13 @@ public class MyStereo implements StereoExtended {
     private int current_track = 0;
     private boolean isStopped = false;
 
-    // Sets state of player to load and starts the player going.
+    /**
+     * This method should load mp3s from a USB drive.
+     *
+     * For our purposes, generate a random number of tracks between 1 and 1000.
+     * This method should silently fail if the USB drive has already been loaded
+     * and has not been unloaded.
+     */
     @Override
     public void loadUSB() {
         int bound = 1000;
@@ -42,14 +48,22 @@ public class MyStereo implements StereoExtended {
         isPlaying = true;
     }
 
-    //checks to see if device is loaded.
+    /**
+     * This method should tell the caller if the USB drive has been scanned for
+     * mp3 files
+     *
+     * @return
+     */
     @Override
     public boolean isUSBLoaded() {
         return isUSBLoaded;
 
     }
 
-    // unloads usb drive and restes values 
+    /**
+     * This method should unload the USB drive by resetting all of the counts
+     * and counters.
+     */
     @Override
     public void unloadUSB() {
         isUSBLoaded = false;
@@ -59,21 +73,37 @@ public class MyStereo implements StereoExtended {
 
     }
 
-    // shows current track number
+    /**
+     * This method should return the number of the current track that is
+     * "playing".
+     *
+     * @return The current track number.
+     */
     @Override
     public int currentTrackNumber() {
 
         return current_track;
     }
 
-    // Shows total track count
+    /**
+     * Return the total number of tracks loaded from the USB drive.
+     *
+     * @return The total number of tracks
+     */
     @Override
     public int totalTrackCount() {
 
         return this.number_of_tracks;
     }
 
-    // Plays next in seqeuntial order.
+    /**
+     * Plays the tracks in sequential order.
+     *
+     * For our purposes, this method should set the current track to the first
+     * track and keep a record of the current track. Note the only way the
+     * program moves to the next track is by calls to nextTrack and
+     * previousTrack.
+     */
     @Override
     public void enableStraightPlayMode() {
         enableStraightPlayMode = true;
@@ -81,14 +111,23 @@ public class MyStereo implements StereoExtended {
 
     }
 
-    // Plays random track within bound.
+    /**
+     * Plays tracks in a random order.
+     *
+     * For our purposes, this method should set the current track to a random
+     * track and keep a record of the current track. Note the only way the
+     * program moves to the next track is by calls to nextTrack and
+     * previousTrack.
+     */
     @Override
     public void enableShufflePlayMode() {
         enableShufflePlayMode = true;
         enableStraightPlayMode = false;
     }
 
-    // Stops track from playing
+    /**
+     * Stop the playing process.
+     */
     @Override
     public void stop() {
         isStopped = true;
@@ -96,14 +135,18 @@ public class MyStereo implements StereoExtended {
         isPaused = false;
     }
 
-    // Pauses track 
+    /**
+     * Pause the playing process.
+     */
     @Override
     public void pause() {
         isPaused = true;
         isPlaying = false;
     }
 
-    // Plays next track depending on condition of straiaght play or shuffle.
+    /**
+     * Advance to the next track.
+     */
     @Override
     public void nextTrack() {
         if (isUSBLoaded && isPlaying) {
@@ -121,7 +164,9 @@ public class MyStereo implements StereoExtended {
         }
     }
 
-    // Plays previous track depending on condition of striaght play or shuffle.
+    /**
+     * Move to the previous track.
+     */
     @Override
     public void previousTrack() {
         if (isUSBLoaded && isPlaying) {
@@ -138,38 +183,69 @@ public class MyStereo implements StereoExtended {
 
         }
     }
-       
 
-    // display Playing
+    /**
+     * Tell the caller if the stereo is playing.
+     *
+     * @return
+     */
     @Override
     public boolean isPlaying() {
-      
+
         return isPlaying;
 
     }
 
-    // display paused
+    /**
+     * Tell the caller if the stereo has been paused.
+     *
+     * @return
+     */
     @Override
     public boolean isPaused() {
-        
+
         return isPaused;
     }
 
+    /**
+     * Loads a list of track names from the specified file.
+     *
+     * The file is a plain text file that contains one track name per line. For
+     * example: Song 1.mp3 Song 2.mp3 Song 4.mp3
+     *
+     * @param trackListSource A file that contains a list of mp3 tracks. There
+     * is one track per line.
+     * @throws IOException Any IO exceptions are caught and re-thrown as this
+     * type of exception
+     */
     @Override
     public void loadTrackList(File trackListSource) throws IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Restarts the playing process.
+     */
     @Override
     public void play() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Return a list of all the tracks that are loaded.
+     *
+     * @return
+     */
     @Override
     public ArrayList<String> getTrackList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Get the full file name of the current track
+     *
+     * @return The current track's file name.
+     */
     @Override
     public String getCurrentTrackFileName() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
