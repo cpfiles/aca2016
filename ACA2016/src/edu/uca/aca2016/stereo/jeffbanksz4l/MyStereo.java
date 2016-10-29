@@ -5,16 +5,18 @@
  */
 package edu.uca.aca2016.stereo.jeffbanksz4l;
 
-import edu.uca.aca2016.interfaces.Stereo;
+//import edu.uca.aca2016.interfaces.Stereo;
 import edu.uca.aca2016.interfaces.StereoExtended;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.nio.file.Paths;
 
 /**
  * Initializing MyStereo class.
- *
  * @author jeffb
  */
 public class MyStereo implements StereoExtended {
@@ -46,8 +48,7 @@ public class MyStereo implements StereoExtended {
 
     /**
      * Returning true if USB has been loaded.
-     *
-     * @return
+     * @return State of USB.
      */
     @Override
     public boolean isUSBLoaded() {
@@ -66,7 +67,6 @@ public class MyStereo implements StereoExtended {
 
     /**
      * Returning the Current Track Number.
-     *
      * @return The current track number.
      */
     @Override
@@ -77,8 +77,7 @@ public class MyStereo implements StereoExtended {
     /**
      * Returning the Total Track Count from the Random generator from the
      * loadUSB method.
-     *
-     * @return The total number of tracks
+     * @return The total number of tracks.
      */
     @Override
     public int totalTrackCount() {
@@ -124,7 +123,7 @@ public class MyStereo implements StereoExtended {
     /**
      * Setup Next Track to advance forward one track if in Straight Play Mode
      * and to loop back to the beginning if the last track has been reached.
-     * Also, setup to generate a random number if Shuffle Play Mode in enabled.
+     * Also, setup to generate a random number if Shuffle Play Mode is enabled.
      */
     @Override
     public void nextTrack() {
@@ -149,7 +148,7 @@ public class MyStereo implements StereoExtended {
     /**
      * Setup Previous Track to advance backwards one track if in Straight Play
      * Mode and to loop back to the end if at the first track has been reached.
-     * Also, setup to generate a random number if Shuffle Play Mode in enabled.
+     * Also, setup to generate a random number if Shuffle Play Mode is enabled.
      */
     @Override
     public void previousTrack() {
@@ -173,8 +172,7 @@ public class MyStereo implements StereoExtended {
 
     /**
      * Returned isPlaying to true when isPaused and isStopped are false.
-     *
-     * @return
+     * @return Will state if isPlaying or not. 
      */
     @Override
     public boolean isPlaying() {
@@ -183,29 +181,60 @@ public class MyStereo implements StereoExtended {
 
     /**
      * Returned isPaused to true when isPlaying and isStopped are false.
-     *
-     * @return
+     * @return Will state if isPaused or not.
      */
     @Override
     public boolean isPaused() {
         return this.isPaused;
     }
 
+    /**
+     * Loads a list of track names from the specified file.
+     * 
+     * The file is a plain text file that contains one track name per line. For
+     * example:
+     *  Song 1.mp3
+     *  Song 2.mp3
+     *  Song 4.mp3
+     * 
+     * @param trackListSource A file that contains a list of mp3 tracks. There
+     * is one track per line.
+     * @throws IOException Any IO exceptions are caught and re-thrown as this 
+     * type of exception
+     */
     @Override
     public void loadTrackList(File trackListSource) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        FileInputStream in  = null;
+        FileOutputStream out = null;
+                
+//        File f = new File(‪"C:\Users\jeffb\Desktop\Banks_MyPlayList.txt");
+//        this.loadTrackList(f);
+        
+//        loadTrackList(f);
     }
 
+    /**
+     * Restarts the playing process.
+     */
     @Override
     public void play() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Return a list of all the tracks that are loaded.
+     * @return
+     */
     @Override
     public ArrayList<String> getTrackList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Get the full file name of the current track
+     * @return The current track's file name.
+     */
     @Override
     public String getCurrentTrackFileName() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
