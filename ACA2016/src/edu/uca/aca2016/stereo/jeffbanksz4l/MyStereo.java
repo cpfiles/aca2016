@@ -7,13 +7,17 @@ package edu.uca.aca2016.stereo.jeffbanksz4l;
 
 //import edu.uca.aca2016.interfaces.Stereo;
 import edu.uca.aca2016.interfaces.StereoExtended;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
-import java.nio.file.Paths;
+import java.util.Scanner;
 
 /**
  * Initializing MyStereo class.
@@ -207,11 +211,27 @@ public class MyStereo implements StereoExtended {
         
         FileInputStream in  = null;
         FileOutputStream out = null;
-                
-//        File f = new File(‪"C:\Users\jeffb\Desktop\Banks_MyPlayList.txt");
-//        this.loadTrackList(f);
-        
-//        loadTrackList(f);
+//        
+//        try {
+//            File f = new File(‪"C:\Users\jeffb\Desktop\Banks_MyPlayList.txt");
+//            this.loadTrackList(f);
+//        }
+
+        Scanner s = null;
+
+        try {
+//            File f = new File("C:\\Users\\jeffb\\Desktop\\Banks_MyPlayList.txt");
+//            s = new Scanner(new BufferedReader(new FileReader(f.toFile())));
+
+            while (s.hasNext()) {
+                System.out.println(s.next());
+            }
+        } 
+        finally {
+            if (s != null) {
+                s.close();
+            }
+        }
     }
 
     /**
