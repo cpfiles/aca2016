@@ -5,7 +5,7 @@
  */
 package edu.uca.aca2016.stereo.ACA1Woodruff;
 
-import edu.uca.aca2016.interfaces.Stereo;
+//import edu.uca.aca2016.interfaces.Stereo;
 import edu.uca.aca2016.interfaces.StereoExtended;
 import java.io.BufferedReader;
 import java.io.File;
