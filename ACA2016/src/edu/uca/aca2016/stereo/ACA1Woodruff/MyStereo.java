@@ -7,10 +7,13 @@ package edu.uca.aca2016.stereo.ACA1Woodruff;
 
 import edu.uca.aca2016.interfaces.Stereo;
 import edu.uca.aca2016.interfaces.StereoExtended;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -27,7 +30,7 @@ public class MyStereo implements StereoExtended {
     private boolean isPlaying = false;
     private boolean isPaused = false;
     private boolean isStopped = false;
-    
+
     @Override
 
     public void loadUSB() {
@@ -154,19 +157,34 @@ public class MyStereo implements StereoExtended {
 
     @Override
     public void loadTrackList(File trackListSource) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
+        try (Scanner s = new Scanner(new BufferedReader(new FileReader(trackListSource)))) {
+
+            while (s.hasNext()) {
+                System.out.println(s.next());
+            }
+        }
+    }
+/**
+ * Restarts the playing process.
+ */
+   
+@Override
+        public void play() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+/**
+ * Return a list of all the tracks that are loaded.
+ * @return
+ */
     @Override
-    public void play() {
+        public ArrayList<String> getTrackList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public ArrayList<String> getTrackList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+/**
+ * Get the full file name of the current track
+ * @return The current track's file name
+ */
     @Override
     public String getCurrentTrackFileName() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
