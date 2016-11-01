@@ -5,16 +5,11 @@
  */
 package edu.uca.aca2016.stereo.jeffbanksz4l;
 
-//import edu.uca.aca2016.interfaces.Stereo;
 import edu.uca.aca2016.interfaces.StereoExtended;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -209,19 +204,10 @@ public class MyStereo implements StereoExtended {
     @Override
     public void loadTrackList(File trackListSource) throws IOException {
         
-        FileInputStream in  = null;
-        FileOutputStream out = null;
-//        
-//        try {
-//            File f = new File(‪"C:\Users\jeffb\Desktop\Banks_MyPlayList.txt");
-//            this.loadTrackList(f);
-//        }
-
         Scanner s = null;
 
         try {
-//            File f = new File("C:\\Users\\jeffb\\Desktop\\Banks_MyPlayList.txt");
-//            s = new Scanner(new BufferedReader(new FileReader(f.toFile())));
+            s = new Scanner(new BufferedReader(new FileReader(trackListSource)));
 
             while (s.hasNext()) {
                 System.out.println(s.next());
@@ -232,6 +218,8 @@ public class MyStereo implements StereoExtended {
                 s.close();
             }
         }
+        
+        
     }
 
     /**

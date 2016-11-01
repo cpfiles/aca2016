@@ -150,10 +150,10 @@ public class BasicIO{
      */
     public static void main(String[] args) throws IOException{
         BasicIO io = new BasicIO();
-        io.copyBytes();
-        io.copyChars();
-        io.copyLines();
+//        io.copyBytes();
+//        io.copyChars();
+//        io.copyLines();
         io.scanXan();
-        io.scanNums();
+//        io.scanNums();
     }
 }

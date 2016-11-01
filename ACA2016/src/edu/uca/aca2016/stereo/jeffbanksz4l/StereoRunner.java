@@ -5,6 +5,10 @@
  */
 package edu.uca.aca2016.stereo.jeffbanksz4l;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 /**
  *
  * @author jeffb
@@ -14,8 +18,11 @@ public class StereoRunner {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         MyStereo myTracks = new MyStereo();
+        
+        Path f = Paths.get("C:\\Users\\jeffb\\Desktop\\Banks_MyPlayList.txt");
+        myTracks.loadTrackList(f.toFile());
         
         myTracks.loadUSB();
         System.out.println("Number of Tracks: " + myTracks.totalTrackCount());
@@ -38,6 +45,8 @@ public class StereoRunner {
 
         myTracks.nextTrack();
         System.out.println("Next Track: " + myTracks.currentTrackNumber());
+        
+        
 
     }
 
