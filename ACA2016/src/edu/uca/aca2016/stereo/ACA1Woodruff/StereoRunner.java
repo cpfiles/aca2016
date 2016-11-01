@@ -18,54 +18,54 @@ public class StereoRunner {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       MyStereo m = new MyStereo(); 
+       MyStereo myTracks = new MyStereo(); 
     
        for (int x = 0; x < 4; x++){
-           System.out.println("Playing (false): "+ m.isPlaying());
-           m.loadUSB();
-           System.out.println("Track Count: " + m.totalTrackCount());
-           System.out.println("Playing (true):" + m.isPlaying());
+           System.out.println("Playing (false): "+ myTracks.isPlaying());
+           myTracks.loadUSB();
+           System.out.println("Track Count: " + myTracks.totalTrackCount());
+           System.out.println("Playing (true):" + myTracks.isPlaying());
            
            System.out.println("Straight Play:");
-           for (int i = 1; i <m.totalTrackCount() + 1; i++){
-               System.out.print(m.currentTrackNumber() + "");
-               m.nextTrack();
+           for (int i = 1; i <myTracks.totalTrackCount() + 1; i++){
+               System.out.print(myTracks.currentTrackNumber() + "");
+               myTracks.nextTrack();
            }
            System.out.println();
            
-           for (int i = m.totalTrackCount() + 3; i > 0; i--){
-               System.out.print(m.currentTrackNumber() + " ");
-               m.previousTrack();
+           for (int i = myTracks.totalTrackCount() + 3; i > 0; i--){
+               System.out.print(myTracks.currentTrackNumber() + " ");
+               myTracks.previousTrack();
            }
            System.out.println();
            
-           m.pause();
-           System.out.println("Paused (true): " + m.isPaused());
-           System.out.println("Playing (false): " + m.isPlaying());
+           myTracks.pause();
+           System.out.println("Paused (true): " + myTracks.isPaused());
+           System.out.println("Playing (false): " + myTracks.isPlaying());
            
-           m.enableShufflePlayMode();
+           myTracks.enableShufflePlayMode();
            
            for (int i = 0; i < 10; i++){
-               m.nextTrack();
-               System.out.print(m.currentTrackNumber() + " ");
+               myTracks.nextTrack();
+               System.out.print(myTracks.currentTrackNumber() + " ");
            }
            System.out.println();
            
            for (int i = 0; i < 10; i++){
-               m.previousTrack();
-               System.out.print(m.currentTrackNumber() + " ");
+               myTracks.previousTrack();
+               System.out.print(myTracks.currentTrackNumber() + " ");
            }
            System.out.println();
            
-           m.stop();
-           System.out.println("Paused (false): " + m.isPaused());
-           System.out.println("Playing (false): " + m.isPlaying());
+           myTracks.stop();
+           System.out.println("Paused (false): " + myTracks.isPaused());
+           System.out.println("Playing (false): " + myTracks.isPlaying());
            
-           m.enableStraightPlayMode(); // the enable straight play
-           m.unloadUSB();
-           System.out.println("Loaded (false): " + m.isUSBLoaded());
-           System.out.println("Paused (false): " + m.isPaused());
-           System.out.println("Playing (false): " + m.isPlaying());
+           myTracks.enableStraightPlayMode(); // the enable straight play
+           myTracks.unloadUSB();
+           System.out.println("Loaded (false): " + myTracks.isUSBLoaded());
+           System.out.println("Paused (false): " + myTracks.isPaused());
+           System.out.println("Playing (false): " + myTracks.isPlaying());
            }
     }
 
