@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uca.aca2016.basics.terradukes;
+package edu.uca.aca2016.stereo.terradukes;
 import edu.uca.aca2016.interfaces.Stereo;
 import java.util.Random;
 import java.util.ArrayList;
