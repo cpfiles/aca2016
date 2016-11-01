@@ -4,14 +4,14 @@
  * and open the template in the editor.
  */
 package edu.uca.aca2016.stereo.clintlemons;
-import edu.uca.aca2016.interfaces.Stereo;
+import edu.uca.aca2016.interfaces.StereoExtended;
 import java.util.Random;
 
 /**
  *
  * @author Username
  */
-public class MyStereo implements Stereo {
+public class MyStereo implements StereoExtended {
       
     //Constructor variables
     private boolean Is_USB_Loaded;
