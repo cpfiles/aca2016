@@ -157,34 +157,43 @@ public class MyStereo implements StereoExtended {
 
     @Override
     public void loadTrackList(File trackListSource) throws IOException {
-
-        try (Scanner s = new Scanner(new BufferedReader(new FileReader(trackListSource)))) {
+        Scanner s = null;
+        try {
+            s = new Scanner(new BufferedReader(new FileReader(trackListSource)));
 
             while (s.hasNext()) {
                 System.out.println(s.next());
             }
+        } finally {
+            if (s != null) {
+                s.close();
+            }
         }
-    }
-/**
- * Restarts the playing process.
- */
-   
-@Override
-        public void play() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-/**
- * Return a list of all the tracks that are loaded.
- * @return
- */
-    @Override
-        public ArrayList<String> getTrackList() {
+
+        /**
+         * Restarts the playing process.
+         */
+        @Override
+        public void play();
+
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-/**
- * Get the full file name of the current track
- * @return The current track's file name
- */
+
+    /**
+     * Return a list of all the tracks that are loaded.
+     *
+     * @return
+     */
+    @Override
+    public ArrayList<String> getTrackList() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * Get the full file name of the current track
+     *
+     * @return The current track's file name
+     */
     @Override
     public String getCurrentTrackFileName() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
