@@ -7,11 +7,14 @@ package edu.uca.aca2016.stereo.snake0517;
 
 import edu.uca.aca2016.interfaces.Stereo;
 import edu.uca.aca2016.interfaces.StereoExtended;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -220,8 +223,21 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public void loadTrackList(File trackListSource) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Scanner s = null;
+       
+       try {
+           s = new Scanner(new BufferedReader(new FileReader(trackListSource)));
+           while (s.hasNext()) {
+           
+       }
+       }
+       finally{
+           if(s!= null) {
+               
+           }
+       }
     }
+    
 
     /**
      * Restarts the playing process.
