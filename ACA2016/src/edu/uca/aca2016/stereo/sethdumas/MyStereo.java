@@ -2,21 +2,25 @@ package edu.uca.aca2016.stereo.sethdumas;
 
 import edu.uca.aca2016.interfaces.Stereo;
 import java.util.Random;
+import java.util.logging.Logger;
 
 // @author sethd
-public abstract class MyStereo implements Stereo {
+public class MyStereo implements Stereo {
 
     //assign fields to variables
-    private int TotalTracks;
-    private int CurrentTrack;
-    private boolean isUSBLoaded;
-    private boolean isPlaying;
-    private boolean isPlayingStraight;
-    private boolean isPlayingShuffle;
-    private boolean isPaused;
-    private boolean isStopped;
+    private int TotalTracks = 0;
+    private int CurrentTrack = 0;
+    private boolean isUSBLoaded = false;
+    private boolean isPlaying = false;
+    private boolean isPlayingStraight = false;
+    private boolean isPlayingShuffle = false;
+    private boolean isPaused = false;
+    private boolean isStopped = false;
 
-    //load a random number of mp3s
+    private static final Logger logger = Logger.getLogger(edu.uca.aca2016.stereo.sethdumas.MyStereo.class.getName());
+   
+    
+//load a random number of mp3s
     @Override
     public void loadUSB() {
         isUSBLoaded = true;
