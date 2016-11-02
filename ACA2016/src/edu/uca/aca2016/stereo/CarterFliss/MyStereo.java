@@ -47,13 +47,13 @@ public class MyStereo implements StereoExtended {
     *  Defaults on Straight Play mode.
      */
     public void loadUSB() {
-        isUSBLoaded = true;
-        isPlaying = true;
-        isPlayingStraight = true;
+        this.isUSBLoaded = true;
+        this.isPlaying = true;
+        this.isPlayingStraight = true;
         Random genTL = new Random();
-        trackTotal = (genTL.nextInt(1000) + 1);
-        while (trackTotal == 0) {
-            trackTotal++;
+        this.trackTotal = (this.trackList.size() - 1);
+        while (this.trackTotal == 0) {
+            this.trackTotal++;
             break;
         }
     }
@@ -63,22 +63,22 @@ public class MyStereo implements StereoExtended {
     *  in relation to current device state
      */
     public boolean isUSBLoaded() {
-        return isUSBLoaded;
+        return this.isUSBLoaded;
     }
 
     /*
     *  reverts all ints to 0 and all booleans to false.
      */
     public void unloadUSB() {
-        isUSBLoaded = false;
-        while (isUSBLoaded == false) {
-            currentTrack = 0;
-            trackTotal = 0;
-            isPlayingStraight = false;
-            isPlayingShuffle = false;
-            isPlaying = false;
-            isPaused = false;
-            isStopped = false;
+        this.isUSBLoaded = false;
+        while (this.isUSBLoaded == false) {
+            this.currentTrack = 0;
+            this.trackTotal = 0;
+            this.isPlayingStraight = false;
+            this.isPlayingShuffle = false;
+            this.isPlaying = false;
+            this.isPaused = false;
+            this.isStopped = false;
             break;
         }
     }
@@ -87,25 +87,25 @@ public class MyStereo implements StereoExtended {
     *  Generates and returns a current track number, defaulting at first track
      */
     public int currentTrackNumber() {
-        return currentTrack;
+        return (this.currentTrack + 1);
     }
 
     /*
     *  returns trackTotal
      */
     public int totalTrackCount() {
-        return trackTotal;
+        return (this.trackTotal + 1);
     }
 
     /*
     * establishes and stores appropriate states for Straight Play mode.
      */
     public void enableStraightPlayMode() {
-        isPlaying = true;
-        isPlayingStraight = true;
-        isPlayingShuffle = false;
-        isPaused = false;
-        isStopped = false;
+        this.isPlaying = true;
+        this.isPlayingStraight = true;
+        this.isPlayingShuffle = false;
+        this.isPaused = false;
+        this.isStopped = false;
     }
 
 
@@ -113,21 +113,21 @@ public class MyStereo implements StereoExtended {
     * establishes and stores appropriate states for Shuffle Play mode.
      */
     public void enableShufflePlayMode() {
-        isPlaying = true;
-        isPlayingShuffle = true;
-        isPlayingStraight = false;
-        isPaused = false;
-        isStopped = false;
+        this.isPlaying = true;
+        this.isPlayingShuffle = true;
+        this.isPlayingStraight = false;
+        this.isPaused = false;
+        this.isStopped = false;
     }
 
     /*
     * stops all play modes and reverts back to first track
      */
     public void stop() {
-        isStopped = true;
-        currentTrack = 1;
-        isPlaying = false;
-        isPaused = false;
+        this.isStopped = true;
+        this.currentTrack = 0;
+        this.isPlaying = false;
+        this.isPaused = false;
 
     }
 
@@ -135,11 +135,9 @@ public class MyStereo implements StereoExtended {
     *  Pauses music without reverting other variables
      */
     public void pause() {
-        isPaused = true;
-        isPlayingStraight = false;
-        isPlayingShuffle = false;
-        isPlaying = false;
-        isStopped = false;
+        this.isPaused = true;
+        this.isPlaying = false;
+        this.isStopped = false;
 
     }
 
@@ -149,20 +147,20 @@ public class MyStereo implements StereoExtended {
     *  track w/in trackTotal
      */
     public void nextTrack() {
-        isPaused = false;
-        isStopped = false;
-        if (isPlayingStraight == true) {
-            if (currentTrack == trackTotal) {
-                currentTrack = (trackTotal - (trackTotal - 1));
+        this.isPaused = false;
+        this.isStopped = false;
+        if (this.isPlayingStraight == true) {
+            if (this.currentTrack >= this.trackTotal) {
+                this.currentTrack = 0;
             } else {
                 do {
-                    currentTrack++;
+                    this.currentTrack++;
                     break;
-                } while (currentTrack != trackTotal);
+                } while (this.currentTrack != this.trackTotal);
             }
-        } else if (isPlayingShuffle == true) {
+        } else if (this.isPlayingShuffle == true) {
             Random curTrack = new Random();
-            currentTrack = (curTrack.nextInt(trackTotal) + 1);
+            this.currentTrack = (curTrack.nextInt(this.trackTotal) + 1);
         }
 
     }
@@ -173,35 +171,35 @@ public class MyStereo implements StereoExtended {
     *  track w/in trackTotal
      */
     public void previousTrack() {
-        isPaused = false;
-        isStopped = false;
-        if (isPlayingStraight == true) {
-            if (currentTrack == (trackTotal - (trackTotal - 1))) {
-                currentTrack = trackTotal;
+        this.isPaused = false;
+        this.isStopped = false;
+        if (this.isPlayingStraight == true) {
+            if (this.currentTrack <= 0) {
+                this.currentTrack = this.trackTotal;
             } else {
                 do {
-                    currentTrack--;
+                    this.currentTrack--;
                     break;
-                } while (currentTrack != trackTotal);
+                } while (this.currentTrack != this.trackTotal);
             }
-        } else if (isPlayingShuffle == true) {
+        } else if (this.isPlayingShuffle == true) {
             Random curTrack = new Random();
-            currentTrack = (curTrack.nextInt(trackTotal) + 1);
+            this.currentTrack = (curTrack.nextInt(this.trackTotal) + 1);
         }
 
     }
 
     //returns isPlaying
     public boolean isPlaying() {
-        if (isPlayingStraight == true || isPlayingShuffle == true) {
-            isPlaying = true;
+        if (this.isPlayingStraight == true || this.isPlayingShuffle == true) {
+            this.isPlaying = true;
         }
-        return isPlaying;
+        return this.isPlaying;
     }
 
     //returns isPaused
     public boolean isPaused() {
-        return isPaused;
+        return this.isPaused;
     }
 
     /**
@@ -231,8 +229,7 @@ public class MyStereo implements StereoExtended {
      * Restarts the playing process.
      */
     public void play() {
-        this.currentTrack = 0;
-        this.isPlayingStraight = true;
+        this.isPlaying = true;
     }
 
     /**
@@ -250,7 +247,7 @@ public class MyStereo implements StereoExtended {
      * @return The current track's file name.
      */
     public String getCurrentTrackFileName() {
-        this.currentTrackEx = trackList.get(currentTrack);
+        this.currentTrackEx = this.trackList.get(this.currentTrack);
         return this.currentTrackEx;
     }
 
@@ -260,11 +257,13 @@ public class MyStereo implements StereoExtended {
         File tl = new File("C:\\Users\\Carter\\Documents\\NetBeansProjects\\aca2016\\ACA2016\\resources\\io\\tracklist.txt");
         test.loadTrackList(tl);
         System.out.println(test.getTrackList());
+        test.loadUSB();
         test.play();
+        System.out.println(test.currentTrackNumber());
         System.out.println(test.getCurrentTrackFileName());
-        test.nextTrack();
+        test.previousTrack();
+        System.out.println(test.currentTrackNumber());
         System.out.println(test.getCurrentTrackFileName());
-
-    }
+        }
 
 }
