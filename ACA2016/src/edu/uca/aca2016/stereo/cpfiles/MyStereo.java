@@ -7,6 +7,7 @@ package edu.uca.aca2016.stereo.cpfiles;
 
 import edu.uca.aca2016.interfaces.Stereo;
 import java.util.Random;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,6 +20,9 @@ public class MyStereo implements Stereo {
     private int totalTrackCount = 0;
     private int currentTrack = 0;
     private boolean straightPlayMode = true;
+    
+    private static final Logger logger = Logger.getLogger(MyStereo.class.getName());
+
 
     @Override
     public void loadUSB() {
@@ -28,12 +32,15 @@ public class MyStereo implements Stereo {
         this.totalTrackCount = rand.nextInt(1000);
         this.totalTrackCount++;
         
+        logger.info("Found "+ this.totalTrackCount + " tracks");
+        
         this.currentTrack = 1;
         this.isPlaying = true;
     }
 
     @Override
     public boolean isUSBLoaded() {
+        logger.info("isUSBLoaded? " + this.isUSBLoaded);
         return this.isUSBLoaded;
     }
 
@@ -83,6 +90,8 @@ public class MyStereo implements Stereo {
         if (!this.isUSBLoaded && !this.isPlaying) {
             return;
         }
+        
+        logger.finer("Straight Play Mode?" + this.straightPlayMode + " Current Track:" + this.currentTrack );
         
         if (this.straightPlayMode) {
             this.currentTrack++;
