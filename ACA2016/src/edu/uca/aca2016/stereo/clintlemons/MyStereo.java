@@ -39,7 +39,10 @@ public class MyStereo implements StereoExtended {
         this.Current_Track = 0;
     }
     
-    //Loads USB and begins playing in Straight Play mode
+   
+    /**
+     *Loads USB and begins playing in Straight Play mode
+     */
     @Override
     public void loadUSB(){
         Enable_Straight_Play = true;
@@ -49,11 +52,13 @@ public class MyStereo implements StereoExtended {
         Random ran = new Random();   
  
     }
-    //Increment next Track
+    /**
+     * Increment next track
+     */
     @Override
     public void nextTrack(){
-        if (Is_USB_Loaded = true&&Is_Playing){
-        if (Enable_Straight_Play = true)
+        if (Is_USB_Loaded == true&&Is_Playing){
+        if (Enable_Straight_Play == true)
             Current_Track ++;}
             if (Current_Track > Min_Track){
                 Current_Track = 1;}
