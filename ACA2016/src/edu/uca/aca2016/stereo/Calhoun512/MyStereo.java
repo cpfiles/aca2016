@@ -15,6 +15,8 @@ import java.util.ArrayList;
 // Importing the Random Number Generator utility (I'm thankful they included)
 
 import java.util.Random;
+import java.util.logging.Logger;
+
 
 /**
  *
@@ -24,15 +26,18 @@ public class MyStereo implements StereoExtended {
 
     
     
-    private int NumberOfTracks;
+    private int NumberOfTracks = 0;
     private boolean isUSBLoaded = false;
     private boolean enableStraightPlayMode = true;
     private boolean enableShufflePlayMode = false;
     private boolean isPlaying = false;
     private boolean isPaused = false;
     private boolean isStopped = false;
-    int currentTrackNumber;
+    private int currentTrackNumber = 0;
+    private int totalTrackCount = 0;
     
+    private static final Logger logger = Logger.getLogger(MyStereo.class.getName());
+   
     
 
     @Override
@@ -45,10 +50,13 @@ public class MyStereo implements StereoExtended {
         int bound = 1000;
         Random r = new Random();
         
-        NumberOfTracks = r.nextInt(bound +1);
-        NumberOfTracks++;
+        this.NumberOfTracks = r.nextInt(bound +1);
+        this.NumberOfTracks++;
         isUSBLoaded = true;
         currentTrackNumber = 1;
+        this.isPlaying = true;
+        
+        logger.info("Found "+ this.totalTrackCount + " tracks");
         
         }
         
@@ -59,6 +67,7 @@ public class MyStereo implements StereoExtended {
 
     public boolean isUSBLoaded() {
         
+        logger.info("isUSBLoaded? " + this.isUSBLoaded);
         return this.isUSBLoaded = true;
         
     }
@@ -72,6 +81,9 @@ public class MyStereo implements StereoExtended {
     public void unloadUSB() {       
         isUSBLoaded = false;
         this.NumberOfTracks = 0;
+        this.totalTrackCount = 0;
+        this.isPaused = false;
+        this.isPlaying = false;
            
         
     }
@@ -83,7 +95,6 @@ public class MyStereo implements StereoExtended {
     */
     
     public int currentTrackNumber() {
-        if (isUSBLoaded){}
         return this.currentTrackNumber;
        
     }
@@ -95,7 +106,6 @@ public class MyStereo implements StereoExtended {
     */
     
     public int totalTrackCount() {
-        if (isUSBLoaded){}
         return this.NumberOfTracks;
                 
     }
@@ -105,7 +115,6 @@ public class MyStereo implements StereoExtended {
     // These lines turn on Straight Play Mode to play the tracks consecutively.
     
     public void enableStraightPlayMode() {
-        if (isUSBLoaded){}
         this.enableStraightPlayMode = true;
         this.enableShufflePlayMode = false;
     }
@@ -115,7 +124,6 @@ public class MyStereo implements StereoExtended {
     //These lines enable shuffle, randomly queing the next track.
     
     public void enableShufflePlayMode() {
-        if (isUSBLoaded){}
         this.enableShufflePlayMode = true;
         this.enableStraightPlayMode = false;
         
@@ -128,10 +136,10 @@ public class MyStereo implements StereoExtended {
     // This stops the stereo from playing.
     
     public void stop() {
-       if (isUSBLoaded){
        isStopped = true;
        isPlaying = false;
-    }
+       isPaused = false;
+    
   
     }
 
@@ -140,11 +148,10 @@ public class MyStereo implements StereoExtended {
     // This pauses the stereo.
     
     public void pause() {
-        if (isUSBLoaded){
         isPaused = true;
         isPlaying = false;
         isStopped = false;
-        }
+        
     }
 
     @Override
@@ -156,7 +163,7 @@ public class MyStereo implements StereoExtended {
       if (isUSBLoaded){
         if (enableStraightPlayMode) {
            this.currentTrackNumber++;
-            if (currentTrackNumber > NumberOfTracks) {
+            if (currentTrackNumber > NumberOfTracks) 
                 this.currentTrackNumber = 1;
             } else {
                     if (enableShufflePlayMode) {
@@ -169,7 +176,7 @@ public class MyStereo implements StereoExtended {
             }
             }
       }
-    }
+    
 
     @Override
     
@@ -181,7 +188,7 @@ public class MyStereo implements StereoExtended {
             if (isUSBLoaded){
         if (enableStraightPlayMode) {
            this.currentTrackNumber--;
-            if (currentTrackNumber < 1) {
+            if (currentTrackNumber < 1) 
                 this.currentTrackNumber = NumberOfTracks;
             } else {
                     if (enableShufflePlayMode) {
@@ -194,7 +201,8 @@ public class MyStereo implements StereoExtended {
             }
             }
       }
-    }
+    
+
 
         
     @Override
@@ -246,3 +254,4 @@ public class MyStereo implements StereoExtended {
     }
     
 }
+
