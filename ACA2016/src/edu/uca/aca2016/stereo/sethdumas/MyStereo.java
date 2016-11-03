@@ -14,7 +14,6 @@ public class MyStereo implements Stereo {
     private boolean isPlaying = false;
     private boolean isPlayingStraight = false;
     private boolean isPaused = false;
-    private boolean isStopped = false;
 
     private static final Logger logger = Logger.getLogger(edu.uca.aca2016.stereo.sethdumas.MyStereo.class.getName());
 
@@ -46,7 +45,6 @@ public class MyStereo implements Stereo {
         this.isPlayingStraight = false;
         this.isPlaying = false;
         this.isPaused = false;
-        this.isStopped = false;
     }
 
     //return current track number
@@ -77,7 +75,6 @@ public class MyStereo implements Stereo {
     //stop playing
     @Override
     public void stop() {
-        this.isStopped = true;
         this.isPlaying = false;
         this.isPaused = false;
     }
@@ -87,7 +84,6 @@ public class MyStereo implements Stereo {
     public void pause() {
         this.isPaused = true;
         this.isPlaying = false;
-        this.isStopped = false;
     }
 
     //advance to next track
@@ -110,35 +106,34 @@ public class MyStereo implements Stereo {
     }
 
 //revert to previous track
-@Override
-        public void previousTrack() {
+    @Override
+    public void previousTrack() {
         if (!this.isUSBLoaded && !this.isPlaying) {
             return;
         }
-            
+
         if (this.isPlayingStraight) {
-                this.CurrentTrack--;
-                
-                if (this.CurrentTrack == 0) {
-                    this.CurrentTrack = this.TotalTracks;
-                }
-        }    
-        else {
+            this.CurrentTrack--;
+
+            if (this.CurrentTrack == 0) {
+                this.CurrentTrack = this.TotalTracks;
+            }
+        } else {
             Random rand = new Random();
             this.CurrentTrack = rand.nextInt(this.TotalTracks);
             this.CurrentTrack++;
-        }      
+        }
     }
 
     //return whether or not track is playing
     @Override
-        public boolean isPlaying() {
+    public boolean isPlaying() {
         return this.isPlaying;
     }
 
     //return whether or not track is paused
     @Override
-        public boolean isPaused() {
+    public boolean isPaused() {
         return this.isPaused;
     }
 }
