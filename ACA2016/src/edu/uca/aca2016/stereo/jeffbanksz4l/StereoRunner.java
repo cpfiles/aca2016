@@ -8,6 +8,8 @@ package edu.uca.aca2016.stereo.jeffbanksz4l;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -23,6 +25,8 @@ public class StereoRunner {
         
         Path f = Paths.get("C:\\Users\\jeffb\\Desktop\\Banks_MyPlayList.txt");
         myTracks.loadTrackList(f.toFile());
+        
+//        List<String> trackListSource = new ArrayList<trackListSource>;
         
         myTracks.loadUSB();
         System.out.println("Number of Tracks: " + myTracks.totalTrackCount());

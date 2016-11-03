@@ -16,6 +16,7 @@ import java.util.Scanner;
 
 /**
  * Initializing MyStereo class.
+ *
  * @author jeffb
  */
 public class MyStereo implements StereoExtended {
@@ -26,6 +27,8 @@ public class MyStereo implements StereoExtended {
     private boolean enableStraightPlayMode = true;
     private boolean isPlaying = false;
     private boolean isPaused = false;
+    private Object list;
+    private Object logger;
 
     /**
      * Setup the random generator between 1-1000. Defaulted Current Track Number
@@ -47,6 +50,7 @@ public class MyStereo implements StereoExtended {
 
     /**
      * Returning true if USB has been loaded.
+     *
      * @return State of USB.
      */
     @Override
@@ -66,6 +70,7 @@ public class MyStereo implements StereoExtended {
 
     /**
      * Returning the Current Track Number.
+     *
      * @return The current track number.
      */
     @Override
@@ -76,6 +81,7 @@ public class MyStereo implements StereoExtended {
     /**
      * Returning the Total Track Count from the Random generator from the
      * loadUSB method.
+     *
      * @return The total number of tracks.
      */
     @Override
@@ -106,7 +112,7 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public void stop() {
-        this.isPaused = true;
+        this.isPaused = false;
         this.isPlaying = false;
     }
 
@@ -171,7 +177,8 @@ public class MyStereo implements StereoExtended {
 
     /**
      * Returned isPlaying to true when isPaused and isStopped are false.
-     * @return Will state if isPlaying or not. 
+     *
+     * @return Will state if isPlaying or not.
      */
     @Override
     public boolean isPlaying() {
@@ -180,6 +187,7 @@ public class MyStereo implements StereoExtended {
 
     /**
      * Returned isPaused to true when isPlaying and isStopped are false.
+     *
      * @return Will state if isPaused or not.
      */
     @Override
@@ -189,37 +197,35 @@ public class MyStereo implements StereoExtended {
 
     /**
      * Loads a list of track names from the specified file.
-     * 
+     *
      * The file is a plain text file that contains one track name per line. For
-     * example:
-     *  Song 1.mp3
-     *  Song 2.mp3
-     *  Song 4.mp3
-     * 
+     * example: Song 1.mp3 Song 2.mp3 Song 4.mp3
+     *
      * @param trackListSource A file that contains a list of mp3 tracks. There
      * is one track per line.
-     * @throws IOException Any IO exceptions are caught and re-thrown as this 
+     * @throws IOException Any IO exceptions are caught and re-thrown as this
      * type of exception
      */
     @Override
     public void loadTrackList(File trackListSource) throws IOException {
-        
+
         Scanner s = null;
 
         try {
             s = new Scanner(new BufferedReader(new FileReader(trackListSource)));
 
-            while (s.hasNext()) {
-                System.out.println(s.next());
+            while (s.hasNextLine()) {
+//                list.add(s.nextLine());
+
             }
-        } 
-        finally {
+        } catch (IOException e) {
+//            logger.error("Failed to load file.", e);
+        } finally {
             if (s != null) {
                 s.close();
             }
         }
-        
-        
+
     }
 
     /**
@@ -232,6 +238,7 @@ public class MyStereo implements StereoExtended {
 
     /**
      * Return a list of all the tracks that are loaded.
+     *
      * @return
      */
     @Override
@@ -241,6 +248,7 @@ public class MyStereo implements StereoExtended {
 
     /**
      * Get the full file name of the current track
+     *
      * @return The current track's file name.
      */
     @Override
