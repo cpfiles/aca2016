@@ -144,7 +144,7 @@ public class MyStereo implements StereoExtended {
     /*
     *  moves to next track in list. if on last track of list while on Straight
     *  Play mode, loops back to first track.  On Shuffle Play, moves to random
-    *  track w/in trackTotal
+    *  track w/in track list
      */
     public void nextTrack() {
         this.isPaused = false;
@@ -168,7 +168,7 @@ public class MyStereo implements StereoExtended {
     /*
     *  moves to previous track in list. if on first track of list while on Straight
     *  Play mode, loops back to first track.  On Shuffle Play, moves to random
-    *  track w/in trackTotal
+    *  track w/in track list
      */
     public void previousTrack() {
         this.isPaused = false;
@@ -191,9 +191,6 @@ public class MyStereo implements StereoExtended {
 
     //returns isPlaying
     public boolean isPlaying() {
-        if (this.isPlayingStraight == true || this.isPlayingShuffle == true) {
-            this.isPlaying = true;
-        }
         return this.isPlaying;
     }
 
@@ -230,6 +227,8 @@ public class MyStereo implements StereoExtended {
      */
     public void play() {
         this.isPlaying = true;
+        this.isPaused = false;
+        this.isStopped = false;
     }
 
     /**
@@ -253,17 +252,44 @@ public class MyStereo implements StereoExtended {
 
     public static void main(String[] args) {
         // TODO code application logic here
-        MyStereo test = new MyStereo();
-        File tl = new File("C:\\Users\\Carter\\Documents\\NetBeansProjects\\aca2016\\ACA2016\\resources\\io\\tracklist.txt");
-        test.loadTrackList(tl);
-        System.out.println(test.getTrackList());
-        test.loadUSB();
-        test.play();
-        System.out.println(test.currentTrackNumber());
-        System.out.println(test.getCurrentTrackFileName());
-        test.previousTrack();
-        System.out.println(test.currentTrackNumber());
-        System.out.println(test.getCurrentTrackFileName());
+//        MyStereo test = new MyStereo();
+//        File tl = new File("C:\\Users\\Carter\\Documents\\NetBeansProjects\\aca2016\\ACA2016\\resources\\io\\tracklist.txt");
+//        test.loadTrackList(tl);
+//        System.out.println(test.getTrackList());
+//        test.loadUSB();
+//        test.play();
+//        System.out.println(test.currentTrackNumber());
+//        System.out.println(test.getCurrentTrackFileName());
+//        test.nextTrack();
+//        System.out.println(test.currentTrackNumber());
+//        System.out.println(test.getCurrentTrackFileName());
+//        test.nextTrack();
+//        System.out.println(test.currentTrackNumber());
+//        System.out.println(test.getCurrentTrackFileName());
+//        test.nextTrack();
+//        System.out.println(test.currentTrackNumber());
+//        System.out.println(test.getCurrentTrackFileName());
+//        test.nextTrack();
+//        System.out.println(test.currentTrackNumber());
+//        System.out.println(test.getCurrentTrackFileName());
+//        test.nextTrack();
+//        System.out.println(test.currentTrackNumber());
+//        System.out.println(test.getCurrentTrackFileName());
+//        test.nextTrack();
+//        System.out.println(test.currentTrackNumber());
+//        System.out.println(test.getCurrentTrackFileName());
+//        test.nextTrack();
+//        System.out.println(test.currentTrackNumber());
+//        System.out.println(test.getCurrentTrackFileName());
+//        test.nextTrack();
+//        System.out.println(test.currentTrackNumber());
+//        System.out.println(test.getCurrentTrackFileName());
+//        test.nextTrack();
+//        System.out.println(test.currentTrackNumber());
+//        System.out.println(test.getCurrentTrackFileName());
+//        test.nextTrack();
+//        System.out.println(test.currentTrackNumber());
+//        System.out.println(test.getCurrentTrackFileName());
         }
 
 }
