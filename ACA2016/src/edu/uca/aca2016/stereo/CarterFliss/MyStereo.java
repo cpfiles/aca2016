@@ -47,16 +47,17 @@ public class MyStereo implements StereoExtended {
     *  trackList.size() (-1 so other methods reference the correct indeces)
     *  Defaults on Straight Play mode.
      */
+    
     public void loadUSB() {
-        this.isUSBLoaded = true;
-        this.isPlaying = true;
-        this.isPlayingStraight = true;
-        Random genTL = new Random();
-        this.trackTotal = (this.trackList.size() - 1);
-        while (this.trackTotal == 0) {
-            this.trackTotal++;
-            break;
-        }
+//        this.isUSBLoaded = true;
+//        this.isPlaying = true;
+//        this.isPlayingStraight = true;
+//         this.trackTotal = (this.trackList.size() - 1);
+//        while (this.trackTotal == 0) {
+//            this.trackTotal++;
+//            break;
+//        }
+    return;
     }
 
     /*
@@ -225,15 +226,22 @@ public class MyStereo implements StereoExtended {
      * type of exception
      */
     public void loadTrackList(File trackListSource) {
+        Scanner s = null;
+        this.isUSBLoaded = true;
+        this.isPlaying = true;
+        this.isPlayingStraight = true;
+        
         try {
-            Scanner s = new Scanner(trackListSource);
+            s = new Scanner(trackListSource);
             while (s.hasNextLine()) {
                 this.trackList.add(s.nextLine());
             }
             s.close();
+            this.trackTotal = (this.trackList.size() - 1);
         } catch (IOException ex) {
             new Exception("IO Error:" + ex.getMessage());
-        }
+        } 
+        
     }
 
     /**
@@ -273,14 +281,24 @@ public class MyStereo implements StereoExtended {
 
     public static void main(String[] args) {
         // TODO code application logic here
-        MyStereo t = new MyStereo();
-        File tl = new File("C:\\Users\\Carter\\Documents\\NetBeansProjects\\aca2016\\ACA2016\\resources\\io\\tracklist.txt");
-        t.loadUSB();
-        t.loadTrackList(tl);
-        t.unloadUSB();
-        System.out.println(t.getTrackList());
-        System.out.println(t.currentTrackNumber());
-        System.out.println(t.getCurrentTrackFileName());
+//        MyStereo t = new MyStereo();
+//        File tl = new File("C:\\Users\\Carter\\Documents\\NetBeansProjects\\aca2016\\ACA2016\\resources\\io\\tracklist.txt");
+//        
+//        t.loadTrackList(tl);
+//        
+//        
+//        System.out.println(t.getTrackList());
+//        System.out.println(t.currentTrackNumber());
+//        System.out.println(t.getCurrentTrackFileName());
+//        t.previousTrack();
+//        System.out.println(t.currentTrackNumber());
+//        System.out.println(t.getCurrentTrackFileName());
+//        t.previousTrack();
+//        System.out.println(t.currentTrackNumber());
+//        System.out.println(t.getCurrentTrackFileName());
+//        t.previousTrack();
+//        System.out.println(t.currentTrackNumber());
+//        System.out.println(t.getCurrentTrackFileName());
     }
 
 }
