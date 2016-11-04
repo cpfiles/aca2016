@@ -5,7 +5,17 @@
  */
 package edu.uca.aca2016.stereo.clintlemons;
 import edu.uca.aca2016.interfaces.StereoExtended;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Collection;
+import java.util.Collections;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+        
 
 /**
  *
@@ -26,6 +36,7 @@ public class MyStereo implements StereoExtended {
     private boolean Enable_Shuffle_Play;
     private boolean Enable_Straight_Play;
     //Initializer variables
+    
     public MyStereo() {
         this.Enable_Straight_Play = false;
         this.Enable_Shuffle_Play = false;
@@ -140,6 +151,27 @@ public class MyStereo implements StereoExtended {
     @Override
     public boolean isPaused() {
         return Is_Paused;
+    }
+    //**
+
+    @Override
+    public void loadTrackList(File trackListSource) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void play() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<String> getTrackList() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCurrentTrackFileName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
                     
