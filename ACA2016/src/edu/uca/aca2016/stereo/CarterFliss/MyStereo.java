@@ -283,7 +283,7 @@ public class MyStereo implements StereoExtended {
         // TODO code application logic here
 //        MyStereo t = new MyStereo();
 //        File tl = new File("C:\\Users\\Carter\\Documents\\NetBeansProjects\\aca2016\\ACA2016\\resources\\io\\tracklist.txt");
-//        
+//        t.loadUSB();
 //        t.loadTrackList(tl);
 //        
 //        
