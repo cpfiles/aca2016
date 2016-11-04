@@ -234,7 +234,13 @@ public class MyStereo implements StereoExtended {
                 String e = null;
                 tracks.add(current_track, e);
             }
-        } finally {
+        }
+            catch(IOException e){
+                    System.err.println("Caught IOException" + e.getMessage());
+                    }
+                    
+                
+         finally {
             if (s != null) {
                 
             }
@@ -246,7 +252,11 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public void play() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (isUSBLoaded = true) {
+        isPlaying = true;
+        isPaused = false;
+        isStopped = false;
+        }
     }
 
     /**
@@ -256,7 +266,8 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public ArrayList<String> getTrackList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (ArrayList<String>) tracks;
+        
     }
 
     /**
