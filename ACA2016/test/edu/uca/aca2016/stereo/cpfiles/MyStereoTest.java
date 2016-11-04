@@ -220,8 +220,45 @@ public class MyStereoTest{
      * Test of previousTrack method, of class MyStereo.
      */
     @Test
-    public void testPreviousTrack(){
+    public void testPreviousTrack_StraightPlay(){
+        this.stereo.loadUSB();
 
+        assertEquals(this.stereo.currentTrackNumber(),1);
+        assertTrue("There should be 1000 or fewer tracks",this.stereo.totalTrackCount() <= 1000);
+
+        this.stereo.previousTrack();
+        
+        assertEquals(this.stereo.currentTrackNumber(),this.stereo.totalTrackCount());
+    }
+    
+    @Test
+    public void testPreviousTrack_ShufflePlay(){
+        this.stereo.loadUSB();
+
+        assertEquals(this.stereo.currentTrackNumber(),1);
+        assertTrue("There should be 1000 or fewer tracks",this.stereo.totalTrackCount() <= 1000);
+
+        // for the rest of this test to work, we need at least 15 tracks.
+        // we should unload and reload until we get there.
+        while(this.stereo.totalTrackCount() < 15){
+            this.stereo.unloadUSB();
+            this.stereo.loadUSB();
+        }
+
+        // enable shuffle play
+        this.stereo.enableShufflePlayMode();
+
+        // we are going to attempt to store 15 random tracks in a set
+        Set<Integer> s = new HashSet<>();
+
+        for(int i = 1; i < 15; i++){
+            this.stereo.previousTrack();
+
+            s.add(this.stereo.currentTrackNumber());
+        }
+
+        // the idea is we *should* always get more than 5 random tracks out of 15 attempts.
+        assertTrue("There should be at least 5 random tracks in 15 attempts",s.size() >= 5);
     }
 
     /**
@@ -277,7 +314,24 @@ public class MyStereoTest{
      */
     @Test
     public void testPlay(){
+        assertFalse(this.stereo.isPlaying());
         
+        this.stereo.loadUSB();
+        
+        this.stereo.play();
+        assertTrue(this.stereo.isPlaying());
+
+        this.stereo.stop();
+        assertFalse(this.stereo.isPlaying());
+        
+        this.stereo.play();
+        assertTrue(this.stereo.isPlaying());
+        
+        this.stereo.pause();
+        assertFalse(this.stereo.isPlaying());
+        
+        this.stereo.play();
+        assertTrue(this.stereo.isPlaying());
     }
 
     /**
