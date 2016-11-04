@@ -242,7 +242,11 @@ public class MyStereo implements StereoExtended {
      * @return
      */
     public ArrayList<String> getTrackList() {
-        return this.trackList;
+        if (this.trackList.size() == 0) {
+            return null;
+        } else {
+            return this.trackList;
+        }
     }
 
     /**
@@ -251,49 +255,15 @@ public class MyStereo implements StereoExtended {
      * @return The current track's file name.
      */
     public String getCurrentTrackFileName() {
-        return this.currentTrackEx = this.trackList.get(this.currentTrack);
+        if (this.currentTrack == 0) {
+            return null;
+        } else {
+            return this.currentTrackEx = this.trackList.get(this.currentTrack);
+        }
     }
 
     public static void main(String[] args) {
         // TODO code application logic here
-//        MyStereo test = new MyStereo();
-//        File tl = new File ("C:\\Users\\Carter\\Documents\\NetBeansProjects\\aca2016\\ACA2016\\resources\\io\\tracklist.txt");
-//        test.loadTrackList(tl);
-//        System.out.println(test.getTrackList());
-//        test.loadUSB();
-//        test.play();
-//        System.out.println(test.currentTrackNumber());
-//        System.out.println(test.getCurrentTrackFileName());
-//        test.nextTrack();
-//        System.out.println(test.currentTrackNumber());
-//        System.out.println(test.getCurrentTrackFileName());
-//        test.nextTrack();
-//        System.out.println(test.currentTrackNumber());
-//        System.out.println(test.getCurrentTrackFileName());
-//        test.nextTrack();
-//        System.out.println(test.currentTrackNumber());
-//        System.out.println(test.getCurrentTrackFileName());
-//        test.nextTrack();
-//        System.out.println(test.currentTrackNumber());
-//        System.out.println(test.getCurrentTrackFileName());
-//        test.nextTrack();
-//        System.out.println(test.currentTrackNumber());
-//        System.out.println(test.getCurrentTrackFileName());
-//        test.nextTrack();
-//        System.out.println(test.currentTrackNumber());
-//        System.out.println(test.getCurrentTrackFileName());
-//        test.nextTrack();
-//        System.out.println(test.currentTrackNumber());
-//        System.out.println(test.getCurrentTrackFileName());
-//        test.nextTrack();
-//        System.out.println(test.currentTrackNumber());
-//        System.out.println(test.getCurrentTrackFileName());
-//        test.nextTrack();
-//        System.out.println(test.currentTrackNumber());
-//        System.out.println(test.getCurrentTrackFileName());
-//        test.nextTrack();
-//        System.out.println(test.currentTrackNumber());
-//        System.out.println(test.getCurrentTrackFileName());
     }
 
 }
