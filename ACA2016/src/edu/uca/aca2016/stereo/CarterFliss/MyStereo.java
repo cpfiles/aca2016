@@ -43,7 +43,8 @@ public class MyStereo implements StereoExtended {
 
     /*
     *  loads USB device and enables starting variables
-    *  such as isUSBLoaded, isPlaying, and generates trackTotal
+    *  such as isUSBLoaded, isPlaying, and generates trackTotal based on 
+    *  trackList.size() (-1 so other methods reference the correct indeces)
     *  Defaults on Straight Play mode.
      */
     public void loadUSB() {
@@ -59,8 +60,7 @@ public class MyStereo implements StereoExtended {
     }
 
     /*
-    *  checks if USB device is loaded, providing appropriate message
-    *  in relation to current device state
+    *  checks if USB device is loaded
      */
     public boolean isUSBLoaded() {
         return this.isUSBLoaded;
@@ -84,7 +84,9 @@ public class MyStereo implements StereoExtended {
     }
 
     /*
-    *  Generates and returns a current track number, defaulting at first track
+    *  returns current track number
+    *  adds +1 to currentTrack because of index reference changes
+    *  established in loadUSB method
      */
     public int currentTrackNumber() {
         return (this.currentTrack + 1);
@@ -92,6 +94,8 @@ public class MyStereo implements StereoExtended {
 
     /*
     *  returns trackTotal
+     *  adds +1 to trackTotal because of index reference changes
+    *  established in loadUSB method
      */
     public int totalTrackCount() {
         return (this.trackTotal + 1);
@@ -133,6 +137,7 @@ public class MyStereo implements StereoExtended {
 
     /*
     *  Pauses music without reverting other variables
+    *  Change
      */
     public void pause() {
         this.isPaused = true;
@@ -246,14 +251,13 @@ public class MyStereo implements StereoExtended {
      * @return The current track's file name.
      */
     public String getCurrentTrackFileName() {
-        this.currentTrackEx = this.trackList.get(this.currentTrack);
-        return this.currentTrackEx;
+        return this.currentTrackEx = this.trackList.get(this.currentTrack);
     }
 
     public static void main(String[] args) {
         // TODO code application logic here
 //        MyStereo test = new MyStereo();
-//        File tl = new File("C:\\Users\\Carter\\Documents\\NetBeansProjects\\aca2016\\ACA2016\\resources\\io\\tracklist.txt");
+//        File tl = new File ("C:\\Users\\Carter\\Documents\\NetBeansProjects\\aca2016\\ACA2016\\resources\\io\\tracklist.txt");
 //        test.loadTrackList(tl);
 //        System.out.println(test.getTrackList());
 //        test.loadUSB();
@@ -290,6 +294,6 @@ public class MyStereo implements StereoExtended {
 //        test.nextTrack();
 //        System.out.println(test.currentTrackNumber());
 //        System.out.println(test.getCurrentTrackFileName());
-        }
+    }
 
 }
