@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+//import java.util.logging.Logger;
 
 /**
  * Initializing MyStereo class.
@@ -219,7 +220,7 @@ public class MyStereo implements StereoExtended {
 
             }
         } catch (IOException e) {
-//            logger.error("Failed to load file.", e);
+//            logger.log("Failed to load file.", e);
         } finally {
             if (s != null) {
                 s.close();
@@ -249,7 +250,7 @@ public class MyStereo implements StereoExtended {
     /**
      * Get the full file name of the current track
      *
-     * @return The current track's file name.
+     * @return The current tracks file name.
      */
     @Override
     public String getCurrentTrackFileName() {
