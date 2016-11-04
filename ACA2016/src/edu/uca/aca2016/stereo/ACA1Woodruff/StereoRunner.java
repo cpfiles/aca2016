@@ -6,6 +6,11 @@
 package edu.uca.aca2016.stereo.ACA1Woodruff;
 
 ///*import edu.uca.aca2016.interfaces.Stereo;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 //import java.util.Random;*/
 /**
  *
@@ -18,7 +23,13 @@ public class StereoRunner {
      */
     public static void main(String[] args) {
         MyStereo myTracks = new MyStereo();
+        File f = new File("C:\\Users\\awood\\Desktop\\MyStereoTracks.txt");
 
+        try {
+            myTracks.loadTrackList(f);
+        } catch (IOException ex) {
+            Logger.getLogger(StereoRunner.class.getName()).log(Level.SEVERE, null, ex);
+        }
         for (int x = 0; x < 4; x++) {
             System.out.println("Playing (false): " + myTracks.isPlaying());
             myTracks.loadUSB();
