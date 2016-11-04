@@ -168,21 +168,21 @@ public class MyStereo implements StereoExtended {
 
     }
 
-// determines if the USB is playing
+/** determines if the USB is playing */
     @Override
     public boolean isPlaying() {
         
         return isPlaying;
 
     }
-// determines if USB is paused
+/** determines if USB is paused */
 
     @Override
     public boolean isPaused() {
         
         return isPaused;
     }
-
+/** loads tracklist from files on the computer */
     @Override
     public void loadTrackList(File trackListSource) throws IOException {
        Scanner s = null;
@@ -215,13 +215,14 @@ public class MyStereo implements StereoExtended {
     public void play() {
         isUSBLoaded = true;
         isPaused=false;
+        stop = false;
     }
-
+/** gets loaded track list */
     @Override
     public ArrayList<String> getTrackList() {
         return (ArrayList<String>) tracklist;
     }
-
+/** gets name of current track */
     @Override
     public String getCurrentTrackFileName() {
        if(currentTrack > 0 || currentTrack < number_of_tracks) {
