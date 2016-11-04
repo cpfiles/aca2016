@@ -89,7 +89,10 @@ public class MyStereo implements StereoExtended {
     *  established in loadUSB method
      */
     public int currentTrackNumber() {
-        return (this.currentTrack + 1);
+        if(this.trackList.isEmpty()){
+           return 0; 
+        }
+        else {return (this.currentTrack + 1);}
     }
 
     /*
@@ -98,7 +101,10 @@ public class MyStereo implements StereoExtended {
     *  established in loadUSB method
      */
     public int totalTrackCount() {
-        return (this.trackTotal + 1);
+        if(this.trackList.isEmpty()){
+           return 0; 
+        }
+        else {return (this.trackTotal + 1);}
     }
 
     /*
@@ -242,7 +248,7 @@ public class MyStereo implements StereoExtended {
      * @return
      */
     public ArrayList<String> getTrackList() {
-        if (this.trackList.size() == 0) {
+        if (this.trackList.isEmpty()) {
             return null;
         } else {
             return this.trackList;
@@ -255,7 +261,7 @@ public class MyStereo implements StereoExtended {
      * @return The current track's file name.
      */
     public String getCurrentTrackFileName() {
-        if (this.currentTrack == 0) {
+        if (this.trackList.isEmpty()) {
             return null;
         } else {
             return this.currentTrackEx = this.trackList.get(this.currentTrack);
@@ -264,6 +270,12 @@ public class MyStereo implements StereoExtended {
 
     public static void main(String[] args) {
         // TODO code application logic here
+        MyStereo t = new MyStereo();
+        File tl = new File("C:\\Users\\Carter\\Documents\\NetBeansProjects\\aca2016\\ACA2016\\resources\\io\\tracklist.txt");
+        
+        System.out.println(t.getTrackList());
+        System.out.println(t.currentTrackNumber());
+        System.out.println(t.getCurrentTrackFileName());
     }
 
 }
