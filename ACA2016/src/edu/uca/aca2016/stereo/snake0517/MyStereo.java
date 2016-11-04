@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -21,7 +22,7 @@ import java.util.Scanner;
  * @author brela
  */
 public class MyStereo implements StereoExtended {
-
+    
     private int number_of_tracks = 0;
     private boolean isUSBLoaded = false;
     private boolean enableStraightPlayMode = true;
@@ -30,6 +31,7 @@ public class MyStereo implements StereoExtended {
     private boolean isPaused = false;
     private int current_track = 0;
     private boolean isStopped = false;
+    private List<String> tracks = new ArrayList<>();
 
     /**
      * This method should load mp3s from a USB drive.
@@ -41,9 +43,9 @@ public class MyStereo implements StereoExtended {
     @Override
     public void loadUSB() {
         int bound = 1000;
-
+        
         Random r = new Random();
-
+        
         number_of_tracks = r.nextInt(bound);
         number_of_tracks++;
         isUSBLoaded = true;
@@ -60,7 +62,7 @@ public class MyStereo implements StereoExtended {
     @Override
     public boolean isUSBLoaded() {
         return isUSBLoaded;
-
+        
     }
 
     /**
@@ -73,7 +75,7 @@ public class MyStereo implements StereoExtended {
         this.number_of_tracks = 0;
         isPaused = false;
         isPlaying = false;
-
+        
     }
 
     /**
@@ -84,7 +86,7 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public int currentTrackNumber() {
-
+        
         return current_track;
     }
 
@@ -95,7 +97,7 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public int totalTrackCount() {
-
+        
         return this.number_of_tracks;
     }
 
@@ -111,7 +113,7 @@ public class MyStereo implements StereoExtended {
     public void enableStraightPlayMode() {
         enableStraightPlayMode = true;
         enableShufflePlayMode = false;
-
+        
     }
 
     /**
@@ -163,7 +165,7 @@ public class MyStereo implements StereoExtended {
                 Random r = new Random();
                 this.current_track = r.nextInt((bound) + 1);
             }
-
+            
         }
     }
 
@@ -183,7 +185,7 @@ public class MyStereo implements StereoExtended {
                 Random r = new Random();
                 this.current_track = r.nextInt((bound) + 1);
             }
-
+            
         }
     }
 
@@ -194,9 +196,9 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public boolean isPlaying() {
-
+        
         return isPlaying;
-
+        
     }
 
     /**
@@ -206,7 +208,7 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public boolean isPaused() {
-
+        
         return isPaused;
     }
 
@@ -223,21 +225,21 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public void loadTrackList(File trackListSource) throws IOException {
-       Scanner s = null;
-       
-       try {
-           s = new Scanner(new BufferedReader(new FileReader(trackListSource)));
-           while (s.hasNext()) {
-           
-       }
-       }
-       finally{
-           if(s!= null) {
-               
-           }
-       }
+        Scanner s = null;
+        
+        try {
+            s = new Scanner(new BufferedReader(new FileReader(trackListSource)));
+            while (s.hasNext()) {
+              System.out.println(s.next());
+                String e = null;
+                tracks.add(current_track, e);
+            }
+        } finally {
+            if (s != null) {
+                
+            }
+        }
     }
-    
 
     /**
      * Restarts the playing process.
@@ -266,5 +268,5 @@ public class MyStereo implements StereoExtended {
     public String getCurrentTrackFileName() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }
