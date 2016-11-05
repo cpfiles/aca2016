@@ -22,7 +22,7 @@ import java.util.Scanner;
  * @author brela
  */
 public class MyStereo implements StereoExtended {
-    
+
     private int number_of_tracks = 0;
     private boolean isUSBLoaded = false;
     private boolean enableStraightPlayMode = true;
@@ -43,9 +43,9 @@ public class MyStereo implements StereoExtended {
     @Override
     public void loadUSB() {
         int bound = 1000;
-        
+
         Random r = new Random();
-        
+
         number_of_tracks = r.nextInt(bound);
         number_of_tracks++;
         isUSBLoaded = true;
@@ -62,7 +62,7 @@ public class MyStereo implements StereoExtended {
     @Override
     public boolean isUSBLoaded() {
         return isUSBLoaded;
-        
+
     }
 
     /**
@@ -75,7 +75,7 @@ public class MyStereo implements StereoExtended {
         this.number_of_tracks = 0;
         isPaused = false;
         isPlaying = false;
-        
+
     }
 
     /**
@@ -86,7 +86,7 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public int currentTrackNumber() {
-        
+
         return current_track;
     }
 
@@ -97,7 +97,7 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public int totalTrackCount() {
-        
+
         return this.number_of_tracks;
     }
 
@@ -113,7 +113,7 @@ public class MyStereo implements StereoExtended {
     public void enableStraightPlayMode() {
         enableStraightPlayMode = true;
         enableShufflePlayMode = false;
-        
+
     }
 
     /**
@@ -165,7 +165,7 @@ public class MyStereo implements StereoExtended {
                 Random r = new Random();
                 this.current_track = r.nextInt((bound) + 1);
             }
-            
+
         }
     }
 
@@ -185,7 +185,7 @@ public class MyStereo implements StereoExtended {
                 Random r = new Random();
                 this.current_track = r.nextInt((bound) + 1);
             }
-            
+
         }
     }
 
@@ -196,9 +196,9 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public boolean isPlaying() {
-        
+
         return isPlaying;
-        
+
     }
 
     /**
@@ -208,7 +208,7 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public boolean isPaused() {
-        
+
         return isPaused;
     }
 
@@ -225,25 +225,12 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public void loadTrackList(File trackListSource) throws IOException {
-        Scanner s = null;
-        
-        try {
-            s = new Scanner(new BufferedReader(new FileReader(trackListSource)));
-            while (s.hasNext()) {
-              System.out.println(s.next());
-                String e = null;
-                tracks.add(current_track, e);
+        try (Scanner s = new Scanner(new BufferedReader(new FileReader(trackListSource)))) {
+            while (s.hasNextLine()) {
+                tracks.add(s.nextLine());
             }
-        }
-            catch(IOException e){
-                    System.err.println("Caught IOException" + e.getMessage());
-                    }
-                    
-                
-         finally {
-            if (s != null) {
-                
-            }
+        } catch (IOException e) {
+            System.err.println("Caught IOException" + e.getMessage());
         }
     }
 
@@ -253,9 +240,9 @@ public class MyStereo implements StereoExtended {
     @Override
     public void play() {
         if (isUSBLoaded = true) {
-        isPlaying = true;
-        isPaused = false;
-        isStopped = false;
+            isPlaying = true;
+            isPaused = false;
+            isStopped = false;
         }
     }
 
@@ -267,7 +254,7 @@ public class MyStereo implements StereoExtended {
     @Override
     public ArrayList<String> getTrackList() {
         return (ArrayList<String>) tracks;
-        
+
     }
 
     /**
@@ -277,7 +264,7 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public String getCurrentTrackFileName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.tracks.get(current_track);
     }
-    
+
 }
