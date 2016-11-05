@@ -273,34 +273,5 @@ public class MyStereo implements StereoExtended {
     }
 
 }
-public static void main(String[] args) {
-        // TODO code application logic here
-        //testing code for Straight play.  Will test other functions here.
-//        StereoPlayer straightStereoTest = new StereoPlayer();
-//        straightStereoTest.loadUSB();
-//        straightStereoTest.enableStraightPlayMode();
-//        straightStereoTest.stop();
-//        straightStereoTest.previousTrack();
-//        straightStereoTest.unloadUSB();
-        //testing code for Shuffle play.
-//        StereoPlayer randStereoTest = new StereoPlayer();
-//        randStereoTest.loadUSB();
-//        randStereoTest.currentTrackNumber();
-//        randStereoTest.enableShufflePlayMode();
-//        randStereoTest.stop();
-//        randStereoTest.nextTrack();
-//        randStereoTest.unloadUSB();
-//          StereoPlayer t = new StereoPlayer();
-//          t.loadUSB();
-//          t.enableStraightPlayMode();
-//          t.nextTrack();
-//          t.nextTrack();
-//          t.nextTrack();
-//          t.enableShufflePlayMode();
-//          t.previousTrack();
-//          t.stop();
-//          t.unloadUSB();
 
-    }
-
-}
+    
