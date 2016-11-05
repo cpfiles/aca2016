@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-//import java.util.logging.Logger;
 
 /**
  * Initializing MyStereo class.
@@ -28,8 +27,7 @@ public class MyStereo implements StereoExtended {
     private boolean enableStraightPlayMode = true;
     private boolean isPlaying = false;
     private boolean isPaused = false;
-    private Object list;
-    private Object logger;
+    String getCurrentTrackFileName;
 
     /**
      * Setup the random generator between 1-1000. Defaulted Current Track Number
@@ -197,15 +195,10 @@ public class MyStereo implements StereoExtended {
     }
 
     /**
-     * Loads a list of track names from the specified file.
+     * Load user's list of tracks.
      *
-     * The file is a plain text file that contains one track name per line. For
-     * example: Song 1.mp3 Song 2.mp3 Song 4.mp3
-     *
-     * @param trackListSource A file that contains a list of mp3 tracks. There
-     * is one track per line.
-     * @throws IOException Any IO exceptions are caught and re-thrown as this
-     * type of exception
+     * @param trackListSource Lists the user's mp3 tracks.
+     * @throws IOException thrown if any issues are found.
      */
     @Override
     public void loadTrackList(File trackListSource) throws IOException {
@@ -214,46 +207,46 @@ public class MyStereo implements StereoExtended {
 
         try {
             s = new Scanner(new BufferedReader(new FileReader(trackListSource)));
+            ArrayList<String> list = new ArrayList<>();
 
             while (s.hasNextLine()) {
-//                list.add(s.nextLine());
-
+                list.add(s.nextLine());
             }
         } catch (IOException e) {
-//            logger.log("Failed to load file.", e);
+            System.err.println("Caught IOException: " + e.getMessage());
         } finally {
             if (s != null) {
                 s.close();
             }
         }
-
     }
 
     /**
-     * Restarts the playing process.
+     * Play is restarted.
      */
     @Override
     public void play() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.isPlaying = true;
     }
 
     /**
-     * Return a list of all the tracks that are loaded.
+     * The available Track List is returned.
      *
-     * @return
+     * @return the track list
      */
     @Override
     public ArrayList<String> getTrackList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ArrayList<>();
     }
 
     /**
-     * Get the full file name of the current track
+     * Used to return the Current Track File.
      *
      * @return The current tracks file name.
      */
     @Override
     public String getCurrentTrackFileName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.currentTrackNumber--;
+        return this.getCurrentTrackFileName;
     }
 }
