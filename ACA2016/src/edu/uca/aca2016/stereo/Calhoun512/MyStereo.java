@@ -10,7 +10,13 @@ import edu.uca.aca2016.interfaces.Stereo;
 import edu.uca.aca2016.interfaces.StereoExtended;
 import java.io.File;
 import java.io.IOException;
+import static java.nio.file.Files.list;
+import static java.util.Collections.list;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.List;
 
 // Importing the Random Number Generator utility (I'm thankful they included)
 
@@ -35,8 +41,11 @@ public class MyStereo implements StereoExtended {
     private boolean isStopped = false;
     private int currentTrackNumber = 0;
     private int totalTrackCount = 0;
+    private ArrayList <String> trackList;
     
     private static final Logger logger = Logger.getLogger(MyStereo.class.getName());
+    private int currentTrack;
+    
    
     
 
@@ -234,24 +243,51 @@ public class MyStereo implements StereoExtended {
     }
 
     @Override
-    public void loadTrackList(File trackListSource) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void loadTrackList(File trackListSource)throws IOException {
+       
+        Scanner s = null; 
+        this.isUSBLoaded = true;
+        this.isPlaying = true;      
+        try{
+            s = new Scanner (trackListSource);            
+            while (s.hasNextLine()) {
+                this.trackList.add(s.nextLine());               
+            }   
+            
+            
+        }catch (IOException ex) {
+            new Exception ("IO Error:" + ex.getMessage());           
+        } finally {
+            if (s != null) {
+                s.close();
+            }
+        }
+        
     }
 
     @Override
     public void play() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        isPaused = false;
+        isStopped = false;
+        isPlaying = true;
     }
 
     @Override
     public ArrayList<String> getTrackList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.trackList;
     }
+            
+    
+    
+
 
     @Override
     public String getCurrentTrackFileName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.trackList.get(this.currentTrackNumber + 1);
     }
+
+
+    
     
 }
 
