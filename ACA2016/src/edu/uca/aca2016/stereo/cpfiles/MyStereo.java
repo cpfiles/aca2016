@@ -5,7 +5,13 @@
  */
 package edu.uca.aca2016.stereo.cpfiles;
 
-import edu.uca.aca2016.interfaces.Stereo;
+import edu.uca.aca2016.interfaces.StereoExtended;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -13,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author cpfil
  */
-public class MyStereo implements Stereo {
+public class MyStereo implements StereoExtended {
     private boolean isUSBLoaded = false;
     private boolean isPlaying = false;
     private boolean isPaused = false;
@@ -22,7 +28,8 @@ public class MyStereo implements Stereo {
     private boolean straightPlayMode = true;
     
     private static final Logger logger = Logger.getLogger(MyStereo.class.getName());
-
+    
+    private ArrayList<String> tracks = new ArrayList<>();
 
     @Override
     public void loadUSB() {
@@ -135,5 +142,53 @@ public class MyStereo implements Stereo {
     @Override
     public boolean isPaused() {
         return this.isPaused;
+    }
+
+    @Override
+    public void loadTrackList(File trackListSource) throws IOException{
+        if (trackListSource == null || !trackListSource.exists()) {
+            throw new IOException("Cannot read the input file");
+        }
+
+        BufferedReader br = new BufferedReader(new FileReader(trackListSource));
+ 
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            this.tracks.add(line);
+        }
+
+        br.close();
+        this.isPlaying = true;
+        this.isUSBLoaded = true;
+        
+        this.totalTrackCount = this.tracks.size();
+        this.currentTrack = 1;
+    }
+
+    @Override
+    public void play(){
+        if (this.isUSBLoaded) {
+            this.isPaused = false;
+            this.isPlaying = true;
+        }
+    }
+
+    @Override
+    public ArrayList<String> getTrackList(){
+        return this.tracks;
+    }
+
+    @Override
+    public String getCurrentTrackFileName(){
+        try {
+            if (this.isUSBLoaded) {
+                return this.tracks.get(currentTrack-1);
+            }
+        }
+        catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+
+        return null;
     }
 }
