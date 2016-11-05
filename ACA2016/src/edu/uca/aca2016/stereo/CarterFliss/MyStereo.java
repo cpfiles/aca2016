@@ -47,7 +47,6 @@ public class MyStereo implements StereoExtended {
     *  trackList.size() (-1 so other methods reference the correct indeces)
     *  Defaults on Straight Play mode.
      */
-    
     public void loadUSB() {
 //        this.isUSBLoaded = true;
 //        this.isPlaying = true;
@@ -57,7 +56,7 @@ public class MyStereo implements StereoExtended {
 //            this.trackTotal++;
 //            break;
 //        }
-    return;
+        return;
     }
 
     /*
@@ -225,12 +224,12 @@ public class MyStereo implements StereoExtended {
      * @throws IOException Any IO exceptions are caught and re-thrown as this
      * type of exception
      */
-    public void loadTrackList(File trackListSource) {
+    public void loadTrackList(File trackListSource) throws IOException {
         Scanner s = null;
         this.isUSBLoaded = true;
         this.isPlaying = true;
         this.isPlayingStraight = true;
-        
+
         try {
             s = new Scanner(trackListSource);
             while (s.hasNextLine()) {
@@ -239,9 +238,9 @@ public class MyStereo implements StereoExtended {
             s.close();
             this.trackTotal = (this.trackList.size() - 1);
         } catch (IOException ex) {
-            new Exception("IO Error:" + ex.getMessage());
-        } 
-        
+            throw new IOException("IO Error:" + ex.getMessage());
+        }
+
     }
 
     /**
