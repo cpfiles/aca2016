@@ -9,6 +9,7 @@ import edu.uca.aca2016.interfaces.Stereo;
 import edu.uca.aca2016.interfaces.StereoExtended;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -182,23 +183,23 @@ public class MyStereo implements StereoExtended {
         
         return isPaused;
     }
-/** loads tracklist from files on the computer */
+/** loads tracklist from files on the computer and throws a file not found exception */
     @Override
-    public void loadTrackList(File trackListSource) throws IOException {
-       Scanner s = null;
+    public void loadTrackList(File trackListSource) throws FileNotFoundException {
+     Scanner s = null;
 
         try {
             
-            s = new Scanner(new BufferedReader(new FileReader("trackListSource")));
+            s = new Scanner(new BufferedReader(new FileReader("c:\\Users\\xulix\\Desktop\\tracks.txt")));
 
-            while (s.hasNext()) {
-                
+            while (s.hasNextLine()) {
+                List<String> tracklist = new ArrayList<>();
                 tracklist.add("trackListSource");
-                System.out.println(s.next());
+                System.out.println(s.nextLine());
             }
             
         } 
-        catch(IOException e){
+        catch(FileNotFoundException e){
             System.err.println("File Not Found: " + e.getMessage());
         }
         finally {
@@ -227,7 +228,7 @@ public class MyStereo implements StereoExtended {
     public String getCurrentTrackFileName() {
        if(currentTrack > 0 || currentTrack < number_of_tracks) {
            return null;
-        } else {return tracklist.get(currentTrack);
+        } else {return tracklist.get(currentTrack + 1);
            
         }
        
