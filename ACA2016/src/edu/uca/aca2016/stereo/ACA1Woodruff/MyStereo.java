@@ -7,7 +7,9 @@ package edu.uca.aca2016.stereo.ACA1Woodruff;
 
 //import edu.uca.aca2016.interfaces.Stereo;
 import edu.uca.aca2016.interfaces.StereoExtended;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -30,8 +32,10 @@ public class MyStereo implements StereoExtended {
     private boolean isPlaying = false;
     private boolean isPaused = false;
     private boolean isStopped = false;
-    private Object trackList;
-//    private int trackTotal;
+    private List<String> Tracks = new ArrayList<>();
+    private ArrayList trackList;
+    private int trackTotal;
+    private List<string> arrayList;
 
     @Override
     public void loadUSB() {
@@ -76,13 +80,18 @@ public class MyStereo implements StereoExtended {
 //**This method should unload the USB drive by resetting all of the counts and counters.*/
     @Override
     public int currentTrackNumber() {
-        return currentTrackNumber;
+        return this.currentTrackNumber;
     }
-//**This method should return the number of the current track that is "playing".*/
 
+    /**
+     * Returning the Total Track Count from the Random generator from the
+     * loadUSB method.
+     *
+     * @return The total number of tracks.
+     */
     @Override
-    public int NumberOfTracks() {
-        return NumberOfTracks;
+    public int totalTrackCount() {
+        return this.NumberOfTracks;
     }
 //**Return the total number of tracks loaded from the USB drive.*/
 
@@ -95,14 +104,10 @@ public class MyStereo implements StereoExtended {
         isStopped = false;
         System.out.println("Straight play enabled.");
     }
-//        enableStraightPlayMode = true;
-//        enableShufflePlayMode = false;
-//        isPlayingStraightPlayMode = true;
-//    }
+
 //**Plays the tracks in sequential order. This method should set the current track 
 //to the first track and keep a record of the current track. Note the only way the 
 //program moves to the next track is by calls to nextTrack and previousTrack.*/
-
     @Override
     public void enableShufflePlayMode() {
         isPlaying = true;
@@ -112,14 +117,10 @@ public class MyStereo implements StereoExtended {
         isStopped = false;
         System.out.println("Shuffle play enabled.");
     }
-//        enableShufflePlayMode = true;
-//        enableStraightPlayMode = false;
-//        isPlayingStraightPlayMode = false;
-//    }
+
 //**Plays tracks in a random order. This method should set the current track to a random
 //track and keep a record of the current track. Note the only way the program moves to the 
 //next track is by calls to nextTrack and previousTrack.*/
-
     @Override
     public void stop() {
         isStopped = true;
@@ -161,23 +162,8 @@ public class MyStereo implements StereoExtended {
         }
         System.out.println("Currently playing Track " + currentTrackNumber + " of " + NumberOfTracks);
     }
-// *   if (isUSBLoaded && isPlaying) {
-//            if (enableStraightPlayMode) {
-//            }
-//        }
-//    this.currentTrackNumber
-//    ++;
-//    if (currentTrackNumber > NumberOfTracks) {
-//    this.currentTrackNumber = 1;
-//    }
-//        else {
-//            int bound = NumberOfTracks;
-//        Random r = new Random();
-//        currentTrackNumber = r.nextInt((bound) + 1);
-//    }
-//}
-//**Advances to next track*/
 
+//**Advances to next track*/
     @Override
     public void previousTrack() {
         if (isUSBLoaded && isPlaying) {
@@ -216,23 +202,17 @@ public class MyStereo implements StereoExtended {
     @Override
     public void loadTrackList(File trackListSource) throws IOException {
         Scanner s = null;
-        this.isUSBLoaded = true;
-        this.isPlaying = true;
-        this.isPlayingStraight = true;
-        this.NumberOfTracks = (this.trackList.size() - 1);
-        try {
-            s = new Scanner(trackListSource);
-            while (s.hasNextLine()) {
-                this.trackList.add(s.nextLine());
-                List<string> Tracks = arrayList < > () 
-// *               boolean equals = this.trackList.equals(trackList);*/
-            }
-//* s = new Scanner(new BufferedReader(new FileReader(trackListSource)));*/
-//            while (s.hasNext()) {
 
-            System.out.println(s.next());
-        } catch (IOException ex) {
-            new Exception("IO Error:" + ex.getMessage());
+        try {
+            s = new Scanner(new BufferedReader(new FileReader(trackListSource)));
+            ArrayList<String> list = new ArrayList<>();
+
+            while (s.hasNextLine()) {
+                list.add(s.nextLine());
+            }
+        } catch (IOException e) {
+            System.err.println("Caught IOException:" + e.getMessage());
+//            new Exception("IO Error:" + ex.getMessage());
         } finally {
             if (s != null) {
                 s.close();
@@ -245,6 +225,8 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public void play() {
+        isPaused = false;
+        isStopped = false;
     }
 
     /**
@@ -254,24 +236,16 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public ArrayList<String> getTrackList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ArrayList<>();
     }
-
-    /**
-     * Get the full file name of the current track
-     *
-     * @return The current track's file name
-     */
-    @Override
-    public String getCurrentTrackFileName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int totalTrackCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-}
-
-    
+        /**
+         * Get the full file name of the current track
+         *
+         * @return The current track's file name
+         */
+        @Override
+        public String getCurrentTrackFileName(){ 
+           this.currentTrackNumber--;
+           return this.getCurrentTrackFileName();
+        }
+     }
