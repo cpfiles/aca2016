@@ -1,27 +1,30 @@
 package edu.uca.aca2016.stereo.sethdumas;
 
-import edu.uca.aca2016.interfaces.Stereo;
 import edu.uca.aca2016.interfaces.StereoExtended;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
+import java.util.logging.Level;
+
 import java.util.logging.Logger;
 
 // @author sethd
 public class MyStereo implements StereoExtended {
 
-    //assign fields to variables
+    //assign fields to variables and set default states
+    //@param args set arguments
+    
     private int TotalTracks = 0;
     private int CurrentTrack = 0;
     private boolean isUSBLoaded = false;
     private boolean isPlaying = false;
     private boolean isPlayingStraight = false;
     private boolean isPaused = false;
+    private ArrayList<String> trackList;
 
-    private static final Logger logger = Logger.getLogger(edu.uca.aca2016.stereo.sethdumas.MyStereo.class.getName());
-
-//load a random number of mp3s
+//load a random number of mp3s between 1 and 1000 and begin playing in straight mode
     @Override
     public void loadUSB() {
         this.isUSBLoaded = true;
@@ -51,13 +54,13 @@ public class MyStereo implements StereoExtended {
         this.isPaused = false;
     }
 
-    //return current track number
+    //return the current track number
     @Override
     public int currentTrackNumber() {
         return this.CurrentTrack;
     }
 
-    //return the totaal number of tracks
+    //return the total number of tracks
     @Override
     public int totalTrackCount() {
         return this.TotalTracks;
@@ -66,7 +69,6 @@ public class MyStereo implements StereoExtended {
     //play tracks in sequential order
     @Override
     public void enableStraightPlayMode() {
-
         this.isPlayingStraight = true;
     }
 
@@ -129,35 +131,76 @@ public class MyStereo implements StereoExtended {
         }
     }
 
-    //return whether or not track is playing
+    //return whether or not the track is playing
     @Override
     public boolean isPlaying() {
         return this.isPlaying;
     }
 
-    //return whether or not track is paused
+    //return whether or not the track is paused
     @Override
     public boolean isPaused() {
         return this.isPaused;
     }
 
+    /**
+     * Loads a list of track names from the specified file.
+     *
+     * @param trackListSource A file that contains a list of mp3 tracks. There
+     * is one track per line.
+     *
+     * @throws IOException Any IO exceptions are caught and re-thrown as this
+     * type of exception
+     *
+     *
+     */
     @Override
     public void loadTrackList(File trackListSource) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        Scanner s = null;
+        this.isUSBLoaded = true;
+        this.isPlayingStraight = true;
+        this.isPlaying = true;
+        try {
+            s = new Scanner(trackListSource);
+            while (s.hasNextLine()) {
+                this.trackList.add(s.nextLine());
+            }
+        } catch (IOException ex) {
+            try {
+                throw new Exception("IO Error:" + ex.getMessage());
+            } catch (Exception ex1) {
+                Logger.getLogger(MyStereo.class.getName()).log(Level.SEVERE, null, ex1);
+            } finally {
+                if (s != null) {
+                    s.close();
+                }
+            }
+        }
     }
 
+    //Restarts the playing process.
     @Override
     public void play() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.isPlaying = true;
+        this.isPaused = false;
     }
 
+    // Return a list of all the tracks that are loaded.
+    //I'm running out of time and falling asleep.
+    //* @return
     @Override
     public ArrayList<String> getTrackList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.trackList;
     }
 
+    /**
+     * Get the full file name of the current track
+     *
+     * @return The current track's file name.
+     */
     @Override
     public String getCurrentTrackFileName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.trackList.get(this.CurrentTrack + 1);
     }
 }
