@@ -195,12 +195,12 @@ public class MyStereo implements StereoExtended {
             while (s.hasNextLine()) {
                 List<String> tracklist = new ArrayList<>();
                 tracklist.add("trackListSource");
-                System.out.println(s.nextLine());
+                
             }
             
         } 
         catch(FileNotFoundException e){
-            System.err.println("File Not Found: " + e.getMessage());
+            
         }
         finally {
             if (s != null) {
