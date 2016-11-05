@@ -341,7 +341,7 @@ public class MyStereo implements StereoExtended {
     
     
 /**
- * Displays the current track's name
+ * Displays the current tracks name
  * 
  * @return 
  */
