@@ -6,13 +6,20 @@
 package edu.uca.aca2016.stereo.jrob582;
 
 import edu.uca.aca2016.interfaces.Stereo;
+import edu.uca.aca2016.interfaces.StereoExtended;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
  * @author johna
  */
-public class MyStereo implements Stereo {
+public class MyStereo implements StereoExtended {
 
     private int number_of_tracks;
     private boolean isUSBLoaded = false;
@@ -21,7 +28,8 @@ public class MyStereo implements Stereo {
     private boolean isPlaying = false;
     private boolean isPaused = false;
     private boolean isStopped = false;
-    private int currentTrackNumber;
+    private int currentTrackNumber = 0;
+    private final ArrayList<String> tracks = new ArrayList<>();
 
     /**
      * This method should load mp3s from a USB drive.
@@ -59,8 +67,11 @@ public class MyStereo implements Stereo {
      */
     @Override
     public void unloadUSB() {
-        isUSBLoaded = false;
+        this.isUSBLoaded = false;
         this.number_of_tracks = 0;
+        this.currentTrackNumber = 0;
+        this.isPlaying = false;
+        this.isPaused = false;
     }
 
     /**
@@ -72,7 +83,7 @@ public class MyStereo implements Stereo {
     @Override
     public int currentTrackNumber() {
 
-        return currentTrackNumber;
+        return this.currentTrackNumber;
 
     }
 
@@ -134,16 +145,17 @@ public class MyStereo implements Stereo {
     @Override
     public void nextTrack() {
         if (isUSBLoaded && isPlaying) {
-            if (enableStraightPlayMode) {
+            return;
+        }
+        if (enableStraightPlayMode) {
+            currentTrackNumber++;
+            if (currentTrackNumber > number_of_tracks) {
+                currentTrackNumber = 1;
+            } else if (enableShufflePlayMode) {
+                int bound = number_of_tracks;
+                Random r = new Random();
+                currentTrackNumber = r.nextInt(bound);
                 currentTrackNumber++;
-                if (currentTrackNumber > number_of_tracks) {
-                    currentTrackNumber = 1;
-                } else if (enableShufflePlayMode) {
-                    int bound = number_of_tracks;
-                    Random r = new Random();
-                    currentTrackNumber = r.nextInt(bound);
-                    currentTrackNumber++;
-                }
             }
         }
     }
@@ -154,16 +166,17 @@ public class MyStereo implements Stereo {
     @Override
     public void previousTrack() {
         if (isUSBLoaded && isPlaying) {
-            if (enableStraightPlayMode) {
-                currentTrackNumber--;
-                if (currentTrackNumber < number_of_tracks) {
-                    currentTrackNumber = number_of_tracks;
-                } else if (enableShufflePlayMode) {
-                    int bound = number_of_tracks;
-                    Random r = new Random();
-                    currentTrackNumber = r.nextInt(bound);
-                    currentTrackNumber++;
-                }
+            return;
+        }
+        if (enableStraightPlayMode) {
+            currentTrackNumber--;
+            if (currentTrackNumber < number_of_tracks) {
+                currentTrackNumber = 0;
+            } else if (enableShufflePlayMode) {
+                int bound = number_of_tracks;
+                Random r = new Random();
+                currentTrackNumber = r.nextInt(bound);
+                currentTrackNumber++;
             }
         }
     }
@@ -175,9 +188,8 @@ public class MyStereo implements Stereo {
      */
     @Override
     public boolean isPlaying() {
-        isPaused = false;
-        isStopped = false;
-        return isPlaying = true;
+
+        return this.isPlaying;
     }
 
     /**
@@ -187,10 +199,63 @@ public class MyStereo implements Stereo {
      */
     @Override
     public boolean isPaused() {
-        isPlaying = false;
-        isStopped = false;
-        return isPaused = true;
+
+        return this.isPaused;
 
     }
+        /**
+     *  Checking loadTrackList method, of class MyStereo.
+     *
+     * @throws java.io.IOException
+     */
+    @Override
+    public void loadTrackList(File trackListSource) throws IOException {
 
+     try {
+         try (Scanner s = new Scanner (trackListSource)) {
+             while (s.hasNextLine()) {
+                 tracks.add(s.nextLine());
+             }
+         }
+         this.number_of_tracks = (this.tracks.size() - 1);
+     } catch (IOException e){
+         System.out.println("Caught IOException" + e.getMessage());
+        
+         
+         }
+     }
+    /**
+     * Checking to see if it's playing.
+     */
+    @Override
+    public void play() {
+        if (isUSBLoaded = true){
+            isPlaying = true;
+            isPaused = false;
+            isStopped = false;
+
+        }
+    }
+
+    @Override
+    public ArrayList<String> getTrackList() {
+        return this.tracks;
+    }
+    /**
+     *  Getting TrackList method.
+     */
+    @Override
+    public String getCurrentTrackFileName() {
+        try {
+            if (this.isUSBLoaded) {
+                
+                return this.tracks.get(currentTrackNumber - 1);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+
+        return null;
+    }
 }
+    
