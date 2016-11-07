@@ -32,10 +32,10 @@ public class MyStereo implements StereoExtended {
     private boolean isPlaying = false;
     private boolean isPaused = false;
     private boolean isStopped = false;
-    private List<String> Tracks = new ArrayList<>();
+    //private List<String> Tracks = new ArrayList<>(); //commented out - cpf 20161107
     private ArrayList trackList;
     private int trackTotal;
-    private List<string> arrayList;
+    //private List<string> arrayList; //commented out - cpf 20161107
 
     @Override
     public void loadUSB() {
