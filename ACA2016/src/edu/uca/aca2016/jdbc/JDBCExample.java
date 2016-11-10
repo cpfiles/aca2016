@@ -27,6 +27,9 @@ public class JDBCExample{
             
             System.out.format("Customer: %d\t%-30.30s %-30.30s%n", id, first_name, last_name);
         }
+        
+        stmt.close();
+        con.close();
     }
 
     /**
