@@ -104,8 +104,6 @@ public class StereoPlayer implements Stereo {
         isStopped = false;
         System.out.println("Straight play enabled.");
     }
-
-
     /*
     * establishes and stores appropriate states for Shuffle Play mode.
      */
@@ -127,11 +125,8 @@ public class StereoPlayer implements Stereo {
         currentTrack = 1;
         isPlaying = false;
         isPaused = false;
-
     }
-
-    /*
-    *  Pauses music without reverting other variables
+    /*Pauses music without reverting other variables
      */
     public void pause() {
         isPaused = true;
@@ -194,6 +189,7 @@ public class StereoPlayer implements Stereo {
     }
 
     //returns isPlaying
+    @Override
     public boolean isPlaying() {
         if (isPlayingStraight == true || isPlayingShuffle == true) {
             isPlaying = true;
@@ -202,6 +198,7 @@ public class StereoPlayer implements Stereo {
     }
 
     //returns isPaused
+    @Override
     public boolean isPaused() {
         return isPaused;
     }

@@ -5,24 +5,29 @@
  */
 package edu.uca.aca2016.stereo.jeffbanksz4l;
 
-import edu.uca.aca2016.interfaces.Stereo;
+import edu.uca.aca2016.interfaces.StereoExtended;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Initializing MyStereo class.
  *
  * @author jeffb
  */
-public class MyStereo implements Stereo {
+public class MyStereo implements StereoExtended {
 
     private int number_of_tracks;
     private int currentTrackNumber;
     private boolean isUSBLoaded = false;
     private boolean enableStraightPlayMode = true;
-    private boolean enableShufflePlayMode = false;
     private boolean isPlaying = false;
     private boolean isPaused = false;
-    private boolean isStopped = false;
+    String getCurrentTrackFileName;
 
     /**
      * Setup the random generator between 1-1000. Defaulted Current Track Number
@@ -35,21 +40,21 @@ public class MyStereo implements Stereo {
 
         Random r = new Random();
 
-        number_of_tracks = r.nextInt(bound);
-        number_of_tracks++;
-        isUSBLoaded = true;
-        currentTrackNumber = 1;
-        isPlaying = true;
+        this.number_of_tracks = r.nextInt(bound);
+        this.number_of_tracks++;
+        this.isUSBLoaded = true;
+        this.currentTrackNumber = 1;
+        this.isPlaying = true;
     }
 
     /**
      * Returning true if USB has been loaded.
-     * 
-     * @return
+     *
+     * @return State of USB.
      */
     @Override
     public boolean isUSBLoaded() {
-        return isUSBLoaded;
+        return this.isUSBLoaded;
     }
 
     /**
@@ -58,8 +63,8 @@ public class MyStereo implements Stereo {
      */
     @Override
     public void unloadUSB() {
-        isUSBLoaded = false;
-        number_of_tracks = 0;
+        this.isUSBLoaded = false;
+        this.number_of_tracks = 0;
     }
 
     /**
@@ -69,18 +74,18 @@ public class MyStereo implements Stereo {
      */
     @Override
     public int currentTrackNumber() {
-        return currentTrackNumber;
+        return this.currentTrackNumber;
     }
 
     /**
      * Returning the Total Track Count from the Random generator from the
      * loadUSB method.
      *
-     * @return The total number of tracks
+     * @return The total number of tracks.
      */
     @Override
     public int totalTrackCount() {
-        return number_of_tracks;
+        return this.number_of_tracks;
     }
 
     /**
@@ -89,8 +94,7 @@ public class MyStereo implements Stereo {
      */
     @Override
     public void enableStraightPlayMode() {
-        enableStraightPlayMode = true;
-        enableShufflePlayMode = false;
+        this.enableStraightPlayMode = true;
     }
 
     /**
@@ -99,8 +103,7 @@ public class MyStereo implements Stereo {
      */
     @Override
     public void enableShufflePlayMode() {
-        enableShufflePlayMode = true;
-        enableStraightPlayMode = false;
+        this.enableStraightPlayMode = false;
     }
 
     /**
@@ -108,8 +111,8 @@ public class MyStereo implements Stereo {
      */
     @Override
     public void stop() {
-        isStopped = true;
-        isPlaying = false;
+        this.isPaused = false;
+        this.isPlaying = false;
     }
 
     /**
@@ -117,75 +120,133 @@ public class MyStereo implements Stereo {
      */
     @Override
     public void pause() {
-        isPaused = true;
-        isPlaying = false;
+        this.isPaused = true;
+        this.isPlaying = false;
     }
 
     /**
-     * Setup Next Track to advance forward one track if in Straight Play 
-     * Mode and to loop back to the beginning if the last track has been reached.
-     * Also, setup to generate a random number if Shuffle Play Mode in enabled.
+     * Setup Next Track to advance forward one track if in Straight Play Mode
+     * and to loop back to the beginning if the last track has been reached.
+     * Also, setup to generate a random number if Shuffle Play Mode is enabled.
      */
     @Override
     public void nextTrack() {
-        if (isUSBLoaded && isPlaying) {
-            if (enableStraightPlayMode) {
-                currentTrackNumber++;
-                if (currentTrackNumber > number_of_tracks) {
-                    currentTrackNumber = 1;
-                } else if (enableShufflePlayMode) {
-                    int bound = number_of_tracks;
-                    Random r = new Random();
-                    currentTrackNumber = r.nextInt(bound);
-                    currentTrackNumber++;
-                }
+        if (!isUSBLoaded && !isPlaying) {
+            return;
+        }
+
+        if (this.enableStraightPlayMode) {
+            this.currentTrackNumber++;
+
+            if (this.currentTrackNumber > this.number_of_tracks) {
+                this.currentTrackNumber = 1;
             }
+        } else {
+            int bound = number_of_tracks;
+            Random r = new Random();
+            this.currentTrackNumber = r.nextInt(bound);
+            this.currentTrackNumber++;
         }
     }
 
     /**
-     * Setup Previous Track to advance backwards one track if in Straight Play 
+     * Setup Previous Track to advance backwards one track if in Straight Play
      * Mode and to loop back to the end if at the first track has been reached.
-     * Also, setup to generate a random number if Shuffle Play Mode in enabled.
+     * Also, setup to generate a random number if Shuffle Play Mode is enabled.
      */
     @Override
     public void previousTrack() {
-        if (isUSBLoaded && isPlaying) {
-            if (enableStraightPlayMode) {
-                currentTrackNumber--;
-                if (currentTrackNumber < 1) {
-                    currentTrackNumber = number_of_tracks;
-                } else if (enableShufflePlayMode) {
-                    int bound = number_of_tracks;
-                    Random r = new Random();
-                    currentTrackNumber = r.nextInt(bound);
-                    currentTrackNumber++;
-                }
+        if (!isUSBLoaded && !isPlaying) {
+            return;
+        }
+
+        if (this.enableStraightPlayMode) {
+            this.currentTrackNumber--;
+
+            if (this.currentTrackNumber > this.number_of_tracks) {
+                this.currentTrackNumber = 1;
             }
+        } else {
+            int bound = this.number_of_tracks;
+            Random r = new Random();
+            this.currentTrackNumber = r.nextInt(bound);
+            this.currentTrackNumber++;
         }
     }
 
     /**
      * Returned isPlaying to true when isPaused and isStopped are false.
-     *      
-     * @return
+     *
+     * @return Will state if isPlaying or not.
      */
     @Override
     public boolean isPlaying() {
-        isPaused = false;
-        isStopped = false;
-        return isPlaying = true;
+        return this.isPlaying;
     }
 
     /**
      * Returned isPaused to true when isPlaying and isStopped are false.
      *
-     * @return
+     * @return Will state if isPaused or not.
      */
     @Override
     public boolean isPaused() {
-        isPlaying = false;
-        isStopped = false;
-        return isPaused = true;
+        return this.isPaused;
+    }
+
+    /**
+     * Load user's list of tracks.
+     *
+     * @param trackListSource Lists the user's mp3 tracks.
+     * @throws IOException thrown if any issues are found.
+     */
+    @Override
+    public void loadTrackList(File trackListSource) throws IOException {
+
+        Scanner s = null;
+
+        try {
+            s = new Scanner(new BufferedReader(new FileReader(trackListSource)));
+            ArrayList<String> list = new ArrayList<>();
+
+            while (s.hasNextLine()) {
+                list.add(s.nextLine());
+            }
+        } catch (IOException e) {
+            System.err.println("Caught IOException: " + e.getMessage());
+        } finally {
+            if (s != null) {
+                s.close();
+            }
+        }
+    }
+
+    /**
+     * Play is restarted.
+     */
+    @Override
+    public void play() {
+        this.isPlaying = true;
+    }
+
+    /**
+     * The available Track List is returned.
+     *
+     * @return the track list
+     */
+    @Override
+    public ArrayList<String> getTrackList() {
+        return new ArrayList<>();
+    }
+
+    /**
+     * Used to return the Current Track File.
+     *
+     * @return The current tracks file name.
+     */
+    @Override
+    public String getCurrentTrackFileName() {
+        this.currentTrackNumber--;
+        return this.getCurrentTrackFileName;
     }
 }

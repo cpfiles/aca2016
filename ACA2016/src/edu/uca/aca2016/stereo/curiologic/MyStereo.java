@@ -6,13 +6,26 @@
 package edu.uca.aca2016.stereo.curiologic;
 
 import edu.uca.aca2016.interfaces.Stereo;
+import edu.uca.aca2016.interfaces.StereoExtended;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
+import java.util.logging.Logger;
 
 /**
  *
  * @author xulix
  */
-public class MyStereo implements Stereo {
+public class MyStereo implements StereoExtended {
 
     private Boolean isPaused = false;
     private Boolean isPlaying = false;
@@ -24,6 +37,9 @@ public class MyStereo implements Stereo {
     private boolean stop = false;
     private boolean pause = false;
     private boolean isUSBLoaded = false;
+     List<String> tracklist = new ArrayList<>();
+    private static final Logger logger = Logger.getLogger(MyStereo.class.getName());
+
 // loading the USB and returning the number of tracks on the USB
 
     @Override
@@ -70,10 +86,7 @@ public class MyStereo implements Stereo {
     public void enableStraightPlayMode() {
         enableShufflePlayMode = false;
         enableStraightPlayMode = true;
-        isPlaying = true;
-        isUSBLoaded = true;
-        stop = false;
-        this.currentTrack++;
+        
 
     }
 // allows tracks to move forward or backward to random tracks on USB
@@ -82,7 +95,7 @@ public class MyStereo implements Stereo {
     public void enableShufflePlayMode() {
         enableStraightPlayMode = false;
         enableShufflePlayMode = true;
-        isPlaying = true;
+      
         int bound = number_of_tracks;
         Random genS = new Random();
         currentTrack = genS.nextInt(bound);
@@ -122,7 +135,7 @@ public class MyStereo implements Stereo {
                     }
                 }
 
-                System.out.println(this.currentTrack);
+               
             } else if (enableShufflePlayMode) {
                 int bound = number_of_tracks;
                 Random genSh = new Random();
@@ -146,34 +159,79 @@ public class MyStereo implements Stereo {
                     }
                 }
 
-                System.out.println(currentTrack);
             } else if (enableShufflePlayMode) {
                 int bound = number_of_tracks;
                 Random genSh = new Random();
                 this.currentTrack = genSh.nextInt(bound + 1);
-            }
+            } logger.info("Shuffle is" + enableShufflePlayMode );
 
         }
 
     }
 
-// determines if the USB is playing
+/** determines if the USB is playing */
     @Override
     public boolean isPlaying() {
-        isUSBLoaded = true;
-        isPaused = false;
-        stop = false;
-        return isPlaying = true;
+        
+        return isPlaying;
 
     }
-// determines if USB is paused
+/** determines if USB is paused */
 
     @Override
     public boolean isPaused() {
+        
+        return isPaused;
+    }
+/** loads tracklist from files on the computer and throws a file not found exception */
+    @Override
+    public void loadTrackList(File trackListSource) throws FileNotFoundException {
+     Scanner s = null;
+
+        try {
+            
+            s = new Scanner(new BufferedReader(new FileReader("c:\\Users\\xulix\\Desktop\\tracks.txt")));
+
+            while (s.hasNextLine()) {
+                List<String> tracklist = new ArrayList<>();
+                tracklist.add("trackListSource");
+                
+            }
+            
+        } 
+        catch(FileNotFoundException e){
+            
+        }
+        finally {
+            if (s != null) {
+                s.close();
+            }
+        }
+        }
+       
+    /** sets MyStereo to play loaded tracks
+      */
+
+    @Override
+    public void play() {
         isUSBLoaded = true;
+        isPaused=false;
         stop = false;
-        isPlaying = false;
-        return isPaused = true;
+    }
+/** gets loaded track list */
+    @Override
+    public ArrayList<String> getTrackList() {
+        return (ArrayList<String>) tracklist;
+    }
+/** gets name of current track */
+    @Override
+    public String getCurrentTrackFileName() {
+       if(currentTrack > 0 || currentTrack < number_of_tracks) {
+           return null;
+        } else {return tracklist.get(currentTrack + 1);
+           
+        }
+       
     }
 
 }
