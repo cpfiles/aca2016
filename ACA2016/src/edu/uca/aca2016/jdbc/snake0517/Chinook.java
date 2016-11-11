@@ -5,6 +5,9 @@
  */
 package edu.uca.aca2016.jdbc.snake0517;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 /**
  *
  * @author brela
@@ -13,9 +16,11 @@ public class Chinook {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
+     * @throws java.sql.SQLException
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws IOException, SQLException {
+        ChinookManager Chinook = new ChinookManager();
     }
     
 }
