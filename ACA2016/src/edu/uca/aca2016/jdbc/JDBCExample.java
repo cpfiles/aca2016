@@ -51,8 +51,10 @@ public class JDBCExample{
         try{
             con = DriverManager.getConnection(url);
             
-            String sql = "INSERT INTO Customer (FirstName, LastName, Email) VALUES (?, ?, ?)";
+            ps = con.prepareStatement("INSERT INTO Customer (FirstName, LastName, Email) VALUES('Jane', 'Doe', 'jane@example.com')");
+            ps.executeUpdate();
             
+            String sql = "INSERT INTO Customer (FirstName, LastName, Email) VALUES (?, ?, ?)";
             ps = con.prepareStatement(sql);
             ps.setString(1, "John");
             ps.setString(2, "Smith");
