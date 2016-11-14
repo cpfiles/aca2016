@@ -7,6 +7,8 @@ package edu.uca.aca2016.jdbc;
 
 import java.io.File;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,6 +33,46 @@ public class JDBCExample{
         stmt.close();
         con.close();
     }
+    
+    /**
+     * Use a prepared statement to insert a row into the database.
+     * 
+     * https://en.wikipedia.org/wiki/SQL_injection
+     * https://xkcd.com/327/
+     * 
+     * @param url
+     * @throws SQLException 
+     */
+    
+    public void connectAndInsert(String url) throws SQLException  {
+        Connection con = null;
+        PreparedStatement ps = null;
+        
+        try{
+            con = DriverManager.getConnection(url);
+            
+            ps = con.prepareStatement("INSERT INTO Customer (FirstName, LastName, Email) VALUES('Jane', 'Doe', 'jane@example.com')");
+            ps.executeUpdate();
+            
+            String sql = "INSERT INTO Customer (FirstName, LastName, Email) VALUES (?, ?, ?)";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "John");
+            ps.setString(2, "Smith");
+            ps.setString(3, "example@example.com");
+            ps.executeUpdate();
+        }
+        catch(SQLException ex){
+            Logger.getLogger(JDBCExample.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -40,6 +82,7 @@ public class JDBCExample{
         
         String db = System.getProperty("user.home") + File.separator + "Chinook_Sqlite.sqlite";
         
+        jdbce.connectAndInsert("jdbc:sqlite:" + db);
         jdbce.connectToAndQueryDatabase("jdbc:sqlite:" + db);
     }
 }
