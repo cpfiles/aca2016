@@ -26,10 +26,11 @@ public class ChinookManager {
 
     private final Properties defaultProperties = new Properties();
 
+    /**
+     * Setup to look for the default Properties.
+     */
     public ChinookManager() {
         this.loadDefaultProperties();
-
-        System.out.println(this.defaultProperties.getProperty("db.connection"));
     }
 
     private void loadDefaultProperties() {
@@ -55,6 +56,12 @@ public class ChinookManager {
         }
     }
 
+    /**
+     * Setup to connect to the database.
+     *
+     * @param url
+     * @throws SQLException
+     */
     public void connectToAndQueryDatabase(String url) throws SQLException {
         Connection con = DriverManager.getConnection(url);
 
