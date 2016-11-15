@@ -18,15 +18,18 @@ import java.sql.*;
  */
 public class ChinookManager {
 
+    Connection con;
+
     private Properties Chin = new Properties();
 
     public ChinookManager() throws IOException, SQLException {
-        Connection con = DriverManager.getConnection(Chin.getProperty("db.connection"));
+
         FileInputStream in = null;
         try {
-            Path inpath = Paths.get("resources", "config", "Snake0517", "ChinookManager.prperties");
+            Path inpath = Paths.get("resources", "config", "Snake0517", "ChinookManager.properties");
             in = new FileInputStream(inpath.toFile());
             this.Chin.load(in);
+            this.con = DriverManager.getConnection(Chin.getProperty("db.connection"));
             in.close();
         } finally {
 
