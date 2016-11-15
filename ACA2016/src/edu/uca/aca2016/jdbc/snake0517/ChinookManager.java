@@ -17,10 +17,11 @@ import java.sql.*;
  * @author brela
  */
 public class ChinookManager {
-    
+
     private Properties Chin = new Properties();
-    
+
     public ChinookManager() throws IOException, SQLException {
+        Connection con = DriverManager.getConnection(Chin.getProperty("db.connection"));
         FileInputStream in = null;
         try {
             Path inpath = Paths.get("resources", "config", "Snake0517", "ChinookManager.prperties");
@@ -28,11 +29,11 @@ public class ChinookManager {
             this.Chin.load(in);
             in.close();
         } finally {
-            
+
             if (in != null) {
                 in.close();
             }
-            Connection con = DriverManager.getConnection(Chin.getProperty("db.connection"));
+
         }
     }
 }
