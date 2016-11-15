@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Setup for connecting to the database.
  *
  * @author jeffb
  */
