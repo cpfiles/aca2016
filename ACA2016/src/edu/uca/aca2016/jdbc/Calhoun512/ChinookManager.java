@@ -74,7 +74,19 @@ public class ChinookManager{
 //
 //    }
 
-    public void connectAndInsert(String url) 
+    public void connectAndInsert(String url) throws SQLException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        
+        try{
+            con = DriverManager.getConnection("jdbc:sqlite:C:\\\\Users\\\\calho\\\\Documents\\\\SQL\\\\Chinook");
+            
+            ps = con.prepareStatement("INSERT INTO Artist(FirstName, LastName) VALUES (?,?)");
+            ps.executeUpdate();
+            
+            
+        }
+    }
 
 }
 
