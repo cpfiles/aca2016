@@ -20,14 +20,15 @@ public class JDBCExample{
         Connection con = DriverManager.getConnection(url);
 
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Customer");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Customer WHERE CustomerID > 55");
 
         while(rs.next()){
             String first_name = rs.getString("FirstName");
             String last_name = rs.getString("LastName");
+            String email = rs.getString("Email");
             int id = rs.getInt("CustomerId");
             
-            System.out.format("Customer: %d\t%-30.30s %-30.30s%n", id, first_name, last_name);
+            System.out.format("Customer: %d\t%-30.30s %-30.30s %-30.30s %n", id, first_name, last_name, email);
         }
         
         stmt.close();
@@ -51,14 +52,72 @@ public class JDBCExample{
         try{
             con = DriverManager.getConnection(url);
             
-            ps = con.prepareStatement("INSERT INTO Customer (FirstName, LastName, Email) VALUES('Jane', 'Doe', 'jane@example.com')");
-            ps.executeUpdate();
-            
             String sql = "INSERT INTO Customer (FirstName, LastName, Email) VALUES (?, ?, ?)";
             ps = con.prepareStatement(sql);
             ps.setString(1, "John");
             ps.setString(2, "Smith");
             ps.setString(3, "example@example.com");
+            ps.executeUpdate();
+        }
+        catch(SQLException ex){
+            Logger.getLogger(JDBCExample.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+    
+    public void connectAndUpdate(String url) throws SQLException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        
+        try{
+            con = DriverManager.getConnection(url);
+            
+            String sql = "UPDATE Customer SET Email = ? WHERE Email= ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "john@example.com");
+            ps.setString(2, "example@example.com");
+            ps.executeUpdate();
+            
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT CustomerID, FirstName FROM Customer WHERE Email = 'john@example.com'");
+            if(rs.next()) {
+                int id = rs.getInt("CustomerID");
+                
+                //rs.updateString("FirstName", "Jonathan");
+                //rs.updateRow();
+            }
+            
+        }
+        catch(SQLException ex){
+            Logger.getLogger(JDBCExample.class.getName()).log(Level.SEVERE,ex.getMessage(),ex);
+        }
+        finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+    
+    public void connectAndDelete(String url) throws SQLException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        
+        try{
+            con = DriverManager.getConnection(url);
+            
+            String sql = "DELETE FROM Customer WHERE Email= ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "john@example.com");
             ps.executeUpdate();
         }
         catch(SQLException ex){
@@ -83,6 +142,12 @@ public class JDBCExample{
         String db = System.getProperty("user.home") + File.separator + "Chinook_Sqlite.sqlite";
         
         jdbce.connectAndInsert("jdbc:sqlite:" + db);
+        jdbce.connectToAndQueryDatabase("jdbc:sqlite:" + db);
+        System.out.println("---------------------------------------------");
+        jdbce.connectAndUpdate("jdbc:sqlite:" + db);
+        jdbce.connectToAndQueryDatabase("jdbc:sqlite:" + db);
+        System.out.println("---------------------------------------------");
+        jdbce.connectAndDelete("jdbc:sqlite:" + db);
         jdbce.connectToAndQueryDatabase("jdbc:sqlite:" + db);
     }
 }
