@@ -264,7 +264,7 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public String getCurrentTrackFileName() {
-        return this.tracks.get(--current_track);
+        return this.tracks.get(current_track-1);
     }
 
 }
