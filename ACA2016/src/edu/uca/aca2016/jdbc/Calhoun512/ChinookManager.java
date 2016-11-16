@@ -11,82 +11,88 @@ package edu.uca.aca2016.jdbc.Calhoun512;
  */
 
 import java.sql.*;
-import java.util.properties;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Statement;
+import java.util.Properties;
 
 
 
 public class ChinookManager{
-    
-    public void connectToAndQueryDatabase(String url) throws SQLException{
-        Connection con = DriverManager.getConnection(chinook.getProperty("db.connection"));
-        
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Artist");
 
-        while(rs.next()){
-            String first_name = rs.getString("FirstName");
-            String last_name = rs.getString("LastName");
-            int id = rs.getInt("ArtistId");
+    private final Properties chinook = new Properties();
+    
+        public ChinookManager() throws IOException, SQLException {
+        
+        Connection con;
+        
+         
+        FileInputStream in = null;      
+        try {
+    
+            Path inpath = Paths.get("resources", "config", "Calhoun512", "ChinookManager.properties");
+            in = new FileInputStream(inpath.toFile());
+            this.chinook.load(in);
+            con = DriverManager.getConnection(chinook.getProperty("db.connection"));
             
-            System.out.format("Artist", id, first_name, last_name);
+            
+        
+        }finally{
+            
+            if (in != null){
+                in.close();
+            }
+            
         }
         
-        stmt.close();
-        con.close();
-    }
-        
-    /**
-     *
-     * @throws IOException
-     * @throws SQLException
-     */
-//    public ChinookManager() throws IOException, SQLException {
+    
+//    public void connectToAndQueryDatabase(String url) throws SQLException{
 //        
-//        Connection con = DriverManager.getConnection(ChinookManager.getProperty("db.connection"));
+//        Connection con = DriverManager.getConnection(Chinook.getProperty("db.connection"));
 //        
-//    
-//        FileInputStream in = null;
-//        try{
-//            Path inpath = Paths.get("resources", "config", "Calhoun512", "ChinookManager.properties");
-//            in = new FileInputStream(inpath.toFile());
-//            this.chinook.load(in);
-//            in.close();
-//            this.con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\calho\\Documents\\SQL\\Chinook");
-//        
-//        }catch(SQLException){
-//        
-//        System.out.println(this.ChinookManager.getProperty("db.connection"));
-//        
-//        }finally{
+//        Statement stmt = con.createStatement();
+//        ResultSet rs = stmt.executeQuery("SELECT * FROM Artist");
+//
+//        while(rs.next()){
+//            String first_name = rs.getString("FirstName");
+//            String last_name = rs.getString("LastName");
+//            int id = rs.getInt("ArtistId");
 //            
-//            if (in != null){
-//                in.close();
-//            }
-//            
+//            System.out.format("Artist", id, first_name, last_name);
 //        }
 //        
-//
+//        stmt.close();
+//        con.close();
 //    }
-
-    public void connectAndInsert(String url) throws SQLException {
-        Connection con = null;
-        PreparedStatement ps = null;
-        
-        try{
-            con = DriverManager.getConnection("jdbc:sqlite:C:\\\\Users\\\\calho\\\\Documents\\\\SQL\\\\Chinook");
-            
-            ps = con.prepareStatement("INSERT INTO Artist(FirstName, LastName) VALUES (?,?)");
-            ps.executeUpdate();
-            
-            
-        }
+//        
+//    /**
+//     *
+//     * @throws IOException
+//     * @throws SQLException
+//     */
+//
+//        
+//
+//    
+//
+//    public void connectAndInsert(String url) throws SQLException {
+//        Connection con = null;
+//        PreparedStatement ps = null;
+//        
+//    try{
+//            con = DriverManager.getConnection("jdbc:sqlite:C:\\\\Users\\\\calho\\\\Documents\\\\SQL\\\\Chinook");
+//            
+//            ps = con.prepareStatement("INSERT INTO Artist(FirstName, LastName) VALUES (?,?)");
+//            ps.executeUpdate();
+//            
+        } 
     }
 
-}
+
+
+
+
 
