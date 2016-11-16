@@ -18,37 +18,39 @@ import java.sql.Statement;
 import java.util.Dictionary;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author Username
  */
 public class ChinookManager {
-
-    private Object defaultProperties;
+     Connection con;
     /**
-     *Properties
+     * connect to db
      * @throws java.sql.SQLException
      */
-    public void loadDefaultProperties() throws SQLException {
+    public ChinookManager() throws SQLException {
+        this.con = DriverManager.getConnection("ChinookManager.properties");
+  
+                
+    }
+}
+    //public void ConnectAndLoadDefaultProperties("Chinook_db") {
        // try {
-            String db = "C:\\Users\\Username\\Documents\\Chinook_db\\Chinook_Sqlite.sql";
-            
-            Connection con = DriverManager.getConnection("Chinook_db");
-            defaultProperties = ("ChinookManager.properties");
-            Path file = file.get("ChinookManager.properties");
+           // String db = "C:\\Users\\Username\\Documents\\Chinook_db\\Chinook_Sqlite.sql";  
+     //  Connection con = DriverManager.getConnection("Chinook_db");
+      // public void DefaultProperties(){
+            //String  == ("C:\Users\Username\Documents\NetBeansProjects\aca2016\ACA2016\resources\config\clintlemons");
+           // defaultProperties = ("ChinookManager.properties");
+           // Path file = file.get("C:\Users\Username\Documents\NetBeansProjects\aca2016\ACA2016\resources\config\clintlemons\ChinookManager.properties");
  
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Album");
+            //ResultSet rs = stmt.executeQuery("SELECT * FROM Album");
           //  Statement stmt = con.createStatement("Album");
             // in = new FileInputStream(inpath.toFile());
             //  this.defaultProperties.load();
             // in.close();
             // } catch (SQLException ex) {
-            //  Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
-        //}
-           
-           
-        }
-        
+            //  Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);     
 //        default.FileInputStream = ("ChinookManager.properties") {
 //        this.toString();
 //        default.Properties = 
@@ -56,7 +58,7 @@ public class ChinookManager {
 //    }
 //  
 //            
-}
+
 
 
     
