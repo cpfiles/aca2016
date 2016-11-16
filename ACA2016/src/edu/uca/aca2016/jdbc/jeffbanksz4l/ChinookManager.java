@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -25,16 +26,20 @@ import java.util.logging.Logger;
  */
 public class ChinookManager {
 
-    private final Properties defaultProperties = new Properties();
+    Connection con;
+    private Properties defaultProperties = new Properties();
 
     /**
      * Setup to look for the default Properties.
+     *
+     * @throws java.sql.SQLException
      */
-    public ChinookManager() {
+    public ChinookManager() throws SQLException {
         this.loadDefaultProperties();
+        this.con = DriverManager.getConnection(defaultProperties.getProperty("db.connection"));
     }
 
-    private void loadDefaultProperties() {
+    private void loadDefaultProperties() throws SQLException {
         FileInputStream in = null;
 
         try {
@@ -58,14 +63,28 @@ public class ChinookManager {
     }
 
     /**
-     * Setup to connect to the database.
+     * Method to add an Artist.
      *
      * @param url
      * @throws SQLException
      */
-    public void connectToAndQueryDatabase(String url) throws SQLException {
-        Connection con = DriverManager.getConnection(url);
+    public void addArtist(String url) throws SQLException {
+//        this.loadDefaultProperties();
+        this.con = DriverManager.getConnection(defaultProperties.getProperty("db.connection"));
+        PreparedStatement ps = null;
 
-        con.close();
+        try {
+            String sql = "INSERT INTO Artist (Name) VALUES (?)";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "Benny Goodman");
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PropertiesExample.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+
+        }
     }
 }

@@ -23,6 +23,13 @@ public class DB_Runner {
         
         String db = System.getProperty("user.home") + File.separator + "Chinook_Sqlite.sqlite";
         
-        CM.connectToAndQueryDatabase("jdbc:sqlite:C:\\Users\\jeffb\\Downloads\\ChinookDatabase1.4_Sqlite\\Chinook_Sqlite.sqlite");
+        CM.addArtist("jdbc:sqlite:" + db);
+//        CM.addArtist("jdbc:sqlite:" + db);
+        System.out.println("---------------------------------------------");
+//        CM.connectAndUpdate("jdbc:sqlite:" + db);
+//        CM.connectToAndQueryDatabase("jdbc:sqlite:" + db);
+//        System.out.println("---------------------------------------------");
+//        CM.connectAndDelete("jdbc:sqlite:" + db);
+//        CM.connectToAndQueryDatabase("jdbc:sqlite:" + db);        
     }    
 }
