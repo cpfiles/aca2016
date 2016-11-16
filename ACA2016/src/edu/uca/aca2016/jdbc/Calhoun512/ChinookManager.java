@@ -22,14 +22,13 @@ import java.util.Properties;
 
 
 public class ChinookManager{
+    
+    Connection con;
 
     private final Properties chinook = new Properties();
     
         public ChinookManager() throws IOException, SQLException {
-        
-        Connection con;
-        
-         
+                 
         FileInputStream in = null;      
         try {
     
@@ -37,9 +36,7 @@ public class ChinookManager{
             in = new FileInputStream(inpath.toFile());
             this.chinook.load(in);
             con = DriverManager.getConnection(chinook.getProperty("db.connection"));
-            
-            
-        
+                    
         }finally{
             
             if (in != null){
