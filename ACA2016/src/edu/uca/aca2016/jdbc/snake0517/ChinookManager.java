@@ -11,6 +11,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,7 +32,7 @@ public class ChinookManager {
             in = new FileInputStream(inpath.toFile());
             this.Chin.load(in);
             this.con = DriverManager.getConnection(Chin.getProperty("db.connection"));
-            in.close();
+            
         } finally {
 
             if (in != null) {
@@ -39,4 +41,25 @@ public class ChinookManager {
 
         }
     }
-}
+    
+    public void addArtist(String artistname) throws SQLException{
+        PreparedStatement ps = null;
+        
+            String sql = "INSERT into Artist (Name) VALUES(?)";
+            try {
+                ps = con.prepareStatement(sql);
+                ps.setString(1,"Breland");
+                ps.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            finally{
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null)
+                    con.close();
+            }
+        }
+    }
+
