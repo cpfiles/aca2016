@@ -18,10 +18,10 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**Build a class named ChinookManager
-*/
+/**
+ * Build a class named ChinookManager
+ */
 public class ChinookManager {
-
 }
 
 private Connection con = null;
@@ -33,10 +33,9 @@ Connection con = DriverManager.getConnection("?", "?", "?" );
 
 private Connection con = null;
 private Properties default ()= new ();
-private Properties 
         
         
-Input = new InputStream("resources", "config", "TerraDukes", "ChinookManager.properties");
+Input Path = new InputStream("resources", "config", "TerraDukes", "ChinookManager.properties");
 
             this.con = DriverManager.getConnection("jdbc : sqlite:");
 
@@ -51,8 +50,20 @@ public void addArtist(String name) {
 /*create method getArtist-single parameter for name.
 
 */
-public int getArtist(String name) {
+public int getArtist(String name) 
 }
-
-Update
-Delete
+public void updateArtist(int id, String name) 
+public void deleteArtist(int id, String name) 
+public int getArtist(String name) {
+		
+		return -1;
+	}
+	
+public boolean updateArtist(int id, String newName) {
+		
+return false;
+	}
+	
+private boolean deleteArtist(int id) {
+		
+return false;
