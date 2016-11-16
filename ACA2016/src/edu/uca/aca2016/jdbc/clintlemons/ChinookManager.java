@@ -9,6 +9,7 @@ import java.util.Properties;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.FileInputStream;
+import java.io.IOException;
 import static java.lang.System.in;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,17 +25,72 @@ import java.util.logging.Logger;
  * @author Username
  */
 public class ChinookManager {
-     Connection con;
-    /**
-     * connect to db
-     * @throws java.sql.SQLException
-     */
-    public ChinookManager() throws SQLException {
-        this.con = DriverManager.getConnection("ChinookManager.properties");
-  
+    Connection con=null;
+    
+        try {Properties prop=new Properties();
+         
+                String Connection = prop.getProperty("ChinookManager.properties");
+                System.out.println("Connection Successful");
                 
+//        try {
+//            prop.load(in);
+//        } catch (IOException ex) {
+//            Logger.getLogger(ChinookManager.class.getName()).log(Level.WARNING, null, ex);
+//        }
+        try {
+            in.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.INFO, null, ex);
+        }
+               
     }
 }
+
+           
+    
+    
+    
+//     Connection con;
+//    public ChinookManager() throws SQLException {
+//        this.con = DriverManager.getConnection("ChinookManager.properties");   
+//    }
+//    public void addArtist(String Artist, int ArtistID){
+//        
+//    }}
+//} public void insertRow(String coffeeName, int supplierID,
+//                      float price, int sales, int total)
+//    throws SQLException {
+//
+//    Statement stmt = null;
+//    try {
+//        stmt = con.createStatement(
+//            ResultSet.TYPE_SCROLL_SENSITIVE
+//            ResultSet.CONCUR_UPDATABLE);
+//
+//        ResultSet uprs = stmt.executeQuery(
+//            "SELECT * FROM " + dbName +
+//            ".COFFEES");
+//
+//        uprs.moveToInsertRow();
+//        uprs.updateString("COF_NAME", coffeeName);
+//        uprs.updateInt("SUP_ID", supplierID);
+//        uprs.updateFloat("PRICE", price);
+//        uprs.updateInt("SALES", sales);
+//        uprs.updateInt("TOTAL", total);
+//
+//        uprs.insertRow();
+//        uprs.beforeFirst();
+//    } catch (SQLException e ) {
+//        JDBCTutorialUtilities.printSQLException(e);
+//    } finally {
+//        if (stmt != null) { stmt.close(); }
+//    }
+//}
+       //SQL ex here:
+       // INSERT INTO Album (AlbumId, Title, ArtistId) 
+       //VALUES (1, 'Waiting for the miracle', 2)
+       //
+       //1,2,3 (?,?,?)        
     //public void ConnectAndLoadDefaultProperties("Chinook_db") {
        // try {
            // String db = "C:\\Users\\Username\\Documents\\Chinook_db\\Chinook_Sqlite.sql";  
