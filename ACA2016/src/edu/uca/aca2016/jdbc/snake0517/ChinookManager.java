@@ -57,8 +57,8 @@ public class ChinookManager {
                 if (ps != null) {
                     ps.close();
                 }
-                if (con != null)
-                    con.close();
+                
+                    
             }
         }
     }
