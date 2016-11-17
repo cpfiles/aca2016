@@ -19,18 +19,37 @@ import java.sql.Statement;
 import java.util.Dictionary;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.io.FileNotFoundException;
 /**
  *
  * @author Username
  */
 public class ChinookManager {
     Connection con=null;
+    private Properties defaultProperties =new Properties();
     
-        try {Properties prop=new Properties();
-         
-                String Connection = prop.getProperty("ChinookManager.properties");
-                System.out.println("Connection Successful");
+        public void ChinookManager(){
+            this.loadDefaultProperties();
+            System.out.println(this.defaultProperties.getProperty("ChinookManager.properties"));
+        }
+
+    private void loadDefaultProperties() {
+        FileInputStream in = null;
+        
+        try{
+            Path inpath = Paths.get("resources","config","ChinookManager.properties");
+            in = new FileInputStream(inpath.toFile());
+            this.defaultProperties.load(in);
+            in.close();
+        } catch (FileNotFoundException Properties) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.WARNING, null, Properties);
+        } catch (IOException Properties) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.WARNING, null, Properties);
+        }
+}
+//        private Properties prop=new Properties(){
+//                String Connection = prop.getProperty("ChinookManager.properties");
+//                System.out.println("Connection Successful");
                 
 //        try {
 //            prop.load(in);

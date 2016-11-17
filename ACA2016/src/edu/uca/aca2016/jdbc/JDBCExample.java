@@ -16,6 +16,7 @@ public class JDBCExample{
 
     public void connectToAndQueryDatabase(String url) throws SQLException{
         Connection con = DriverManager.getConnection(url);
+        
 
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM Customer");
