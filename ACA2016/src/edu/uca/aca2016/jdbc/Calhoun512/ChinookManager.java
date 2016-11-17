@@ -18,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Statement;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 
 
@@ -25,7 +26,7 @@ public class ChinookManager{
     
     Connection con;
 
-    private final Properties chinook = new Properties();
+    private Properties chinook = new Properties();
     
         public ChinookManager() throws IOException, SQLException {
                  
@@ -45,6 +46,49 @@ public class ChinookManager{
             
         }
         
+    }
+    /**
+     *
+     * @param artist_name
+     * @throws SQLException
+     */
+        public void addArtist(String artist_name) throws SQLException {
+            Connection con = null;
+            PreparedStatement ps = null;
+            
+            try{
+                con = DriverManager.getConnection(artist_name);
+                
+                String sql = "INSERT INTO Artist (ArtistName) VALUES (?)";
+                ps = con.prepareStatement(sql);
+                ps.setString(1, "?");
+                ps.executeUpdate();
+            }
+            catch(SQLException ex){
+                Logger.getLogger(ChinookManager.class.getName());
+            }
+            finally {
+                if (ps != null);{
+                ps.close();
+            }
+            }
+        }
+        
+    /**
+     *
+     * @param artist_name
+     * @throws SQLException
+     */
+        public int getArtist (String artist_name) throws SQLException {
+            Connection con = null;
+            PreparedStatement ps = null;
+            
+        try {
+        }
+
+}
+        
+}
     
 //    public void connectToAndQueryDatabase(String url) throws SQLException{
 //        
@@ -86,7 +130,7 @@ public class ChinookManager{
 //            ps.executeUpdate();
 //            
         } 
-    }
+    
 
 
 
