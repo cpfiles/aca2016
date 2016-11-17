@@ -21,9 +21,9 @@ import java.util.logging.Logger;
 public class ChinookManager {
 
     Connection con;
-   
+
     private static final Logger logger = Logger.getLogger(ChinookManager.class.getName());
-    
+
     private Properties Chin = new Properties();
 
     public ChinookManager() throws IOException, SQLException {
@@ -62,15 +62,21 @@ public class ChinookManager {
         }
     }
 
-    public void getArtist(String artistname) throws SQLException {
-        try (Statement stmt = con.createStatement()) {
-            ResultSet rs = stmt.executeQuery("SELECT FROM Artist WHERE Name = Breland");
-
-            while (rs.next()) {
-                String artist_name = rs.getString("Breland");
-                int Id = rs.getInt("ArtistId");
+    public int getArtist(String artistname) throws SQLException {
+        PreparedStatement ps = null;
+        int ArtistId = -1;
+        String sql = "SELECT * FROM Artist WHERE upper(Name) VALUES (?)";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, artistname.toUpperCase());
+            ResultSet rs = ps.executeQuery();
+            ArtistId = rs.getInt(artistname.toUpperCase());
+        } finally {
+            if (ps != null) {
+                ps.close();
             }
-            stmt.close();
         }
+
+        return ArtistId;
     }
 }
