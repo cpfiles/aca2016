@@ -35,8 +35,7 @@ public class ChinookManager {
             this.Chin.load(in);
             this.con = DriverManager.getConnection(Chin.getProperty("db.connection"));
             logger.log(Level.INFO, "Connecting to database: {0}", Chin.getProperty("db.connection"));
-        }
-        finally {
+        } finally {
 
             if (in != null) {
                 in.close();
@@ -77,7 +76,8 @@ public class ChinookManager {
                 ps.close();
             }
         }
-
+//       logger.log(Level.INFO, "Return Artist Id: {0}", ArtistId);
         return ArtistId;
+ 
     }
 }
