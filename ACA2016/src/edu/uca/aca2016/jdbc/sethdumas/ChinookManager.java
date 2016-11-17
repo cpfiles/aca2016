@@ -5,36 +5,48 @@
  */
 package edu.uca.aca2016.jdbc.sethdumas;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author sethd
  */
 public class ChinookManager {
-    
-//Create a class constructor that takes zero parameters    
-public void connectToAndQueryDatabase(String url) throws SQLException{
-        Connection con = DriverManager.getConnection(url);
+    private Properties loadChinookMAnager = new Properties();
 
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Customer WHERE CustomerID > 55");
+    private void loadChinookManager() {
+        FileInputStream in = null;
 
-        while(rs.next()){
-            String first_name = rs.getString("FirstName");
-            String last_name = rs.getString("LastName");
-            String email = rs.getString("Email");
-            int id = rs.getInt("CustomerId");
-            
-            System.out.format("Customer: %d\t%-30.30s %-30.30s %-30.30s %n", id, first_name, last_name, email);
+        try {
+            Path inpath = Paths.get("resources","config","sethdumas","ChinookManager.properties");
+            in = new FileInputStream(inpath.toFile());
+            this.ChinookManager.load(in);
+            in.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, "Properties file was not found", ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, "Exception reading properties file", ex);
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+
+            }
         }
-        
-        stmt.close();
-        con.close();
     }
-
 }
+
+
