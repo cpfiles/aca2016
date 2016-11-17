@@ -20,9 +20,9 @@ public class DB_Runner {
      */
     public static void main(String[] args) throws SQLException {
         ChinookManager CM = new ChinookManager();
-        
+
         String db = System.getProperty("user.home") + File.separator + "Chinook_Sqlite.sqlite";
-        
+
         CM.addArtist("jdbc:sqlite:" + db);
 //        CM.addArtist("jdbc:sqlite:" + db);
         System.out.println("---------------------------------------------");
@@ -30,6 +30,7 @@ public class DB_Runner {
 //        CM.connectToAndQueryDatabase("jdbc:sqlite:" + db);
 //        System.out.println("---------------------------------------------");
 //        CM.connectAndDelete("jdbc:sqlite:" + db);
-//        CM.connectToAndQueryDatabase("jdbc:sqlite:" + db);        
-    }    
+//        CM.connectToAndQueryDatabase("jdbc:sqlite:" + db);
+        CM.getArtist("jdbc:sqlite:" + db);
+    }
 }
