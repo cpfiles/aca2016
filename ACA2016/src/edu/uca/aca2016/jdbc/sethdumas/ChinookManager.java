@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -40,8 +41,26 @@ public class ChinookManager {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void addArtist(){
+    public void addArtist() throws SQLException{
+        //Connection con = null;
+        PreparedStatement ps = null;
         
+        try{
+            //con = DriverManager.getConnection(props.getProperty("db.connection"));
+            String sql = "INSERT INTO Artist (Name, ArtistId)" + "VALUES (?,?)";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "Pavement");
+            ps.setString(2, "1");
+            ps.executeUpdate();
+                                    
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            if (ps != null) {
+                ps.close();
+            }
         
     }
+}
 }
