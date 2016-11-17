@@ -21,7 +21,9 @@ import java.util.logging.Logger;
 public class ChinookManager {
 
     Connection con;
-
+   
+    private static final Logger logger = Logger.getLogger(ChinookManager.class.getName());
+    
     private Properties Chin = new Properties();
 
     public ChinookManager() throws IOException, SQLException {
@@ -32,7 +34,7 @@ public class ChinookManager {
             in = new FileInputStream(inpath.toFile());
             this.Chin.load(in);
             this.con = DriverManager.getConnection(Chin.getProperty("db.connection"));
-            
+
         } finally {
 
             if (in != null) {
@@ -41,25 +43,34 @@ public class ChinookManager {
 
         }
     }
-    
-    public void addArtist(String artistname) throws SQLException{
+
+    public void addArtist(String artistname) throws SQLException {
         PreparedStatement ps = null;
-        
-            String sql = "INSERT into Artist (Name) VALUES(?)";
-            try {
-                ps = con.prepareStatement(sql);
-                ps.setString(1,"Breland");
-                ps.executeUpdate();
-            } catch (SQLException ex) {
-                Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+
+        String sql = "INSERT into Artist (Name) VALUES(?)";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "Breland");
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (ps != null) {
+                ps.close();
             }
-            finally{
-                if (ps != null) {
-                    ps.close();
-                }
-                
-                    
-            }
+
         }
     }
 
+    public void getArtist(String artistname) throws SQLException {
+        try (Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery("SELECT FROM Artist WHERE Name = Breland");
+
+            while (rs.next()) {
+                String artist_name = rs.getString("Breland");
+                int Id = rs.getInt("ArtistId");
+            }
+            stmt.close();
+        }
+    }
+}
