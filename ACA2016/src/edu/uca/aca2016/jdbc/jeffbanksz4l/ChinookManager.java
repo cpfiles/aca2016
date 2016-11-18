@@ -66,53 +66,62 @@ public class ChinookManager {
         try {
             String sql = "INSERT INTO Artist (Name) VALUES (?)";
             ps = con.prepareStatement(sql);
-            ps.setString(1, "Benny Goodman");
+            ps.setString(1, artistName);
             ps.executeUpdate();
+            logger.info("Added Artist '" + artistName + "' to the database");
         } catch (SQLException ex) {
-            logger.severe("Added Artist '" + artistName + "' to the database");
+            logger.severe("SQL exception: " + ex.getMessage());
         } finally {
             if (ps != null) {
                 ps.close();
             }
         }
     }
-    
+
+    /**
+     * Retrieve the Artist ID
+     *
+     * @param artistName
+     * @return
+     * @throws SQLException
+     */
     public int getArtist(String artistName) throws SQLException {
-        
+
         PreparedStatement ps = null;
         int ArtistId = -1;
-        
+        String sql = "SELECT * FROM Artist WHERE upper(Name) = ?";
+
         try {
-            String sql = "SELECT * FROM Artist WHERE upper(artistName) VALUES (?)";
             ps = con.prepareStatement(sql);
-            ps.setString(1, "Benny Goodman");
-            ps.executeUpdate();
+            ps.setString(1, artistName.toUpperCase());
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                ArtistId = rs.getInt("ArtistId");
+            }
+            if (rs.next()) {
+                ArtistId = -1;
+            }
+
         } catch (SQLException ex) {
-            logger.severe("Added Artist '" + artistName);
+            logger.severe("SQL Exception: " + ex.getMessage());
         } finally {
             if (ps != null) {
                 ps.close();
             }
         }
-        
-//        Statement stmt = con.createStatement();
-//        ResultSet rs = stmt.executeQuery("SELECT * FROM Artist WHERE ArtistId = 'benny goodman'");
-//
-//        while(rs.next()){
-//            String name = rs.getString("Name");
-//            int id = rs.getInt("ArtistId");
-//            
-//            System.out.format("Customer: %d\t%-30.30s %-30.30s %-30.30s %n", id, name);
-//        }
-//        
-//        stmt.close();
-//        con.close();
+        logger.info("Return ArtistId: " + ArtistId);
         return ArtistId;
     }
-    
+
+    /**
+     *
+     * @param ArtistId
+     * @param newArtistName
+     * @return
+     */
     public boolean updateArtist(int ArtistId, String newArtistName) {
-        
-        
+
 //        Connection con = null;
 //        PreparedStatement ps = null;
 //        
@@ -146,14 +155,16 @@ public class ChinookManager {
 //                con.close();
 //            }
 //        }
-        
-        
         return false;
     }
-    
+
+    /**
+     *
+     * @param ArtistId
+     * @return
+     */
     public boolean deleteArtist(int ArtistId) {
-        
-        
+
 //        Connection con = null;
 //        PreparedStatement ps = null;
 //        
@@ -176,8 +187,6 @@ public class ChinookManager {
 //                con.close();
 //            }
 //        }
-        
-        
         return false;
     }
 }
