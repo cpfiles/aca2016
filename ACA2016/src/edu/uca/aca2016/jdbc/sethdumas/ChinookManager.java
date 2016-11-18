@@ -64,3 +64,5 @@ public class ChinookManager {
     }
 }
 }
+//get artist -row count - you have to know how many rows to come back.
+//

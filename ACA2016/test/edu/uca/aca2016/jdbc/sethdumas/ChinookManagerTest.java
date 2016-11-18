@@ -46,7 +46,19 @@ public class ChinookManagerTest {
         ChinookManager instance = new ChinookManager();
         instance.ChinookManager();
         // TODO review the generated test code and remove the default call to fail.
-        assertTrue("");
+        //assertTrue("");
+    }
+
+    /**
+     * Test of addArtist method, of class ChinookManager.
+     */
+    @Test
+    public void testAddArtist() throws Exception {
+        System.out.println("addArtist");
+        ChinookManager instance = new ChinookManager();
+        instance.addArtist();
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
     }
     
 }
