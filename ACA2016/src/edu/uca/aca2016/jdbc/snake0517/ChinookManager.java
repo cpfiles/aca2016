@@ -50,7 +50,7 @@ public class ChinookManager {
         String sql = "INSERT into Artist (Name) VALUES(?)";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, "Breland");
+            ps.setString(1, artistname);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
