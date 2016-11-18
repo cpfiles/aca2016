@@ -41,16 +41,21 @@ public class ChinookManager {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void addArtist() throws SQLException{
+    
+    
+    //addArtist has a single parameter for the artist’s name. 
+    //This method should insert a row into the Artist database table 
+    //in order to make a new Artist record.
+
+    public void addArtist(String addArtist) throws SQLException{
         //Connection con = null;
         PreparedStatement ps = null;
         
         try{
             //con = DriverManager.getConnection(props.getProperty("db.connection"));
-            String sql = "INSERT INTO Artist (Name, ArtistId)" + "VALUES (?,?)";
+            String sql = "INSERT INTO Artist (Name)" + "VALUES (?)";
             ps = con.prepareStatement(sql);
-            ps.setString(1, "Pavement");
-            ps.setString(2, "1");
+            ps.setString(1, addArtist);
             ps.executeUpdate();
                                     
         } catch (SQLException ex) {
@@ -63,6 +68,15 @@ public class ChinookManager {
         
     }
 }
+    // getArtist takes a single parameter for the artist’s name. 
+    //The method needs to query the Artist table and attempt to find the 
+    //artist the user requested. This needs to be a case insensitive search. 
+    //The method should return the ID of the artist if one is found. 
+    //If there is no match or there are multiple rows returned the method should return -1.
+
+//    public void getArtist() throws SQLException{
+//        
+//    } 
 }
 //get artist -row count - you have to know how many rows to come back.
 //

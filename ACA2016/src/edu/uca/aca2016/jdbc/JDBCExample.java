@@ -14,55 +14,51 @@ import java.util.logging.Logger;
  *
  * @author cfiles
  */
-public class JDBCExample{
+public class JDBCExample {
 
-    public void connectToAndQueryDatabase(String url) throws SQLException{
+    public void connectToAndQueryDatabase(String url) throws SQLException {
         Connection con = DriverManager.getConnection(url);
 
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM Customer WHERE CustomerID > 55");
 
-        while(rs.next()){
+        while (rs.next()) {
             String first_name = rs.getString("FirstName");
             String last_name = rs.getString("LastName");
             String email = rs.getString("Email");
             int id = rs.getInt("CustomerId");
-            
+
             System.out.format("Customer: %d\t%-30.30s %-30.30s %-30.30s %n", id, first_name, last_name, email);
         }
-        
+
         stmt.close();
         con.close();
     }
-    
+
     /**
      * Use a prepared statement to insert a row into the database.
-     * 
-     * https://en.wikipedia.org/wiki/SQL_injection
-     * https://xkcd.com/327/
-     * 
+     *
+     * https://en.wikipedia.org/wiki/SQL_injection https://xkcd.com/327/
+     *
      * @param url
-     * @throws SQLException 
+     * @throws SQLException
      */
-    
-    public void connectAndInsert(String url) throws SQLException  {
+    public void connectAndInsert(String url) throws SQLException {
         Connection con = null;
         PreparedStatement ps = null;
-        
-        try{
+
+        try {
             con = DriverManager.getConnection(url);
-            
+
             String sql = "INSERT INTO Customer (FirstName, LastName, Email) VALUES (?, ?, ?)";
             ps = con.prepareStatement(sql);
             ps.setString(1, "John");
             ps.setString(2, "Smith");
             ps.setString(3, "example@example.com");
             ps.executeUpdate();
-        }
-        catch(SQLException ex){
-            Logger.getLogger(JDBCExample.class.getName()).log(Level.SEVERE,null,ex);
-        }
-        finally {
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCExample.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
             if (ps != null) {
                 ps.close();
             }
@@ -71,34 +67,32 @@ public class JDBCExample{
             }
         }
     }
-    
+
     public void connectAndUpdate(String url) throws SQLException {
         Connection con = null;
         PreparedStatement ps = null;
-        
-        try{
+
+        try {
             con = DriverManager.getConnection(url);
-            
+
             String sql = "UPDATE Customer SET Email = ? WHERE Email= ?";
             ps = con.prepareStatement(sql);
             ps.setString(1, "john@example.com");
             ps.setString(2, "example@example.com");
             ps.executeUpdate();
-            
+
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT CustomerID, FirstName FROM Customer WHERE Email = 'john@example.com'");
-            if(rs.next()) {
+            if (rs.next()) {
                 int id = rs.getInt("CustomerID");
-                
+
                 //rs.updateString("FirstName", "Jonathan");
                 //rs.updateRow();
             }
-            
-        }
-        catch(SQLException ex){
-            Logger.getLogger(JDBCExample.class.getName()).log(Level.SEVERE,ex.getMessage(),ex);
-        }
-        finally {
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCExample.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        } finally {
             if (ps != null) {
                 ps.close();
             }
@@ -107,23 +101,21 @@ public class JDBCExample{
             }
         }
     }
-    
+
     public void connectAndDelete(String url) throws SQLException {
         Connection con = null;
         PreparedStatement ps = null;
-        
-        try{
+
+        try {
             con = DriverManager.getConnection(url);
-            
+
             String sql = "DELETE FROM Customer WHERE Email= ?";
             ps = con.prepareStatement(sql);
             ps.setString(1, "john@example.com");
             ps.executeUpdate();
-        }
-        catch(SQLException ex){
-            Logger.getLogger(JDBCExample.class.getName()).log(Level.SEVERE,null,ex);
-        }
-        finally {
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCExample.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
             if (ps != null) {
                 ps.close();
             }
@@ -136,11 +128,11 @@ public class JDBCExample{
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws SQLException{
+    public static void main(String[] args) throws SQLException {
         JDBCExample jdbce = new JDBCExample();
-        
+
         String db = System.getProperty("user.home") + File.separator + "Chinook_Sqlite.sqlite";
-        
+
         jdbce.connectAndInsert("jdbc:sqlite:" + db);
         jdbce.connectToAndQueryDatabase("jdbc:sqlite:" + db);
         System.out.println("---------------------------------------------");
@@ -149,5 +141,27 @@ public class JDBCExample{
         System.out.println("---------------------------------------------");
         jdbce.connectAndDelete("jdbc:sqlite:" + db);
         jdbce.connectToAndQueryDatabase("jdbc:sqlite:" + db);
+    }
+
+    public void countRecords(String url) throws SQLException {
+        Connection con = DriverManager.getConnection(url);
+        ResultSet rs;
+        Statement stmt = con.createStatement();
+        int rowcount = 0;
+
+        rs = stmt.executeQuery("SELECT COUNT(*) AS CustomerCount FROM Customer WHERE CustomerID > 55");
+        if (rs.next()) {
+            rowcount = rs.getInt("CustomerCount");
+        }
+
+        System.out.println("There are " + rowcount + " rows");
+
+        rs = stmt.executeQuery("SELECT * FROM Customer WHERE CustomerID > 55");
+        while (rs.next()) {
+            System.out.format("Customer: %d\t%-30.30s%n", rs.getInt("CustomerId"), rs.getString("LastName"));
+        }
+
+        stmt.close();
+        con.close();
     }
 }

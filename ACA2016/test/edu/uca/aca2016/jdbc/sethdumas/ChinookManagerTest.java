@@ -51,12 +51,14 @@ public class ChinookManagerTest {
 
     /**
      * Test of addArtist method, of class ChinookManager.
+     * @throws java.lang.Exception
      */
     @Test
-    public void testAddArtist() throws Exception {
+    public void testAddArtist(String) throws Exception {
         System.out.println("addArtist");
         ChinookManager instance = new ChinookManager();
         instance.addArtist();
+        this.addArtist = "James Brown";
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
