@@ -57,18 +57,17 @@ public class ChinookManager{
             PreparedStatement ps = null;
             
             try{
-                con = DriverManager.getConnection(artist_name);
                 
                 String sql = "INSERT INTO Artist (ArtistName) VALUES (?)";
                 ps = con.prepareStatement(sql);
-                ps.setString(1, "?");
+                ps.setString(1, artist_name);
                 ps.executeUpdate();
             }
             catch(SQLException ex){
                 Logger.getLogger(ChinookManager.class.getName());
             }
             finally {
-                if (ps != null);{
+                if (ps != null){
                 ps.close();
             }
             }
@@ -79,16 +78,16 @@ public class ChinookManager{
      * @param artist_name
      * @throws SQLException
      */
-        public int getArtist (String artist_name) throws SQLException {
-            Connection con = null;
-            PreparedStatement ps = null;
-            
-        try {
-        }
+//        public int getArtist (String artist_name) throws SQLException {
+//            Connection con = null;
+//            PreparedStatement ps = null;
+//            
+//        try {
+//        }
 
 }
         
-}
+
     
 //    public void connectToAndQueryDatabase(String url) throws SQLException{
 //        
@@ -129,7 +128,7 @@ public class ChinookManager{
 //            ps = con.prepareStatement("INSERT INTO Artist(FirstName, LastName) VALUES (?,?)");
 //            ps.executeUpdate();
 //            
-        } 
+        
     
 
 
