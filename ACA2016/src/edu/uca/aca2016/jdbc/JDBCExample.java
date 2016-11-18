@@ -132,6 +132,46 @@ public class JDBCExample{
             }
         }
     }
+    
+    public void countRecords(String url) throws SQLException {
+        Connection con = DriverManager.getConnection(url);
+        ResultSet rs;
+        Statement stmt = con.createStatement();
+        int rowcount = 0;
+        
+        // when you can do a insensitive type scroll on a small data set
+        /*
+        stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        
+        rs = stmt.executeQuery("SELECT * FROM Customer WHERE CustomerID > 55");
+
+        
+        if (rs.last()) {
+            rowcount = rs.getRow();
+            rs.beforeFirst();   // not rs.first() because the rs.next() below will move on, missing the first element
+        }
+        
+        while (rs.next()) {
+            System.out.format("Customer: %d\t%-30.30s%n", rs.getInt("CustomerId"), rs.getString("LastName"));
+        }
+        */
+        
+        // when that is not available        
+        rs = stmt.executeQuery("SELECT COUNT(*) AS CustomerCount FROM Customer WHERE CustomerID > 55");
+        if (rs.next()) {
+            rowcount = rs.getInt("CustomerCount");
+        }
+        
+        System.out.println("There are " + rowcount + " rows");
+        
+        rs = stmt.executeQuery("SELECT * FROM Customer WHERE CustomerID > 55");
+        while (rs.next()) {
+            System.out.format("Customer: %d\t%-30.30s%n", rs.getInt("CustomerId"), rs.getString("LastName"));
+        }
+
+        stmt.close();
+        con.close();
+    }
 
     /**
      * @param args the command line arguments
@@ -141,13 +181,15 @@ public class JDBCExample{
         
         String db = System.getProperty("user.home") + File.separator + "Chinook_Sqlite.sqlite";
         
-        jdbce.connectAndInsert("jdbc:sqlite:" + db);
-        jdbce.connectToAndQueryDatabase("jdbc:sqlite:" + db);
-        System.out.println("---------------------------------------------");
-        jdbce.connectAndUpdate("jdbc:sqlite:" + db);
-        jdbce.connectToAndQueryDatabase("jdbc:sqlite:" + db);
-        System.out.println("---------------------------------------------");
-        jdbce.connectAndDelete("jdbc:sqlite:" + db);
-        jdbce.connectToAndQueryDatabase("jdbc:sqlite:" + db);
+//        jdbce.connectAndInsert("jdbc:sqlite:" + db);
+//        jdbce.connectToAndQueryDatabase("jdbc:sqlite:" + db);
+//        System.out.println("---------------------------------------------");
+//        jdbce.connectAndUpdate("jdbc:sqlite:" + db);
+//        jdbce.connectToAndQueryDatabase("jdbc:sqlite:" + db);
+//        System.out.println("---------------------------------------------");
+//        jdbce.connectAndDelete("jdbc:sqlite:" + db);
+//        jdbce.connectToAndQueryDatabase("jdbc:sqlite:" + db);
+        
+        jdbce.countRecords("jdbc:sqlite:" + db);
     }
 }
