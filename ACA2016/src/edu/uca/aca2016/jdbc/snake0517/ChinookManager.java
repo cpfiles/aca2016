@@ -91,7 +91,7 @@ public class ChinookManager {
         PreparedStatement ps = null;
         PreparedStatement qs = null;
         String sql = "UPDATE Artist SET Name = (?) WHERE ArtistId = (?)";
-        String chk = "SELECT * FROM Artist WHERE Name = (?)";
+        String chk = "SELECT * FROM Artist WHERE Name = ?";
         String ArtistName = null;
         try {
             ps = con.prepareStatement(sql);
@@ -99,15 +99,16 @@ public class ChinookManager {
             ps.setInt(2, Id);
             ps.executeUpdate();
             qs = con.prepareStatement(chk);
-            ResultSet rs = qs.executeQuery();
             qs.setString(1, Name);
+            ResultSet rs = qs.executeQuery();
+
             if (rs.next()) {
                 ArtistName = Name;
 
             } else {
             }
             if (rs.next()) {
-                ArtistName = null;
+                return false;
 
             }
         } finally {
@@ -116,7 +117,7 @@ public class ChinookManager {
             }
 
         }
-        logger.log(Level.INFO, "Return Artist Name: ", ArtistName);
+        logger.log(Level.INFO, "Return Artist Name: {0}", ArtistName);
 
         return true;
 
