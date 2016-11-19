@@ -86,4 +86,37 @@ public class ChinookManager {
         return ArtistId;
 
     }
+
+    public boolean updateArtist(int Id, String Name) throws SQLException {
+        PreparedStatement ps = null;
+        String sql = "UPDATE Artist SET UPPER (Name) = (?) WHERE ArtistId = ?";
+        String chk = "SELECT Artist WWHERE UPPER (Name) = (?)";
+        String ArtistName = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, Name.toUpperCase());
+            ps.setInt(2, Id);
+            ps.executeUpdate();
+
+            ResultSet rs = ps.executeQuery(chk);
+            ps.setString(1, Name.toUpperCase());
+            if (rs.next()) {
+                ArtistName = Name.toUpperCase();
+
+            } else {
+            }
+            if (rs.next()) {
+                ArtistName = null;
+
+            }
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+
+        }
+        logger.log(Level.INFO, "Return Artist Name: ", ArtistName);
+        return true;
+
+    }
 }
