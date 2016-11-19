@@ -21,9 +21,9 @@ public class Chinook {
      */
     public static void main(String[] args) throws IOException, SQLException {
         ChinookManager Chinook = new ChinookManager();
-        Chinook.addArtist("Bob Rightp");
-        Chinook.getArtist("Bob Rightp");
-        
+//        Chinook.addArtist("Basi");
+//        Chinook.getArtist("Basi");
+        Chinook.updateArtist(1, "Bitch Im me");
     }
     
 }
