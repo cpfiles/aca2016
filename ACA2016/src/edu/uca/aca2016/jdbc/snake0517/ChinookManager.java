@@ -115,6 +115,9 @@ public class ChinookManager {
             if (ps != null) {
                 ps.close();
             }
+            if (qs != null) {
+                qs.close();;
+            }
 
         }
         logger.log(Level.INFO, "Return Artist Name: {0}", ArtistName);
