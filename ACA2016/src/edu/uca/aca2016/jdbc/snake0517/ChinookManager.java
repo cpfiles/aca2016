@@ -89,17 +89,18 @@ public class ChinookManager {
 
     public boolean updateArtist(int Id, String Name) throws SQLException {
         PreparedStatement ps = null;
+        PreparedStatement qs = null;
         String sql = "UPDATE Artist SET Name = (?) WHERE ArtistId = (?)";
-        String chk = "SELECT Artist WHERE Name = (?)";
+        String chk = "SELECT * FROM Artist WHERE Name = (?)";
         String ArtistName = null;
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, Name);
             ps.setInt(2, Id);
             ps.executeUpdate();
-
-            ResultSet rs = ps.executeQuery(chk);
-            ps.setString(1, Name);
+            qs = con.prepareStatement(chk);
+            ResultSet rs = qs.executeQuery();
+            qs.setString(1, Name);
             if (rs.next()) {
                 ArtistName = Name;
 
@@ -116,7 +117,7 @@ public class ChinookManager {
 
         }
         logger.log(Level.INFO, "Return Artist Name: ", ArtistName);
-        
+
         return true;
 
     }
