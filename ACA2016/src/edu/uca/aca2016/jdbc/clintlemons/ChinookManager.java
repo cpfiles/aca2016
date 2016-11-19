@@ -5,6 +5,7 @@
  */
 package edu.uca.aca2016.jdbc.clintlemons;
 
+import java.io.File;
 import java.util.Properties;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,7 +18,7 @@ import java.sql.DriverManager;
 //import java.sql.SQLException;
 //import java.sql.Statement;
 //import java.util.Dictionary;
-import java.util.logging.Level;
+import java.util.logging.*;
 import java.util.logging.Logger;
 import java.io.FileNotFoundException;
 /**
@@ -34,31 +35,36 @@ public class ChinookManager {
      * @throws java.sql.SQLException
      * 
      */
-    public void ChinookManager (String dbconnection) throws SQLException {
+   // String db = System.getProperty("ChinookManager.properties" + ("Chinook_Sqlite.sqlite"));
+    public void ChinookManager (){
         FileInputStream in;
-        this.con = DriverManager.getConnection("dbconnection");
         try{
             Path inpath = Paths.get("resources","config","clintlemons","ChinookManager.properties");
             in = new FileInputStream(inpath.toFile());
             this.defaultProperties.load(in);
-            //con = defaultProperties.getProperty("db.connection",));
+            defaultProperties.getProperty("ChinookManager.properties");
             //this.con.prepareCall("Chinook_db");
-            in.close();
+           // in.close();
+           con=DriverManager.getConnection(defaultProperties.getProperty("db.connection"));
         } catch (FileNotFoundException Properties_Not_Found) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.WARNING, null, Properties_Not_Found);
         } catch (IOException Properties_IO_Error) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.WARNING, null, Properties_IO_Error);
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
-    public void addArtist(String name){
-              logger.info("Added artist'"+name+"' to the database");
-    }
 
-    ChinookManager (){
-        throw new UnsupportedOperationException("connection failed"); //To change body of generated methods, choose Tools | Templates.
+    /**
+     *
+     * @param name
+     */
+    public void addArtist(String name){
+       //       logger.info("Added artist'"+"'Leonard Cohen"+"' to the database");
     }
 }
+
 
 
 
