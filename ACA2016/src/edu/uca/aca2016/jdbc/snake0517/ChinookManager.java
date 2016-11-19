@@ -105,8 +105,8 @@ public class ChinookManager {
             if (rs.next()) {
                 ArtistName = Name;
 
-            } else {
             }
+
             if (rs.next()) {
                 return false;
 
@@ -116,7 +116,7 @@ public class ChinookManager {
                 ps.close();
             }
             if (qs != null) {
-                qs.close();;
+                qs.close();
             }
 
         }
@@ -124,5 +124,33 @@ public class ChinookManager {
 
         return true;
 
+    }
+
+    public boolean deleteArtist(int Id) throws SQLException {
+        PreparedStatement ps = null;
+        PreparedStatement qs = null;
+        String sql = "DELETE FROM Artist WHERE ArtistId = ?";
+        String chk = "Select FROM Artist WHERE ArtistId = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, Id);
+            ps.executeUpdate();
+            qs = con.prepareStatement(chk);
+            qs.setInt(1, Id);
+            ResultSet rs = qs.executeQuery();
+            if (rs.next()) {
+                return false;
+            }
+
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (qs != null) {
+                qs.close();
+            }
+
+        }
+        return true;
     }
 }
