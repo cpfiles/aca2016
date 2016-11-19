@@ -130,7 +130,7 @@ public class ChinookManager {
         PreparedStatement ps = null;
         PreparedStatement qs = null;
         String sql = "DELETE FROM Artist WHERE ArtistId = ?";
-        String chk = "Select FROM Artist WHERE ArtistId = ?";
+        String chk = "Select * FROM Artist WHERE ArtistId = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, Id);
