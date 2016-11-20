@@ -5,7 +5,6 @@
  */
 package edu.uca.aca2016.jdbc.jeffbanksz4l;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -13,8 +12,6 @@ import java.sql.SQLException;
  * @author jeffb
  */
 public class DB_Runner {
-    
-    ResultSet rs;
 
     /**
      * @param args the command line arguments
@@ -33,10 +30,6 @@ public class DB_Runner {
 //        CM.updateArtist(276, "Glenn Miller");
 //        System.out.println("---------------------------------------------");
         CM.deleteArtist(276);
-        System.out.println("---------------------------------------------");
-        CM.countRecords(Artist);
-        System.out.println("There are " + rowcount + " rows");
-//        System.out.format("Artist: %d\t%-30.30s%n", rs.getInt("ArtistID"), rs.getString("Name"));
         System.out.println("---------------------------------------------");
     }
 }

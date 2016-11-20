@@ -15,7 +15,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -181,26 +180,5 @@ public class ChinookManager {
             }
         }
         return false;
-    }
-    
-    public void countRecords(String Artist) throws SQLException {
-        
-        ResultSet rs;
-        Statement stmt = con.createStatement();
-        int rowcount = 0;
-        
-        rs = stmt.executeQuery("SELECT COUNT(*) AS ArtistCount FROM Artist WHERE ArtistID > 275");
-        if (rs.next()) {
-            rowcount = rs.getInt("ArtistCount");
-        }
-        
-//        System.out.println("There are " + rowcount + " rows");
-        
-        rs = stmt.executeQuery("SELECT * FROM Artist WHERE ArtistID > 275");
-        while (rs.next()) {
-//            System.out.format("Artist: %d\t%-30.30s%n", rs.getInt("ArtistID"), rs.getString("Name"));
-        }
-
-        stmt.close();
     }
 }
