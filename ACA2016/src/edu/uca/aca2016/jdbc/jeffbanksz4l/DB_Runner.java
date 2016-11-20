@@ -21,7 +21,6 @@ public class DB_Runner {
     public static void main(String[] args) throws SQLException {
         ChinookManager CM = new ChinookManager();
 
-//        String db = System.getProperty("user.home") + File.separator + "Chinook_Sqlite.sqlite";
 //        CM.addArtist("Benny Goodman");
 //        System.out.println("---------------------------------------------");
 //        CM.getArtist("Benny Goodman");
