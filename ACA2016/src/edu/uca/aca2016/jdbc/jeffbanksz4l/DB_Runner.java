@@ -5,6 +5,7 @@
  */
 package edu.uca.aca2016.jdbc.jeffbanksz4l;
 
+import java.io.File;
 import java.sql.SQLException;
 
 /**
@@ -15,11 +16,9 @@ public class DB_Runner {
 
     /**
      * @param args the command line arguments
-     * @param rowcount
-     * @param Artist
      * @throws java.sql.SQLException
      */
-    public static void main(String[] args, String rowcount, String Artist) throws SQLException {
+    public static void main(String[] args) throws SQLException {
         ChinookManager CM = new ChinookManager();
 
 //        String db = System.getProperty("user.home") + File.separator + "Chinook_Sqlite.sqlite";
