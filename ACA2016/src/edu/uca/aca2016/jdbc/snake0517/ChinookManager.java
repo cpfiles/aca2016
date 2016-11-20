@@ -76,7 +76,8 @@ public class ChinookManager {
             if (rs.next()) {
                 ArtistId = -1;
             }
-
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (ps != null) {
                 ps.close();
@@ -111,6 +112,8 @@ public class ChinookManager {
                 return false;
 
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (ps != null) {
                 ps.close();
@@ -141,7 +144,8 @@ public class ChinookManager {
             if (rs.next()) {
                 return false;
             }
-
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (ps != null) {
                 ps.close();
