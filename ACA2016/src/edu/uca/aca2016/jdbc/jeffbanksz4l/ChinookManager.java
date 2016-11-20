@@ -90,7 +90,10 @@ public class ChinookManager {
         PreparedStatement ps = null;
         int ArtistId = -1;
         String sql = "SELECT * FROM Artist WHERE upper(Name) = ?";
-
+//        ResultSet rs;
+//        Statement stmt = con.createStatement();
+//        int rowcount = 0;
+        
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, artistName.toUpperCase());
@@ -119,74 +122,85 @@ public class ChinookManager {
      * @param ArtistId
      * @param newArtistName
      * @return
+     * @throws java.sql.SQLException
      */
-    public boolean updateArtist(int ArtistId, String newArtistName) {
+    public boolean updateArtist(int ArtistId, String newArtistName) throws SQLException {
 
-//        Connection con = null;
-//        PreparedStatement ps = null;
-//        
-//        try{
-//            con = DriverManager.getConnection(url);
-//            
-//            String sql = "UPDATE Customer SET Email = ? WHERE Email= ?";
-//            ps = con.prepareStatement(sql);
-//            ps.setString(1, "john@example.com");
-//            ps.setString(2, "example@example.com");
-//            ps.executeUpdate();
-//            
-//            Statement stmt = con.createStatement();
-//            ResultSet rs = stmt.executeQuery("SELECT CustomerID, FirstName FROM Customer WHERE Email = 'john@example.com'");
-//            if(rs.next()) {
-//                int id = rs.getInt("CustomerID");
-//                
-//                //rs.updateString("FirstName", "Jonathan");
-//                //rs.updateRow();
-//            }
-//            
-//        }
-//        catch(SQLException ex){
-//            Logger.getLogger(JDBCExample.class.getName()).log(Level.SEVERE,ex.getMessage(),ex);
-//        }
-//        finally {
-//            if (ps != null) {
-//                ps.close();
-//            }
-//            if (con != null) {
-//                con.close();
-//            }
-//        }
-        return false;
+        PreparedStatement ps = null;
+        int update = 1;
+        boolean updateArtist = false;
+        String sql = "UPDATE Artist SET Name = ? WHERE ArtistId = ?";
+
+        try {
+
+            ps = con.prepareStatement(sql);
+            ps.setString(1, newArtistName);
+            ps.setInt(2, ArtistId);
+            ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            logger.severe("SQL Exception: " + ex.getMessage());
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+        }
+        logger.info("Updated Artist: " + newArtistName);
+
+        if (update != 1) {
+            return true;
+        } else {
+            return false;
+        }
+//        logger.info("Boolean: " + updateArtist);
     }
 
     /**
      *
      * @param ArtistId
      * @return
+     * @throws java.sql.SQLException
      */
-    public boolean deleteArtist(int ArtistId) {
+    public boolean deleteArtist(int ArtistId) throws SQLException {
 
-//        Connection con = null;
-//        PreparedStatement ps = null;
-//        
-//        try{
-//            con = DriverManager.getConnection(url);
-//            
-//            String sql = "DELETE FROM Customer WHERE Email= ?";
-//            ps = con.prepareStatement(sql);
-//            ps.setString(1, "john@example.com");
-//            ps.executeUpdate();
-//        }
-//        catch(SQLException ex){
-//            Logger.getLogger(JDBCExample.class.getName()).log(Level.SEVERE,null,ex);
-//        }
-//        finally {
-//            if (ps != null) {
-//                ps.close();
-//            }
-//            if (con != null) {
-//                con.close();
-//            }
-//        }
+        PreparedStatement ps = null;
+        String sql = "DELETE FROM Artist WHERE ArtistId = ?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, ArtistId);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            logger.severe("SQL Exception: " + ex.getMessage());
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
         return false;
+    }
+    
+    public void countRecords(String Artist) throws SQLException {
+        
+        ResultSet rs;
+        Statement stmt = con.createStatement();
+        int rowcount = 0;
+        
+        rs = stmt.executeQuery("SELECT COUNT(*) AS ArtistCount FROM Artist WHERE ArtistID > 275");
+        if (rs.next()) {
+            rowcount = rs.getInt("ArtistCount");
+        }
+        
+//        System.out.println("There are " + rowcount + " rows");
+        
+        rs = stmt.executeQuery("SELECT * FROM Artist WHERE ArtistID > 275");
+        while (rs.next()) {
+//            System.out.format("Artist: %d\t%-30.30s%n", rs.getInt("ArtistID"), rs.getString("Name"));
+        }
+
+        stmt.close();
     }
 }
