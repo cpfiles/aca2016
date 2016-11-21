@@ -15,6 +15,7 @@ import java.util.logging.Logger;
  * @author cfiles
  */
 public class JDBCExample{
+private Connection con;
 
     public void connectToAndQueryDatabase(String url) throws SQLException{
         Connection con = DriverManager.getConnection(url);
