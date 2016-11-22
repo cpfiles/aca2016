@@ -18,6 +18,10 @@ public class ChinookRunner {
      */
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
+        /**
+         * test runner file constructs and goes through all methods in
+         * ChinookManager.java, returning results
+         */
         ChinookManager t = new ChinookManager();
         t.addArtist("GWAR");
         System.out.println("ArtistId = " + t.getArtist("gwar"));
