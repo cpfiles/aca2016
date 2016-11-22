@@ -27,7 +27,7 @@ public class ChinookManager {
     private Properties Chin = new Properties();
 
     /**
-     *
+     * Sets up Connection to the database.
      * @throws IOException
      * @throws SQLException
      */
@@ -50,7 +50,7 @@ public class ChinookManager {
     }
 
     /**
-     *
+     * Adds new artist name to the database in the artist table.
      * @param artistname
      * @throws SQLException
      */
@@ -73,7 +73,8 @@ public class ChinookManager {
     }
 
     /**
-     *
+     * Retrieves the ArtistId when give the name of a artist in the table.
+     * will return negative one if multiple or no records are found.
      * @param artist_name
      * @return
      * @throws SQLException
@@ -105,7 +106,7 @@ public class ChinookManager {
     }
 
     /**
-     *
+     *Updates the name of the Artist associated with the ArtistId provided.
      * @param Id
      * @param Name
      * @return
@@ -113,7 +114,7 @@ public class ChinookManager {
      */
     public boolean updateArtist(int Id, String Name) throws SQLException {
         PreparedStatement ps = null;
-        PreparedStatement qs = null;
+
         String sql = "UPDATE Artist SET Name = (?) WHERE ArtistId = (?)";
 
         String ArtistName = Name;
@@ -143,7 +144,7 @@ public class ChinookManager {
     }
 
     /**
-     *
+     * Deletes Artist record from the database.
      * @param Id
      * @return
      * @throws SQLException
