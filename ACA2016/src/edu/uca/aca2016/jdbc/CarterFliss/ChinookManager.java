@@ -85,7 +85,7 @@ public class ChinookManager {
             if (rs.next()) {
                 id = -1;
             }
-            return id;
+            
             
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
@@ -122,20 +122,20 @@ public class ChinookManager {
                 newName = getNew.getString("Name");
             }
             if (oldName.equals(newName)){
-                return artistUpdated = false;
+                artistUpdated = false;
             } else {
-                return artistUpdated = true;
+                artistUpdated = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             artistUpdated = false;
-            return artistUpdated;
+            
         } finally {
             if (this.ps != null) {
                 this.ps.close();
             }
         }
-        
+       return artistUpdated; 
     }
 
     public boolean deleteArtist(int id) throws SQLException {
@@ -145,9 +145,12 @@ public class ChinookManager {
             this.ps = this.con.prepareStatement(sql);
             this.ps.setInt(1, id);            
             this.ps.executeUpdate();                    
-            
-            return artistDeleted = true;
-            
+            if(this.ps.executeUpdate() == 0){
+                artistDeleted = true;
+            }else {
+                artistDeleted = false;
+            }           
+        
         }catch (SQLException ex){
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             artistDeleted = false;
@@ -158,6 +161,7 @@ public class ChinookManager {
             }
         }
         
-        
+      return artistDeleted; 
     }
+     
 }
