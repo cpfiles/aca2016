@@ -144,14 +144,9 @@ public class ChinookManager {
             String sql = "DELETE FROM Artist WHERE ArtistId = (?)";
             this.ps = this.con.prepareStatement(sql);
             this.ps.setInt(1, id);            
-            ResultSet rsDelCheck = this.ps.executeQuery();                    
+            this.ps.executeUpdate();                    
             
-            if (rsDelCheck.wasNull()){
-                return artistDeleted = true;
-            } else {
-                return artistDeleted = false;
-            }
-            
+            return artistDeleted = true;
             
         }catch (SQLException ex){
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
