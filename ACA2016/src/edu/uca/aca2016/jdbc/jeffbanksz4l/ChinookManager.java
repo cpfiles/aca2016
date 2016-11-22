@@ -26,7 +26,6 @@ import java.util.logging.Logger;
 public class ChinookManager {
 
     Connection con;
-    boolean update = false;
     private static final Logger logger = Logger.getLogger(ChinookManager.class.getName());
 
     /**
@@ -127,6 +126,7 @@ public class ChinookManager {
 
         PreparedStatement ps = null;
         ResultSet rs;
+        boolean update = false;
 
         String sql = "UPDATE Artist SET Name = ? WHERE ArtistId = ?";
 
@@ -135,11 +135,11 @@ public class ChinookManager {
             ps = con.prepareStatement(sql);
             ps.setString(1, newArtistName);
             ps.setInt(2, ArtistId);
-            ps.executeUpdate();
+            int rtn = ps.executeUpdate();
             logger.info("Updated Artist '" + newArtistName + "' with ArtistId: " + ArtistId);
 
-            if (update = true) {
-                return true;
+            if (rtn == 1) {
+                update = true;
             }
 
         } catch (SQLException ex) {
@@ -150,7 +150,7 @@ public class ChinookManager {
             }
         }
         logger.info("Updated Artist: " + newArtistName);
-        return false;
+        return update;
     }
 
     /**
@@ -163,16 +163,18 @@ public class ChinookManager {
     public boolean deleteArtist(int ArtistId) throws SQLException {
 
         PreparedStatement ps = null;
+        boolean update = false;
         String sql = "DELETE FROM Artist WHERE ArtistId = ?";
 
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, ArtistId);
             ps.executeUpdate();
+            int rtn = ps.executeUpdate();
             logger.info("Deleted ArtistId: " + ArtistId);
 
-            if (update = true) {
-                return true;
+            if (rtn == 1) {
+                update = true;
             }
 
         } catch (SQLException ex) {
@@ -183,6 +185,6 @@ public class ChinookManager {
             }
         }
         logger.info("Deleted ArtistId: " + ArtistId);
-        return false;
+        return update;
     }
 }
