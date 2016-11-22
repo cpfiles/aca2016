@@ -115,40 +115,30 @@ public class ChinookManager {
         PreparedStatement ps = null;
         PreparedStatement qs = null;
         String sql = "UPDATE Artist SET Name = (?) WHERE ArtistId = (?)";
-        String chk = "SELECT * FROM Artist WHERE Name = ?";
-        String ArtistName = null;
+
+        String ArtistName = Name;
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, Name);
             ps.setInt(2, Id);
-            ps.executeUpdate();
-            qs = con.prepareStatement(chk);
-            qs.setString(1, Name);
-            ResultSet rs = qs.executeQuery();
-
-            if (rs.next()) {
-                ArtistName = Name;
-
-            }
-
-            if (rs.next()) {
+            int rs = ps.executeUpdate();
+            if (rs != 1) {
                 return false;
-
+            } else {
+                return true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (ps != null) {
                 ps.close();
-            }
-            if (qs != null) {
-                qs.close();
+
             }
 
         }
         logger.log(Level.INFO, "Return Artist Name: {0}", ArtistName);
 
-        return true;
+        return false;
 
     }
 
@@ -160,30 +150,27 @@ public class ChinookManager {
      */
     public boolean deleteArtist(int Id) throws SQLException {
         PreparedStatement ps = null;
-        PreparedStatement qs = null;
+
         String sql = "DELETE FROM Artist WHERE ArtistId = ?";
-        String chk = "Select * FROM Artist WHERE ArtistId = ?";
+
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, Id);
-            ps.executeUpdate();
-            qs = con.prepareStatement(chk);
-            qs.setInt(1, Id);
-            ResultSet rs = qs.executeQuery();
-            if (rs.next()) {
+            int rs = ps.executeUpdate();
+            if (rs != 1) {
                 return false;
+            } else {
+                return true;
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (ps != null) {
                 ps.close();
             }
-            if (qs != null) {
-                qs.close();
-            }
 
         }
-        return true;
+        return false;
     }
 }
