@@ -5,7 +5,6 @@
  */
 package edu.uca.aca2016.jdbc.jeffbanksz4l;
 
-import java.io.File;
 import java.sql.SQLException;
 
 /**
