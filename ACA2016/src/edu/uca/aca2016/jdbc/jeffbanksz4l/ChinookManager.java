@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 public class ChinookManager {
 
     Connection con;
+    boolean update = false;
     private static final Logger logger = Logger.getLogger(ChinookManager.class.getName());
 
     /**
@@ -53,7 +54,7 @@ public class ChinookManager {
     }
 
     /**
-     * Method to add an Artist.
+     * Adding an Artist to the database.
      *
      * @param artistName
      * @throws SQLException
@@ -68,6 +69,7 @@ public class ChinookManager {
             ps.setString(1, artistName);
             ps.executeUpdate();
             logger.info("Added Artist '" + artistName + "' to the database");
+
         } catch (SQLException ex) {
             logger.severe("SQL exception: " + ex.getMessage());
         } finally {
@@ -78,7 +80,7 @@ public class ChinookManager {
     }
 
     /**
-     * Retrieve the Artist ID
+     * Getting the Artist Id from the database.
      *
      * @param artistName
      * @return
@@ -89,10 +91,7 @@ public class ChinookManager {
         PreparedStatement ps = null;
         int ArtistId = -1;
         String sql = "SELECT * FROM Artist WHERE upper(Name) = ?";
-//        ResultSet rs;
-//        Statement stmt = con.createStatement();
-//        int rowcount = 0;
-        
+
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, artistName.toUpperCase());
@@ -117,6 +116,7 @@ public class ChinookManager {
     }
 
     /**
+     * Updating an Artist in the database.
      *
      * @param ArtistId
      * @param newArtistName
@@ -126,8 +126,8 @@ public class ChinookManager {
     public boolean updateArtist(int ArtistId, String newArtistName) throws SQLException {
 
         PreparedStatement ps = null;
-        int update = 1;
-        boolean updateArtist = false;
+        ResultSet rs;
+
         String sql = "UPDATE Artist SET Name = ? WHERE ArtistId = ?";
 
         try {
@@ -136,6 +136,11 @@ public class ChinookManager {
             ps.setString(1, newArtistName);
             ps.setInt(2, ArtistId);
             ps.executeUpdate();
+            logger.info("Updated Artist '" + newArtistName + "' with ArtistId: " + ArtistId);
+
+            if (update = true) {
+                return true;
+            }
 
         } catch (SQLException ex) {
             logger.severe("SQL Exception: " + ex.getMessage());
@@ -145,16 +150,11 @@ public class ChinookManager {
             }
         }
         logger.info("Updated Artist: " + newArtistName);
-
-        if (update != 1) {
-            return true;
-        } else {
-            return false;
-        }
-//        logger.info("Boolean: " + updateArtist);
+        return false;
     }
 
     /**
+     * Deleting an Artist from the database.
      *
      * @param ArtistId
      * @return
@@ -169,16 +169,20 @@ public class ChinookManager {
             ps = con.prepareStatement(sql);
             ps.setInt(1, ArtistId);
             ps.executeUpdate();
+            logger.info("Deleted ArtistId: " + ArtistId);
+
+            if (update = true) {
+                return true;
+            }
+
         } catch (SQLException ex) {
             logger.severe("SQL Exception: " + ex.getMessage());
         } finally {
             if (ps != null) {
                 ps.close();
             }
-            if (con != null) {
-                con.close();
-            }
         }
+        logger.info("Deleted ArtistId: " + ArtistId);
         return false;
     }
 }

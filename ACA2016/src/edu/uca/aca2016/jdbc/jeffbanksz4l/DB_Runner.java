@@ -27,7 +27,7 @@ public class DB_Runner {
 //        System.out.println("---------------------------------------------");
 //        CM.updateArtist(276, "Glenn Miller");
 //        System.out.println("---------------------------------------------");
-        CM.deleteArtist(276);
-        System.out.println("---------------------------------------------");
+//        CM.deleteArtist(276);
+//        System.out.println("---------------------------------------------");
     }
 }
