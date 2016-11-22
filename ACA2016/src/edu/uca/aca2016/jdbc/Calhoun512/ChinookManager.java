@@ -52,25 +52,32 @@ public class ChinookManager{
      * @param artist_name
      * @throws SQLException
      */
-        public void addArtist(String artist_name) throws SQLException {
-            Connection con = null;
+        public void addArtist(String Name) throws SQLException {
+            
             PreparedStatement ps = null;
             
             try{
                 
-                String sql = "INSERT INTO Artist (ArtistName) VALUES (?)";
+                String sql = "INSERT INTO Artist (Name) VALUES (?)";
                 ps = con.prepareStatement(sql);
-                ps.setString(1, artist_name);
+                ps.setString(1, Name);
                 ps.executeUpdate();
             }
             catch(SQLException ex){
                 Logger.getLogger(ChinookManager.class.getName());
+                
             }
             finally {
                 if (ps != null){
                 ps.close();
             }
             }
+        }
+        
+        public void getArtist (String Name) throws SQLException {
+            
+            PreparedStatement ps = null;
+            ResultSet rs =
         }
         
     /**
