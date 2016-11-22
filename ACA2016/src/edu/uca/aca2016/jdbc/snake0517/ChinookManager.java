@@ -26,6 +26,11 @@ public class ChinookManager {
 
     private Properties Chin = new Properties();
 
+    /**
+     *
+     * @throws IOException
+     * @throws SQLException
+     */
     public ChinookManager() throws IOException, SQLException {
 
         FileInputStream in = null;
@@ -44,6 +49,11 @@ public class ChinookManager {
         }
     }
 
+    /**
+     *
+     * @param artistname
+     * @throws SQLException
+     */
     public void addArtist(String artistname) throws SQLException {
         PreparedStatement ps = null;
 
@@ -62,6 +72,12 @@ public class ChinookManager {
         }
     }
 
+    /**
+     *
+     * @param artist_name
+     * @return
+     * @throws SQLException
+     */
     public int getArtist(String artist_name) throws SQLException {
         PreparedStatement ps = null;
         int ArtistId = -1;
@@ -88,6 +104,13 @@ public class ChinookManager {
 
     }
 
+    /**
+     *
+     * @param Id
+     * @param Name
+     * @return
+     * @throws SQLException
+     */
     public boolean updateArtist(int Id, String Name) throws SQLException {
         PreparedStatement ps = null;
         PreparedStatement qs = null;
@@ -129,6 +152,12 @@ public class ChinookManager {
 
     }
 
+    /**
+     *
+     * @param Id
+     * @return
+     * @throws SQLException
+     */
     public boolean deleteArtist(int Id) throws SQLException {
         PreparedStatement ps = null;
         PreparedStatement qs = null;
