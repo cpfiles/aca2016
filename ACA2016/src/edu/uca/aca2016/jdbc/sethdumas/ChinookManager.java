@@ -110,10 +110,16 @@ public class ChinookManager {
     //should return a boolean; true if the 
     //update was successful, false otherwise. 
 
-    public boolean upadteArtist(int ArtistId) throws SQLException {
+    public boolean upadteArtist(int ArtistId, String ArtistName) throws SQLException {
         PreparedStatement ps = null;
-        PreparedStatement qs = null;
         String sql = "UPDATE Artist SET Name = (?) WHERE ArtistId = (?)";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, ArtistName);
+            ps.setInt(2, ArtistId);
+            ps.executeUpdate();
+        }
         
 
     }
