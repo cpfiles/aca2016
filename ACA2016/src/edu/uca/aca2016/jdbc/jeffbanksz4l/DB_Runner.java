@@ -20,13 +20,13 @@ public class DB_Runner {
     public static void main(String[] args) throws SQLException {
         ChinookManager CM = new ChinookManager();
 
-//        CM.addArtist("Benny Goodman");
-//        System.out.println("---------------------------------------------");
-//        CM.getArtist("Benny Goodman");
-//        System.out.println("---------------------------------------------");
-//        CM.updateArtist(276, "Glenn Miller");
-//        System.out.println("---------------------------------------------");
-//        CM.deleteArtist(276);
-//        System.out.println("---------------------------------------------");
+        CM.addArtist("Benny Goodman");
+        System.out.println("---------------------------------------------");
+        CM.getArtist("Benny Goodman");
+        System.out.println("---------------------------------------------");
+        CM.updateArtist(276, "Glenn Miller");
+        System.out.println("---------------------------------------------");
+        CM.deleteArtist(276);
+        System.out.println("---------------------------------------------");
     }
 }
