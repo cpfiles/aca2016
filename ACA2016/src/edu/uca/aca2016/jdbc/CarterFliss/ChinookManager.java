@@ -111,33 +111,19 @@ public class ChinookManager {
         PreparedStatement psOldName;
         PreparedStatement psNewName;
         try {
-            //saves old artist name
-            String oldName = "SELECT Name FROM Artist WHERE ArtistId = (?)";
-            psOldName = con.prepareStatement(oldName);
-            psOldName.setInt(1, id);
-            ResultSet getOld = psOldName.executeQuery();
-            if (getOld.next()) {
-                oldName = getOld.getString("Name");
-            }
-            //updates the artist
+            
+            
+            //updates the artist & saves ps.executUpdate return value
             String sql = "UPDATE Artist SET Name = (?) WHERE ArtistId = (?)";
             this.ps = this.con.prepareStatement(sql);
             this.ps.setString(1, name);
             this.ps.setInt(2, id);
-            this.ps.executeUpdate();
-            //saves the new artist name
-            String newName = "SELECT Name FROM Artist WHERE ArtistId = (?)";
-            psNewName = con.prepareStatement(newName);
-            psNewName.setInt(1, id);
-            ResultSet getNew = psNewName.executeQuery();
-            //checks whether new name and old name are/aren't the same, and returns proper value
-            if (getNew.next()) {
-                newName = getNew.getString("Name");
-            }
-            if (oldName.equals(newName)) {
-                artistUpdated = false;
-            } else {
+            int recCheck = this.ps.executeUpdate();            
+            //checks recCheck's return value to get appropriate return boolean
+            if (recCheck == 1) {
                 artistUpdated = true;
+            } else {
+                artistUpdated = false;
             }
         //in case of SQLException, method will fail and artist isn't updated
         } catch (SQLException ex) {
@@ -159,9 +145,9 @@ public class ChinookManager {
             String sql = "DELETE FROM Artist WHERE ArtistId = (?)";
             this.ps = this.con.prepareStatement(sql);
             this.ps.setInt(1, id);
-            this.ps.executeUpdate();
+            int recCheck = this.ps.executeUpdate();
             //checks whether artist was deleted and returns proper boolean
-            if (this.ps.executeUpdate() == 0) {
+            if (recCheck == 1) {
                 artistDeleted = true;
             } else {
                 artistDeleted = false;
