@@ -36,10 +36,8 @@ public class ChinookManager {
             props = new Properties();
             props.load(in);
 
-
             con = DriverManager.getConnection(props.getProperty("db.connection"));
             System.out.println(props.getProperty("db.connection"));
-            
 
         } catch (SQLException | IOException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,15 +110,51 @@ public class ChinookManager {
 
     public boolean upadteArtist(int ArtistId, String ArtistName) throws SQLException {
         PreparedStatement ps = null;
+        boolean update = false;
         String sql = "UPDATE Artist SET Name = (?) WHERE ArtistId = (?)";
-        
-        try{
+
+        try {
             ps = con.prepareStatement(sql);
             ps.setString(1, ArtistName);
             ps.setInt(2, ArtistId);
-            ps.executeUpdate();
+            int Id = ps.executeUpdate();
+
+            if (Id == 1) {
+                update = true;
+
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "SQL Exception: {0}", ex.getMessage());
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
         }
-        
+        return update;
+    }
+
+    public boolean deleteArtist(int ArtistId) throws SQLException {
+        PreparedStatement ps = null;
+        boolean update = false;
+        String sql = "DELETE FROM Artist WHERE ArtistId = ?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, ArtistId);
+            ps.executeUpdate();
+            int Id = ps.executeUpdate();
+
+            if (Id == 1) {
+                update = true;
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "SQL Exception: {0}", ex.getMessage());
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+        }
+        return update;
 
     }
 }
