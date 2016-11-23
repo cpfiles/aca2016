@@ -14,13 +14,15 @@ import java.io.IOException;
 import static java.lang.System.in;
 import java.sql.*;
 import java.sql.DriverManager;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.sql.Statement;
-//import java.util.Dictionary;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Dictionary;
 import java.util.logging.*;
 import java.util.logging.Logger;
 import java.io.FileNotFoundException;
+import jdk.nashorn.internal.runtime.ScriptRuntime;
+import org.sqlite.SQLiteConnection;
 /**
  *
  * @author Username
@@ -28,6 +30,10 @@ import java.io.FileNotFoundException;
 public class ChinookManager {
     Connection con=null;
     private final Properties defaultProperties =new Properties();
+    int ArtistId = -1;
+    Statement stmt = null;
+    ResultSet rs = null;
+    
     //this.con = DriverManager.getConnection("dbconnection");
     /**
      *loads properties file
@@ -43,9 +49,8 @@ public class ChinookManager {
             in = new FileInputStream(inpath.toFile());
             this.defaultProperties.load(in);
             defaultProperties.getProperty("ChinookManager.properties");
-            //this.con.prepareCall("Chinook_db");
-           // in.close();
            con=DriverManager.getConnection(defaultProperties.getProperty("db.connection"));
+           in.close();
         } catch (FileNotFoundException Properties_Not_Found) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.WARNING, null, Properties_Not_Found);
         } catch (IOException Properties_IO_Error) {
@@ -55,15 +60,58 @@ public class ChinookManager {
         }
         
     }
+    /**
+     *Add Artist Name
+     * @param Name
+     */
+    public void addArtist(String Name){
+       PreparedStatement ps = null;
+       ps.executeQuery("SELECT*FROM Artist WHERE Name);
+        try {con=DriverManager.getConnection(defaultProperties.getProperty("db.connection"));
+            if rs.next !=null{
+               rs.getString("Name");
+               ps.setString(1, Name);
+        }
+            ps.executeUpdate();
+            //stmt.setString(0,ArtistId);
+            ps.setString(1,Name);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
 
     /**
      *
-     * @param name
+     * @param ArtistId
+     * @param Name
+     * @return
+     * @throws SQLException
      */
-    public void addArtist(String name){
-       //       logger.info("Added artist'"+"'Leonard Cohen"+"' to the database");
+    public int getArtist(String ArtistId, String Name) throws SQLException{
+       // int ArtistId = -1;   ---called ^ ChinookManager
+        //ScriptRuntime.mergeScope(scope);
+        
+        PreparedStatement stmt = null;
+        ResultSet rs =this.ArtistId();
+       // PreparedStatement stmt = con.prepareStatement("ArtistId, Name");
+        String sql = "SELECT Artist";
+        if(
+                )
+    
     }
 }
+
+//       logger.info("Added artist'"+"'Leonard Cohen"+"' to the database");
+       //PreparedStatement.
+
+//        public int getArtist(String name){
+//            
+//        }
+
+//                logger.info("not implemented");
+//        return (-1:2);
+    
 
 
 
@@ -162,6 +210,4 @@ public class ChinookManager {
    // public void main connectChinookManager() {
         //this.con = DriverManager.getConnection((jdbc:sqlite:)) + load.ChinookManager.properties);
 //        public void ChinookManager(){
-//            this.loadDefaultProperties();
-//           System.out.println(this.defaultProperties.getProperty("ChinookManager.properties"));
-//        }
+//            this.loadDefaultProperties()//           System.out.println(this.defaultProperties.getProperty("ChinookManager.properties"));        
