@@ -18,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Statement;
 import java.util.Properties;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -74,27 +75,77 @@ public class ChinookManager{
             }
         }
         
-        public void getArtist (String Name) throws SQLException {
-            
-            PreparedStatement ps = null;
-            ResultSet rs =
-        }
-        
     /**
      *
-     * @param artist_name
+     * @param Name
      * @throws SQLException
+     * @return 
      */
-//        public int getArtist (String artist_name) throws SQLException {
-//            Connection con = null;
-//            PreparedStatement ps = null;
-//            
-//        try {
-//        }
+    public int getArtist (String Name) throws SQLException {
+            
+            PreparedStatement ps = null;
+            int ArtistId = -1;
+            String sql = "SELECT * FROM Artist WHERE UPPER (Name) = ?";
+            try{
+                ps = con.prepareStatement(sql);
+                ps.setString(1, Name.toUpperCase());
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    ArtistId = rs.getInt("ArtistId");
+                }
+                if (rs.next()) {
+                    ArtistId = -1;
+            }
+                
+           } catch (SQLException ex) {
+               Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+           } finally{
+                if (ps != null) {
+                    ps.close();
+                }
+           }
+            //Logger.log(Level.INFO, "Return Artist Id:" + ArtistId);
+            return ArtistId;
+        }
+    
+    public boolean updateArtist (int Id, String Name) throws SQLException {
+            PreparedStatement ps = null;
+            boolean x = false;
+         
+            try{
+                String sql = "UPDATE Artist SET Name = ? WHERE Id = ?";
+                ps = con.prepareStatement(sql);
+                ps.setString(1, Name);
+                ps.setInt(2, Id);
+                int rs = ps.executeUpdate();
+                
+                if (rs == 1) {
+                    x = true;
+                }
+                      
+            }catch (SQLException ex) {
+                Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+            
+            }finally {
+                if (ps != null) {
+                    ps.close();
+                }
+            }
+            return x;
+    }
+        
+        public void deleteArtist (int ArtistId) throws SQLException{
+            PreparedStatement ps = null;
+            
+            try {
+                
+            }
+        
+   
 
 }
         
-
+//}
     
 //    public void connectToAndQueryDatabase(String url) throws SQLException{
 //        
