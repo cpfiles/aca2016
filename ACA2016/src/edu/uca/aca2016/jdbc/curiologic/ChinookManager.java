@@ -21,18 +21,17 @@ import java.util.logging.Logger;
  *
  * @author xulix
  */
+
 /* establishes connection to database*/
 public class ChinookManager {
-    
 
     private Properties ChinookManager = new Properties();
-
+    private static final Logger logger = Logger.getLogger(ChinookManager.class.getName());
     Connection con;
 
     public ChinookManager() throws SQLException {
         this.loadChinookManager();
         con = DriverManager.getConnection(ChinookManager.getProperty("db.connection"));
-
     }
 
     /* loads the database properties to connect to*/
@@ -88,16 +87,41 @@ public class ChinookManager {
             ppst.setString(1, Name.toUpperCase());
             ResultSet rs = ppst.executeQuery();
             if (rs.next()) {
-
                 ArtistId = rs.getInt("ArtistId");
-                
 
             }
             if (rs.next()) {
-
                 ArtistId = -1;
-                
+           }
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+            if (ppst != null) {
+                ppst.close();
+            }            
+        }
+        logger.log(Level.INFO, "artist id is {0}", ArtistId);
+        return ArtistId;      
+    }
+
+    /* updates the artist name in the database*/
+    public boolean updateArtist(int artistId, String artistName) throws SQLException {
+        PreparedStatement ppst = null;
+        boolean update = false;
+        try {
+            String sql = "UPDATE Artist SET Name = (?) WHERE artistId = ? ";
+            ppst = con.prepareStatement(sql);
+            ppst.setString(1, artistName);
+            ppst.setInt(2, artistId);
+            int rows = ppst.executeUpdate();
+            if (rows != 1) {
+                return false;
+          }
+            else {
+                return true;
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -105,7 +129,39 @@ public class ChinookManager {
             if (ppst != null) {
                 ppst.close();
             }
+            logger.log(Level.INFO, "artist name is {0}", artistName);
         }
-        return ArtistId;
+        return update;
+        
+    }
+    
+
+    /* deletes artist from list with given artist ID*/
+    public boolean artistDelete(int artistId) throws SQLException {
+
+        PreparedStatement ppst = null;
+        boolean del = false;
+
+        try {
+
+            String sql = "DELETE FROM Artist WHERE artistId = ?";
+            ppst = con.prepareStatement(sql);
+            ppst.setInt(1, artistId);
+            int rowd = ppst.executeUpdate();
+             if (rowd != 1) {
+                return false;
+         }
+            else {
+                return true;
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (ppst != null) {
+                ppst.close();
+            }
+             logger.log(Level.INFO, "Deleted {0}", artistId);
+        }
+         return false;
     }
 }
