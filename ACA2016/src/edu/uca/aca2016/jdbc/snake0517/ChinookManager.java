@@ -178,7 +178,7 @@ public class ChinookManager {
         return x;
     }
 
-    public void batchLoadArtist(File Artists) {
+    public void batchLoadArtist(File Artists, int col) {
 
     }
 }
