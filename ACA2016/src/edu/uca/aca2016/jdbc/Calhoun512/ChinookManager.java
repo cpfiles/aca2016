@@ -134,12 +134,31 @@ public class ChinookManager{
             return x;
     }
         
-        public void deleteArtist (int ArtistId) throws SQLException{
+        public boolean deleteArtist (int ArtistId) throws SQLException{
             PreparedStatement ps = null;
+            boolean q = false;
+            
             
             try {
+                String sql = "DELETE FROM Artist WHERE ArtistId = ?";
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, ArtistId);
+                int rs = ps.executeUpdate();
                 
+                if (rs == 1) {
+                    q = true;
+                }
+                
+            }catch (SQLException ex) {
+                Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+                
+            }finally {
+                if (ps != null) {
+                    ps.close();
+                }
             }
+                return q;
+        }
         
    
 
