@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package edu.uca.aca2016.jdbc;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -50,100 +51,129 @@ The method should return a boolean; true if the update was successful, false oth
 The method should find the artist with the id provided and delete it. 
 The method should return a boolean; true if the operation was successful, false otherwise.
 
-*/
-*/
+ */
 /**
  *
  * @author Cory's HP Pavilion
  */
-public class ChinookManager 
-{
+public class ChinookManager {
+
     private Connection con;
     private final Properties defaultProperties = new Properties();
-        
-    public ChinookManager() throws SQLException 
-    {
+
+    public ChinookManager() throws SQLException {
         this.loadDefaultProperties();
         String url = this.defaultProperties.getProperty("MyCreatedFile");
         con = DriverManager.getConnection(url);
         System.out.println(url);
     }
-    
-    private void loadDefaultProperties() 
-    {
+
+    private void loadDefaultProperties() {
         FileInputStream in = null;
-        
-        try
-        {
-            Path inpath = Paths.get("resources","config","coopecor","ChinookManager.properties");
+
+        try {
+            Path inpath = Paths.get("resources", "config", "coopecor", "ChinookManager.properties");
             in = new FileInputStream(inpath.toFile());
             this.defaultProperties.load(in);
             in.close();
-        }
-        catch(FileNotFoundException ex)
-        {
-            Logger.getLogger(Properties.class.getName()).log(Level.SEVERE,"Properties file was not found",ex);
-        }
-        catch(IOException ex)
-        {
-            Logger.getLogger(Properties.class.getName()).log(Level.SEVERE,"Exception reading properties file",ex);
-        }
-        finally
-        {
-            try
-            {
-                if (in != null) 
-                {
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Properties.class.getName()).log(Level.SEVERE, "Properties file was not found", ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Properties.class.getName()).log(Level.SEVERE, "Exception reading properties file", ex);
+        } finally {
+            try {
+                if (in != null) {
                     in.close();
                 }
-            }
-            catch(IOException ex)
-            {
-                Logger.getLogger(Properties.class.getName()).log(Level.SEVERE,null,ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Properties.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    
+
     }
 
-        public void AddArtist(String newArtistName) throws SQLException  
-        {
-            PreparedStatement ps = null;
-        try
-        {
+    public void AddArtist(String newArtistName) throws SQLException {
+        PreparedStatement ps = null;
+        try {
             String sql = "INSERT INTO Artist (Name) VALUES (?)";
             ps = con.prepareStatement(sql);
-            ps.setString(1, "newArtistName");
+            ps.setString(1, newArtistName);
             ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch(SQLException ex)
-        {
-            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE,null,ex);
-        }
-        
+
     }
-        public void getArtist (String artistName) throws SQLException
-        {
-            try{
-                String artist = ("SELECT Artist FROM Name WHERE Name =?");
-                PreparedStatement ps = con.prepareStatement(artist);
-                ps.setString(1, "artistName");
-                int artistID = 0;
-                Statement st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                ResultSet result=  ps.executeQuery("SELECT * FROM Artist WHERE (Upper) Name = ?" );
+
+    public int getArtist(String newArtistName) throws SQLException {
+        int artistID = -1;
+
+        try {
+            String artist = ("SELECT ArtistId FROM Artist WHERE Upper (Name) = Upper (?)");
+            PreparedStatement ps = con.prepareStatement(artist);
+            ps.setString(1, newArtistName.toUpperCase());
+            ResultSet result = ps.executeQuery();
+
+            if (result.next()) {
+                artistID = result.getInt("ArtistId");
             }
-            catch(SQLException ex){
-                Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE,ex.getMessage(),ex);
+
+            if (result.next()) {
+                artistID = -1;
             }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            artistID = -1;
         }
-        public static void main(String[] args) throws SQLException
-        {
-            ChinookManager javadb = new ChinookManager();
-            javadb.AddArtist("Joy");
-            System.out.println("---------------------------------------------");
+        return artistID;
+    }
+
+    public boolean updateArtist(String newArtistName, int ID) throws SQLException {
+        PreparedStatement ps = null;
+        try {
+            String update = "UPDATE Artist SET Name = ? WHERE ArtistId = ?";
+            ps = con.prepareStatement(update);
+            ps.setString(1, newArtistName);
+            ps.setInt(2, ID);
+
+            int result = ps.executeUpdate();
+            if (result == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean deleteArtist(int artistID) throws SQLException {
+        PreparedStatement ps = null;
+        try {
+            String update = "DELETE FROM Artist WHERE ArtistId = ?";
+            ps = con.prepareStatement(update);
+            ps.setInt(1,artistID);
+            
+            int result = ps.executeUpdate();
+            if (result != 1) {
+            } else {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public static void main(String[] args) throws SQLException {
+        ChinookManager javadb = new ChinookManager();
+        javadb.AddArtist("Joy");
+        System.out.println("---------------------------------------------");
+        System.out.println(javadb.getArtist("Chico Buarque"));
+        System.out.println("---------------------------------------------");
+        System.out.println (javadb.deleteArtist(278));
     }
 }
-
-
 
 //Below is the next assignment after completion:
 //Load a CSV file. Only concered with the Artist Name. Need to create my own CSV file.
