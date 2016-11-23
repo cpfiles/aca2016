@@ -45,6 +45,9 @@ public class ChinookManager {
     public void ChinookManager (){
         FileInputStream in;
         try{
+            stmt = con.createStatement(
+            ResultSet.TYPE_SCROLL_INSENSITIVE,
+            ResultSet.CONCUR_UPDATABLE);
             Path inpath = Paths.get("resources","config","clintlemons","ChinookManager.properties");
             in = new FileInputStream(inpath.toFile());
             this.defaultProperties.load(in);
@@ -65,17 +68,19 @@ public class ChinookManager {
      * @param Name
      */
     public void addArtist(String Name){
+        
        PreparedStatement ps = null;
-       ps.executeQuery("SELECT*FROM Artist WHERE Name);
+       ps.executeQuery("SELECT*FROM Artist WHERE Name");
         try {con=DriverManager.getConnection(defaultProperties.getProperty("db.connection"));
             if rs.next !=null{
                rs.getString("Name");
                ps.setString(1, Name);
         }
-            ps.executeUpdate();
+    
             //stmt.setString(0,ArtistId);
-            ps.setString(1,Name);
-            ps.executeUpdate();
+           // ps.setString(1,Name);
+            
+            //ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         }   
@@ -88,17 +93,15 @@ public class ChinookManager {
      * @return
      * @throws SQLException
      */
-    public int getArtist(String ArtistId, String Name) throws SQLException{
-       // int ArtistId = -1;   ---called ^ ChinookManager
-        //ScriptRuntime.mergeScope(scope);
-        
-        PreparedStatement stmt = null;
+    public int getArtist(String Name) throws SQLException{
+       // int ArtistId = -1;     --- ^ ChinookManager
+     
         ResultSet rs =this.ArtistId();
        // PreparedStatement stmt = con.prepareStatement("ArtistId, Name");
-        String sql = "SELECT Artist";
-        if(
+        String rs= stmt.executeQuery(SELECT FROM "rtist" WHERE "Name");
+        if(rs.
                 )
-    
+        return
     }
 }
 
