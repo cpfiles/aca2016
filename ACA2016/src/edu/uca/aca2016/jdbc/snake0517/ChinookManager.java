@@ -5,6 +5,7 @@
  */
 package edu.uca.aca2016.jdbc.snake0517;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -28,6 +29,7 @@ public class ChinookManager {
 
     /**
      * Sets up Connection to the database.
+     *
      * @throws IOException
      * @throws SQLException
      */
@@ -51,6 +53,7 @@ public class ChinookManager {
 
     /**
      * Adds new artist name to the database in the artist table.
+     *
      * @param artistname
      * @throws SQLException
      */
@@ -73,8 +76,9 @@ public class ChinookManager {
     }
 
     /**
-     * Retrieves the ArtistId when give the name of a artist in the table.
-     * will return negative one if multiple or no records are found.
+     * Retrieves the ArtistId when give the name of a artist in the table. will
+     * return negative one if multiple or no records are found.
+     *
      * @param artist_name
      * @return
      * @throws SQLException
@@ -106,7 +110,8 @@ public class ChinookManager {
     }
 
     /**
-     *Updates the name of the Artist associated with the ArtistId provided.
+     * Updates the name of the Artist associated with the ArtistId provided.
+     *
      * @param Id
      * @param Name
      * @return
@@ -116,18 +121,17 @@ public class ChinookManager {
         PreparedStatement ps = null;
 
         String sql = "UPDATE Artist SET Name = (?) WHERE ArtistId = (?)";
-
+        boolean x = false;
         String ArtistName = Name;
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, Name);
             ps.setInt(2, Id);
             int rs = ps.executeUpdate();
-            if (rs != 1) {
-                return false;
-            } else {
-                return true;
+            if (rs == 1) {
+                x = true;
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -139,29 +143,28 @@ public class ChinookManager {
         }
         logger.log(Level.INFO, "Return Artist Name: {0}", ArtistName);
 
-        return false;
+        return x;
 
     }
 
     /**
      * Deletes Artist record from the database.
+     *
      * @param Id
      * @return
      * @throws SQLException
      */
     public boolean deleteArtist(int Id) throws SQLException {
         PreparedStatement ps = null;
-
+        boolean x = false;
         String sql = "DELETE FROM Artist WHERE ArtistId = ?";
 
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, Id);
             int rs = ps.executeUpdate();
-            if (rs != 1) {
-                return false;
-            } else {
-                return true;
+            if (rs == 1) {
+                x = true;
             }
 
         } catch (SQLException ex) {
@@ -172,6 +175,10 @@ public class ChinookManager {
             }
 
         }
-        return false;
+        return x;
+    }
+
+    public void batchLoadArtist(File Artists) {
+
     }
 }

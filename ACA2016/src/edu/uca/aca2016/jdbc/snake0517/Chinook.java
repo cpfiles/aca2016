@@ -21,10 +21,10 @@ public class Chinook {
      */
     public static void main(String[] args) throws IOException, SQLException {
         ChinookManager Chinook = new ChinookManager();
-//        Chinook.addArtist("fanetta");
-//        Chinook.getArtist("Fanetta");
-//        Chinook.updateArtist(332, "Breezy");
-        Chinook.deleteArtist(331);
+//        Chinook.addArtist("Jimmy");
+//        Chinook.getArtist("jimmy");
+//        Chinook.updateArtist(334, "Charles");
+//        Chinook.deleteArtist(334);
     }
 
 }
