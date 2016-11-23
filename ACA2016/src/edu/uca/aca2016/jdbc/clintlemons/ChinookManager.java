@@ -70,7 +70,7 @@ public class ChinookManager {
     public void addArtist(String Name){
         
        PreparedStatement ps = null;
-       ps.executeQuery("SELECT*FROM Artist WHERE Name");
+       ps.executeQuery(SELECT*FROM "Artist" WHERE "Name");
         try {con=DriverManager.getConnection(defaultProperties.getProperty("db.connection"));
             if rs.next !=null{
                rs.getString("Name");
