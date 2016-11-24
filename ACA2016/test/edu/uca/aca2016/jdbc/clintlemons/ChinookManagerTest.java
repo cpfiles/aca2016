@@ -66,25 +66,25 @@ public class ChinookManagerTest {
     @Test
     public void testAddArtist() {
         System.out.println("addArtist");
-        String ArtistId = "";
-        String Name = "";
-        ChinookManager instance = new ChinookManager();
-        instance.addArtist(ArtistId, Name);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
-    }
-        @Test
-    public void testaddArtist(){
-        System.out.println("addArtist");
+      //  String Artist = "1";
         String Name = "Leonard Cohen";
+        ChinookManager instance = new ChinookManager();
+        instance.addArtist(Name);
+        // TODO review the generated test code and remove the default call to fail.
+        
+    }
+//        @Test
+//    public void testaddArtist(){
+//        System.out.println("addArtist");
+//        String Name = "Leonard Cohen";
         //ChinookManager  = new ChinookManager();
-        //this.instance.addArtist(Name);
+//}//this.instance.addArtist(Name);
        //this.testaddArtist("1", "Leonard Cohen");
        //return ("Name");
       
     }   
     
-}
+
     
     
     
@@ -113,5 +113,5 @@ public class ChinookManagerTest {
 //        ChinookManager instance = new ChinookManager();
         //instance.ChinookManager();
         // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+       
    
