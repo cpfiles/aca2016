@@ -125,7 +125,6 @@ public class ChinookManager {
     public boolean updateArtist(int ArtistId, String newArtistName) throws SQLException {
 
         PreparedStatement ps = null;
-        ResultSet rs;
         boolean update = false;
 
         String sql = "UPDATE Artist SET Name = ? WHERE ArtistId = ?";
@@ -187,4 +186,8 @@ public class ChinookManager {
         logger.info("Deleted ArtistId: " + ArtistId);
         return update;
     }
+    
+//    public void batchLoadArtist(File, int Col) {
+//        
+//    }
 }
