@@ -21,6 +21,7 @@ import java.util.Dictionary;
 import java.util.logging.*;
 import java.util.logging.Logger;
 import java.io.FileNotFoundException;
+import static javax.swing.text.html.HTML.Tag.SELECT;
 import jdk.nashorn.internal.runtime.ScriptRuntime;
 import org.sqlite.SQLiteConnection;
 /**
@@ -70,20 +71,24 @@ public class ChinookManager {
     public void addArtist(String Name){
         
        PreparedStatement ps = null;
-       ps.executeQuery(SELECT*FROM "Artist" WHERE "Name");
+       ps.executeQuery(SELECT FROM "Artist" WHERE "Name");
         try {con=DriverManager.getConnection(defaultProperties.getProperty("db.connection"));
-            if rs.next !=null{
-               rs.getString("Name");
-               ps.setString(1, Name);
         }
-    
-            //stmt.setString(0,ArtistId);
-           // ps.setString(1,Name);
-            
-            //ps.executeUpdate();
-        } catch (SQLException ex) {
+        catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
-        }   
+        }       
+        if rs.next !=null{
+           try {
+               rs.getString(Name);
+               ps.setString(1, Name);
+           } catch (SQLException ex) {
+               Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+           }
+}
+        
+        //stmt.setString(0,ArtistId);
+           // ps.setString(1,Name);
+           //ps.executeUpdate();  
     }
 
     /**
