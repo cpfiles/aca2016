@@ -108,8 +108,7 @@ public class ChinookManager {
     //updates artist in database based on ArtistId parameter
     public boolean updateArtist(int id, String name) throws SQLException {
         boolean artistUpdated;
-        PreparedStatement psOldName;
-        PreparedStatement psNewName;
+        
         try {
             
             
