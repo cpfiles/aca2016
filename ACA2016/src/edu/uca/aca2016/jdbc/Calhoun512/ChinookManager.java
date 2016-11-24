@@ -21,15 +21,22 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-
+/**
+ *
+ * @author calho
+ */
 public class ChinookManager{
     
     Connection con;
 
     private Properties chinook = new Properties();
     
-        public ChinookManager() throws IOException, SQLException {
+    /**
+     *
+     * @throws IOException
+     * @throws SQLException
+     */
+    public ChinookManager() throws IOException, SQLException {
                  
         FileInputStream in = null;      
         try {
@@ -50,9 +57,11 @@ public class ChinookManager{
     }
     /**
      *
-     * @param artist_name
+     * @param Name
      * @throws SQLException
      */
+    
+    // This method inputs a row and value into the database.
         public void addArtist(String Name) throws SQLException {
             
             PreparedStatement ps = null;
@@ -81,6 +90,8 @@ public class ChinookManager{
      * @throws SQLException
      * @return 
      */
+        
+     // This method searches the database one-by-one to find a given value.
     public int getArtist (String Name) throws SQLException {
             
             PreparedStatement ps = null;
@@ -108,12 +119,21 @@ public class ChinookManager{
             return ArtistId;
         }
     
+    /**
+     *
+     * @param Id
+     * @param Name
+     * @return
+     * @throws SQLException
+     */
+    
+    // This method finds a particular row and updates the corresponding value.
     public boolean updateArtist (int Id, String Name) throws SQLException {
             PreparedStatement ps = null;
             boolean x = false;
          
             try{
-                String sql = "UPDATE Artist SET Name = ? WHERE Id = ?";
+                String sql = "UPDATE Artist SET Name = ? WHERE ArtistId = ?";
                 ps = con.prepareStatement(sql);
                 ps.setString(1, Name);
                 ps.setInt(2, Id);
@@ -134,7 +154,14 @@ public class ChinookManager{
             return x;
     }
         
-        public boolean deleteArtist (int ArtistId) throws SQLException{
+    /**
+     *
+     * @param ArtistId
+     * @return
+     * @throws SQLException
+     */
+    // This method deletes the selected value from the SQL database
+    public boolean deleteArtist (int ArtistId) throws SQLException{
             PreparedStatement ps = null;
             boolean q = false;
             
@@ -164,52 +191,3 @@ public class ChinookManager{
 
 }
         
-//}
-    
-//    public void connectToAndQueryDatabase(String url) throws SQLException{
-//        
-//        Connection con = DriverManager.getConnection(Chinook.getProperty("db.connection"));
-//        
-//        Statement stmt = con.createStatement();
-//        ResultSet rs = stmt.executeQuery("SELECT * FROM Artist");
-//
-//        while(rs.next()){
-//            String first_name = rs.getString("FirstName");
-//            String last_name = rs.getString("LastName");
-//            int id = rs.getInt("ArtistId");
-//            
-//            System.out.format("Artist", id, first_name, last_name);
-//        }
-//        
-//        stmt.close();
-//        con.close();
-//    }
-//        
-//    /**
-//     *
-//     * @throws IOException
-//     * @throws SQLException
-//     */
-//
-//        
-//
-//    
-//
-//    public void connectAndInsert(String url) throws SQLException {
-//        Connection con = null;
-//        PreparedStatement ps = null;
-//        
-//    try{
-//            con = DriverManager.getConnection("jdbc:sqlite:C:\\\\Users\\\\calho\\\\Documents\\\\SQL\\\\Chinook");
-//            
-//            ps = con.prepareStatement("INSERT INTO Artist(FirstName, LastName) VALUES (?,?)");
-//            ps.executeUpdate();
-//            
-        
-    
-
-
-
-
-
-
