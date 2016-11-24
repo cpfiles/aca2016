@@ -21,15 +21,17 @@ import java.util.Dictionary;
 import java.util.logging.*;
 import java.util.logging.Logger;
 import java.io.FileNotFoundException;
-import static javax.swing.text.html.HTML.Tag.SELECT;
+//import static javax.swing.text.html.HTML.Tag.SELECT;
 import jdk.nashorn.internal.runtime.ScriptRuntime;
+//import static org.apache.commons.net.imap.IMAPClient.SEARCH_CRITERIA.FROM;
 import org.sqlite.SQLiteConnection;
+import org.sqlite.jdbc4.JDBC4PreparedStatement;
 /**
  *
  * @author Username
  */
 public class ChinookManager {
-    Connection con=null;
+    Connection con;
     private final Properties defaultProperties =new Properties();
     int ArtistId = -1;
     Statement stmt = null;
@@ -69,44 +71,40 @@ public class ChinookManager {
      * @param Name
      */
     public void addArtist(String Name){
-        
-       PreparedStatement ps = null;
-       ps.executeQuery(SELECT FROM "Artist" WHERE "Name");
+       PreparedStatement ps =null;
+       // ps.executeQuery"SELECT*FROM Artist WHERE Name";
         try {con=DriverManager.getConnection(defaultProperties.getProperty("db.connection"));
         }
         catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         }       
-        if rs.next !=null{
            try {
-               rs.getString(Name);
+               String sql = ("INSERT INTO ARTIST (Name)VALUES(?,?)");
+               con.createStatement();
                ps.setString(1, Name);
+               ps.executeUpdate();
            } catch (SQLException ex) {
                Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
            }
-}
-        
-        //stmt.setString(0,ArtistId);
-           // ps.setString(1,Name);
-           //ps.executeUpdate();  
     }
-
     /**
      *
-     * @param ArtistId
      * @param Name
      * @return
      * @throws SQLException
      */
     public int getArtist(String Name) throws SQLException{
-       // int ArtistId = -1;     --- ^ ChinookManager
+        ArtistId = -1;
+        rs = stmt.executeQuery("SELECT*FROM Artist WHERE LIKE %NaMe% = Name");
+        try{
+            stmt.ArtistId = con.prepareStatement("String Name %NaMe%");
+            rs = ps.executeQuery();
+        }
+        catch
      
         ResultSet rs =this.ArtistId();
        // PreparedStatement stmt = con.prepareStatement("ArtistId, Name");
-        String rs= stmt.executeQuery(SELECT FROM "rtist" WHERE "Name");
-        if(rs.
-                )
-        return
+        
     }
 }
 
@@ -120,11 +118,6 @@ public class ChinookManager {
 //                logger.info("not implemented");
 //        return (-1:2);
     
-
-
-
-
-
 
 //        private Properties prop=new Properties(){
 //                String Connection = prop.getProperty("ChinookManager.properties");
