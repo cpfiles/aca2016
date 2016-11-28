@@ -83,9 +83,12 @@ public class ChinookManager {
                con.createStatement();
                ps.setString(1, Name);
                ps.executeUpdate();
+               in.close();
            } catch (SQLException ex) {
-               Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
-           }
+               Logger.getLogger(ChinookManager.class.getName()).log(Level.WARNING, null, ex);
+           } catch (IOException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.WARNING, null, ex);
+        }
     }
     /**
      *
@@ -95,17 +98,25 @@ public class ChinookManager {
      */
     public int getArtist(String Name) throws SQLException{
         ArtistId = -1;
-        rs = stmt.executeQuery("SELECT*FROM Artist WHERE LIKE %NaMe% = Name");
+        rs = stmt.executeQuery("SELECT*FROM Artist WHERE UPPER Name"); //LIKE %NaMe% = Name");
         try{
-            stmt.ArtistId = con.prepareStatement("String Name %NaMe%");
-            rs = ps.executeQuery();
+            if con.isValid(0);
+            con.prepareStatement("String Name %NaMe%");
+            Statement ps = rs.getStatement();
+            if rs.next()
+               
+                 );
+                   // return int = ArtistId;
+            
+            
         }
         catch
      
-        ResultSet rs =this.ArtistId();
+        return this.ArtistId();
        // PreparedStatement stmt = con.prepareStatement("ArtistId, Name");
         
     }
+}
 }
 
 //       logger.info("Added artist'"+"'Leonard Cohen"+"' to the database");
@@ -211,4 +222,3 @@ public class ChinookManager {
    // public void main connectChinookManager() {
         //this.con = DriverManager.getConnection((jdbc:sqlite:)) + load.ChinookManager.properties);
 //        public void ChinookManager(){
-//            this.loadDefaultProperties()//           System.out.println(this.defaultProperties.getProperty("ChinookManager.properties"));        
