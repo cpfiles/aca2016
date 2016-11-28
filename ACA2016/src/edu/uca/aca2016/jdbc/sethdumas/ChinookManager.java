@@ -47,6 +47,11 @@ public class ChinookManager {
     //addArtist has a single parameter for the artist’s name. 
     //This method should insert a row into the Artist database table 
     //in order to make a new Artist record.
+    
+    /**
+     * @param ArtistName
+     * @throws SQLException
+     */
     public void addArtist(String ArtistName) throws SQLException {
         //Connection con = null;
         PreparedStatement ps = null;
@@ -74,11 +79,12 @@ public class ChinookManager {
 //The method should return the ID of the artist if one is found. 
 //If there is no match or there are multiple rows returned the method should return -1.
 
-//    public void getArtist() throws SQLException{
-//        
-//    } 
-//get artist -row count - you have to know how many rows to come back.
-//
+    /**
+     * @param ArtistName
+     * @return
+     * @throws SQLException
+     */
+
     public int getArtist(String ArtistName) throws SQLException {
         PreparedStatement ps = null;
         int ArtistId = -1;
@@ -107,6 +113,13 @@ public class ChinookManager {
     //artist with the name provided. The method 
     //should return a boolean; true if the 
     //update was successful, false otherwise. 
+    
+    /**
+     * @param ArtistId
+     * @param ArtistName
+     * @return
+     * @throws java.sql.SQLException
+     */
 
     public boolean upadteArtist(int ArtistId, String ArtistName) throws SQLException {
         PreparedStatement ps = null;
@@ -133,6 +146,14 @@ public class ChinookManager {
         return update;
     }
 
+    //Method to delete an Artist
+    
+    /**
+     * @param ArtistId
+     * @return
+     * @throws java.sql.SQLException
+     */
+    
     public boolean deleteArtist(int ArtistId) throws SQLException {
         PreparedStatement ps = null;
         boolean update = false;
