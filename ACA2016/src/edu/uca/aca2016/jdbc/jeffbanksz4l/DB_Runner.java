@@ -5,14 +5,18 @@
  */
 package edu.uca.aca2016.jdbc.jeffbanksz4l;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.lang.String;
 
 /**
  *
  * @author jeffb
  */
 public class DB_Runner {
+    
+    
 
     /**
      * @param args the command line arguments
@@ -21,6 +25,7 @@ public class DB_Runner {
      */
     public static void main(String[] args) throws SQLException, IOException {
         ChinookManager CM = new ChinookManager();
+        String file = "C:\\Users\\jeffb\\Desktop\\Artist List.csv";
 
 //        CM.addArtist("Benny Goodman");
 //        System.out.println("---------------------------------------------");
@@ -31,7 +36,7 @@ public class DB_Runner {
 //        CM.deleteArtist(276);
 //        System.out.println("---------------------------------------------");
         
-        CM.batchLoadArtist(1);
+//        CM.batchLoadArtist("C:\\Users\\jeffb\\Desktop\\Artist List.csv", 0);
         
     }
 }

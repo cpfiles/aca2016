@@ -6,6 +6,7 @@
 package edu.uca.aca2016.jdbc.jeffbanksz4l;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -190,29 +191,27 @@ public class ChinookManager {
         return update;
     }
 
-    public void batchLoadArtist(int Col) throws FileNotFoundException, IOException, SQLException {
+    public void batchLoadArtist(File csv, int Col) throws FileNotFoundException, IOException, SQLException {
 
         PreparedStatement ps = null;
-        String sql = "INSERT INTO Artist (Name) VALUES (?)";
+//        String sql = "INSERT INTO Artist (Name) VALUES (?)";
         String file = "C:\\Users\\jeffb\\Desktop\\Artist List.csv";
-        BufferedReader br = null;
-        StringTokenizer st = new StringTokenizer(file, ",");
-        logger.info(file);
-        
-        try {
-            
-            ps = con.prepareStatement(sql);
-            ps.setString(1, "Name");
-            ps.executeUpdate();
-            logger.info("Artist Names updated from CSV file: " + file);
-        } catch (SQLException ex) {
-            logger.severe("SQL Exception: " + ex.getMessage());
-        } finally {
-            if (ps != null) {
-                ps.close();
-            }
-        }
-        logger.info("CSV added: " + file);
+//        BufferedReader br = null;
+//        StringTokenizer st = new StringTokenizer(file, ",");
+//        logger.info(file);
+        String line = "";
+        String splitC = ",";
 
+        try (BufferedReader br = new BufferedReader(new FileReader(csv))) {
+
+            while ((line = br.readLine()) != null) {
+                String[] name = line.split(splitC);
+
+                System.out.println("Artist Name: " + name[1]);
+
+            }
+        } catch (IOException ex) {
+            logger.severe("IO Exception: " + ex.getMessage());
+        }
     }
 }
