@@ -5,8 +5,10 @@
  */
 package edu.uca.aca2016.jdbc.jeffbanksz4l;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
 /**
@@ -186,8 +189,30 @@ public class ChinookManager {
         logger.info("Deleted ArtistId: " + ArtistId);
         return update;
     }
-    
-//    public void batchLoadArtist(File, int Col) {
-//        
-//    }
+
+    public void batchLoadArtist(int Col) throws FileNotFoundException, IOException, SQLException {
+
+        PreparedStatement ps = null;
+        String sql = "INSERT INTO Artist (Name) VALUES (?)";
+        String file = "C:\\Users\\jeffb\\Desktop\\Artist List.csv";
+        BufferedReader br = null;
+        StringTokenizer st = new StringTokenizer(file, ",");
+        logger.info(file);
+        
+        try {
+            
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "Name");
+            ps.executeUpdate();
+            logger.info("Artist Names updated from CSV file: " + file);
+        } catch (SQLException ex) {
+            logger.severe("SQL Exception: " + ex.getMessage());
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+        }
+        logger.info("CSV added: " + file);
+
+    }
 }
