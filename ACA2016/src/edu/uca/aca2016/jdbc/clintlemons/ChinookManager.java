@@ -74,7 +74,6 @@ public class ChinookManager {
      */
     public void addArtist(String Name){
        PreparedStatement ps =null;
-       // ps.executeQuery"SELECT*FROM Artist WHERE Name";
         try {con=DriverManager.getConnection(defaultProperties.getProperty("db.connection"));
         }
         catch (SQLException ex) {
@@ -84,7 +83,7 @@ public class ChinookManager {
                String query= ("INSERT INTO ARTIST (Name)VALUES(?,?)");
                con.createStatement();
                ps.setString(1, Name);
-               ps.executeUpdate();
+               ps.executeUpdate(query);
                in.close();
            } catch (SQLException ex) {
                Logger.getLogger(ChinookManager.class.getName()).log(Level.WARNING, null, ex);
@@ -113,7 +112,7 @@ public class ChinookManager {
             ps.setString(1, Name.toUpperCase());
             rs = ps.executeQuery();
             if (rs.next()){
-                rs.getInt("ArtistId");
+               rs.getInt("ArtistId");
             }
             if (rs.next()){
                return ArtistId=-1;
@@ -121,17 +120,40 @@ public class ChinookManager {
             }catch (SQLException ex) {
                Logger.getLogger(ChinookManager.class.getName()).log(Level.WARNING, null, ex);
             }
-            finally {in.close(ps !=null);
-            
+            finally {
+                if (ps !=null);
+                ps.close();
             }
-            
-    
-         
-        return this.ArtistId();
-       // PreparedStatement stmt = con.prepareStatement("ArtistId, Name");
-        
+            return this.ArtistId;
+    }   
+    public boolean updateArtist(int ArtistId, String Name) throws SQLException{
+            PreparedStatement ps = null;
+            boolean update = false;
+            rs = stmt.executeQuery("SELECT*FROM Artist WHERE UPPER (Name)=(?)");
+            if (!con.isValid(30)) {
+            } else {
+                    con.rollback();
+                    con.close();
+                    Logger.getLogger("connection time-out");
+                }
+            try {
+            con.prepareStatement("String Name %NaMe%");
+            ps.setString(1, Name.toUpperCase());
+            ps.setInt(2, ArtistId);
+            int Id = ps.executeUpdate();
+            if(Id == 1){
+                update = true;
+            }        
+            } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        }       finally {
+                if (ps !=null);
+                ps.close();
+            }
+            return update;
     }   
 }
+    
 
 
 //       logger.info("Added artist'"+"'Leonard Cohen"+"' to the database");
