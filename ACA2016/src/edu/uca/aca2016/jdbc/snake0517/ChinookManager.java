@@ -14,6 +14,9 @@ import java.util.Properties;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 /**
  *
@@ -178,7 +181,24 @@ public class ChinookManager {
         return x;
     }
 
-    public void batchLoadArtist(File Artists, int col) {
+    public void batchLoadArtist(File Artists, int col) throws FileNotFoundException, IOException {
+        BufferedReader br = null;
+        String line = "";
+        String cvsSplitBy = ",";
+        String[] ArtSet;
 
+        try {
+
+            br = new BufferedReader(new FileReader(Artists));
+            while ((line = br.readLine()) != null) {
+
+                ArtSet = line.split(cvsSplitBy);
+                
+            }
+        } finally {
+            if (br != null) {
+
+            }
+        }
     }
 }
