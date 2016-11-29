@@ -79,7 +79,7 @@ public class ChinookManager {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         }       
            try {
-               String sql = ("INSERT INTO ARTIST (Name)VALUES(?,?)");
+               String query= ("INSERT INTO ARTIST (Name)VALUES(?,?)");
                con.createStatement();
                ps.setString(1, Name);
                ps.executeUpdate();
@@ -103,7 +103,7 @@ public class ChinookManager {
             if con.isValid(0);
             con.prepareStatement("String Name %NaMe%");
             Statement ps = rs.getStatement();
-            if rs.next()
+            if rs.next();
                
                  );
                    // return int = ArtistId;
