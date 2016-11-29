@@ -23,8 +23,9 @@ public class Chinook {
         ChinookManager Chinook = new ChinookManager();
 //        Chinook.addArtist("Jimmy");
 //        Chinook.getArtist("jimmy");
-        Chinook.updateArtist(334, "Charles");
+//        Chinook.updateArtist(334, "Charles");
 //        Chinook.deleteArtist(334);
+
     }
 
 }
