@@ -6,6 +6,7 @@
 package edu.uca.aca2016.jdbc.clintlemons;
 
 import java.io.File;
+import static java.io.FileDescriptor.out;
 import java.util.Properties;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,6 +22,7 @@ import java.util.Dictionary;
 import java.util.logging.*;
 import java.util.logging.Logger;
 import java.io.FileNotFoundException;
+import java.util.ResourceBundle;
 //import static javax.swing.text.html.HTML.Tag.SELECT;
 import jdk.nashorn.internal.runtime.ScriptRuntime;
 //import static org.apache.commons.net.imap.IMAPClient.SEARCH_CRITERIA.FROM;
@@ -97,27 +99,40 @@ public class ChinookManager {
      * @throws SQLException
      */
     public int getArtist(String Name) throws SQLException{
-        ArtistId = -1;
-        rs = stmt.executeQuery("SELECT*FROM Artist WHERE UPPER Name"); //LIKE %NaMe% = Name");
-        try{
-            if con.isValid(0);
+        int ArtistId = -1;
+        PreparedStatement ps = null;
+        rs = stmt.executeQuery("SELECT*FROM Artist WHERE UPPER (Name)=(?)"); //LIKE %NaMe% = Name");
+            if (!con.isValid(30)) {
+            } else {
+                    con.rollback();
+                    con.close();
+                    Logger.getLogger("connection time-out");
+                }
+            try {
             con.prepareStatement("String Name %NaMe%");
-            Statement ps = rs.getStatement();
-            if rs.next();
-               
-                 );
-                   // return int = ArtistId;
+            ps.setString(1, Name.toUpperCase());
+            rs = ps.executeQuery();
+            if (rs.next()){
+                rs.getInt("ArtistId");
+            }
+            if (rs.next()){
+               return ArtistId=-1;
+            }
+            }catch (SQLException ex) {
+               Logger.getLogger(ChinookManager.class.getName()).log(Level.WARNING, null, ex);
+            }
+            finally {in.close(ps !=null);
             
+            }
             
-        }
-        catch
-     
+    
+         
         return this.ArtistId();
        // PreparedStatement stmt = con.prepareStatement("ArtistId, Name");
         
-    }
+    }   
 }
-}
+
 
 //       logger.info("Added artist'"+"'Leonard Cohen"+"' to the database");
        //PreparedStatement.
