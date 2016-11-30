@@ -27,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 //import static javax.swing.text.html.HTML.Tag.SELECT;
 import jdk.nashorn.internal.runtime.ScriptRuntime;
 //import static org.apache.commons.net.imap.IMAPClient.SEARCH_CRITERIA.FROM;
@@ -191,10 +192,22 @@ public class ChinookManager {
         //String[] Artists = line.split(",");
         //artists[collection]
         //           ^index 0
-        f = new File("Artist.csv");
         //BufferedReader br = new BufferedReader(BatchLoadArtist("Artist.csv",int));
-        HashMap csv = new HashMap(defaultProperties);
+        //Connect and read file
+        f = new File("Artist.csv");
+        HashMap<String, Integer>hm= new
+        HashMap<String, Integer>(); 
+        try{
+            stmt = con.createStatement(
+            ResultSet.TYPE_SCROLL_INSENSITIVE,
+            ResultSet.CONCUR_UPDATABLE);
+            Path inpath = Paths.get("resources","config","clintlemons","Artist.cov");
+            hm.put(k, Col)
         
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
     
