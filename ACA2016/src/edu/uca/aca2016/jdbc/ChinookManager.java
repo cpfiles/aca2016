@@ -5,7 +5,10 @@
  */
 package edu.uca.aca2016.jdbc;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.util.StringTokenizer;
+import java.io.FileReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -80,19 +83,11 @@ public class ChinookManager {
             Logger.getLogger(Properties.class.getName()).log(Level.SEVERE, "Properties file was not found", ex);
         } catch (IOException ex) {
             Logger.getLogger(Properties.class.getName()).log(Level.SEVERE, "Exception reading properties file", ex);
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(Properties.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
 
     }
 
-    public void AddArtist(String newArtistName) throws SQLException {
+    public void addArtist(String newArtistName) throws SQLException {
         PreparedStatement ps = null;
         try {
             String sql = "INSERT INTO Artist (Name) VALUES (?)";
@@ -152,8 +147,8 @@ public class ChinookManager {
         try {
             String update = "DELETE FROM Artist WHERE ArtistId = ?";
             ps = con.prepareStatement(update);
-            ps.setInt(1,artistID);
-            
+            ps.setInt(1, artistID);
+
             int result = ps.executeUpdate();
             if (result != 1) {
             } else {
@@ -165,17 +160,82 @@ public class ChinookManager {
         return false;
     }
 
-    public static void main(String[] args) throws SQLException {
-        ChinookManager javadb = new ChinookManager();
-        javadb.AddArtist("Joy");
-        System.out.println("---------------------------------------------");
-        System.out.println(javadb.getArtist("Chico Buarque"));
-        System.out.println("---------------------------------------------");
-        System.out.println (javadb.deleteArtist(278));
+    /*
+    Below is the next assignment after completion:
+    Load a CSV file. Only concered with the Artist Name. 
+    Use a method called batchLoadArtist (File IO for Artist Name as the parameter)
+     */
+    public void batchLoadArtist(File path) throws SQLException {
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(path));
+            String line = br.readLine();
+            String[] all = line.split(",");
+            int col = 0;
+            for( int i = 0; i < all.length; i++)
+                if(all[i].equalsIgnoreCase("artist"))
+                    col = i;
+            
+            while ((line = br.readLine()) != null) {
+                StringTokenizer st = new StringTokenizer(line, ",");
+                all = line.split(",");
+                String artist;
+                if(all[col].charAt(0) == '\"')
+                {
+                    artist = all[col] + "," + all[col+1];
+                    artist = artist.replace("\"", " ");
+                    artist = artist.trim();
+                }
+                else
+                    artist = all[col];
+                System.out.println(artist);
+                addArtist(artist);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                br.close();
+            } catch (IOException ex) {
+                Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    public void batchLoadArtist (File path, int column) throws SQLException{
+        try {
+                BufferedReader br = new BufferedReader(new FileReader(path));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    StringTokenizer st = new StringTokenizer(line,",");
+                    String artistName="";
+                    for (int i=0; i<column; i++) {
+                        artistName = st.nextToken();
+                    }
+                    addArtist(artistName);
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+    public static void main(String[] args)
+    {
+        try {
+            ChinookManager javadb = new ChinookManager();
+            javadb.batchLoadArtist(new File ("resources/config/coopecor/Book4.csv"));
+            System.out.println("---------------------------------------------");
+            javadb.addArtist("Joy");
+            System.out.println("---------------------------------------------");
+            System.out.println(javadb.getArtist("Chico Buarque"));
+            System.out.println("---------------------------------------------");
+            System.out.println(javadb.updateArtist("Chico Science", 18));
+            System.out.println("---------------------------------------------");
+            System.out.println(javadb.deleteArtist(278));
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
-
-//Below is the next assignment after completion:
-//Load a CSV file. Only concered with the Artist Name. Need to create my own CSV file.
-//Use a method called batchLoadArtist (File IO for Artist Name as the parameter)
-//Example would be batchLoadArtist ("File, Cory"); I guess????
