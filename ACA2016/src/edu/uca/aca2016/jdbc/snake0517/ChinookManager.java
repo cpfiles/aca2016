@@ -181,7 +181,9 @@ public class ChinookManager {
         return x;
     }
 
-    public void batchLoadArtist(File Artists, int col) throws FileNotFoundException, IOException {
+    public void batchLoadArtist(File Artists, int col) throws FileNotFoundException, IOException, SQLException {
+        PreparedStatement ps = null;
+        String sql = "INSERT into Artist (Name) VALUES(?)";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
@@ -193,11 +195,13 @@ public class ChinookManager {
             while ((line = br.readLine()) != null) {
 
                 ArtSet = line.split(cvsSplitBy);
-                
+                logger.log(Level.INFO, "Return Artist Name: {0}", ArtSet[col]);
+                ps = con.prepareStatement(sql);
+
             }
         } finally {
             if (br != null) {
-
+                br.close();
             }
         }
     }
