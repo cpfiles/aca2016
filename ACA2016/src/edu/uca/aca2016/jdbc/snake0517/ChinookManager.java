@@ -188,7 +188,7 @@ public class ChinookManager {
         String line = "";
         String cvsSplitBy = ",";
         String[] ArtSet;
-
+        ps = con.prepareStatement(sql);
         try {
 
             br = new BufferedReader(new FileReader(Artists));
@@ -196,15 +196,13 @@ public class ChinookManager {
 
                 ArtSet = line.split(cvsSplitBy);
                 logger.log(Level.INFO, "Return Artist Name: {0}", ArtSet[col]);
-            
-                ps = con.prepareStatement(sql);
+
                 ps.setString(1, ArtSet[col]);
                 ps.addBatch();
             }
-              ps.executeBatch();
-               ps.close();
+            ps.executeBatch();
+            ps.close();
 
-            
         } finally {
             if (br != null) {
                 br.close();
