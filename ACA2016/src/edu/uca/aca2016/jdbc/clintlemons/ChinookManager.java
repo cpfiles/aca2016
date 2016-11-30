@@ -141,7 +141,7 @@ public class ChinookManager {
             ps.setString(1, Name.toUpperCase());
             ps.setInt(2, ArtistId);
             int Id = ps.executeUpdate();
-            if(Id == 1){
+            if(Id == 2){
                 update = true;
             }        
             } catch (SQLException ex) {
@@ -151,7 +151,31 @@ public class ChinookManager {
                 ps.close();
             }
             return update;
-    }   
+    }
+    public boolean deleteArtist(int ArtistId){
+           PreparedStatement ps = null;
+            boolean update = false;
+            rs = stmt.executeQuery("SELECT*FROM Artist WHERE UPPER (Name)=(?)");
+            if (!con.isValid(30)) {
+            } else {
+                    con.rollback();
+                    con.close();
+                    Logger.getLogger("connection time-out");
+                }
+            try {
+            con.prepareStatement("String Name %NaMe%");
+            ps.setInt(1, ArtistId);
+            int Id = ps.executeUpdate();
+            if(Id == 1){
+                update = true;
+            }        
+            } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        }       finally {
+                if (ps !=null);
+                ps.close();
+            }return update;    
+    }
 }
     
 
