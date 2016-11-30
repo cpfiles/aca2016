@@ -22,10 +22,10 @@ public class ChinookRunner {
      */
     public static void main(String[] args) throws IOException, SQLException {
     ChinookManager ChinookRunner = new ChinookManager();
-//    ChinookRunner.addArtist("Fleetwood Mack");
+    ChinookRunner.addArtist("Fleetwood Mack");
 //    ChinookRunner.getArtist ("Fleetwood Mack");
-//    ChinookRunner.updateArtist (276, "Fleetwood Mac");
-       ChinookRunner.deleteArtist(276);
+    ChinookRunner.updateArtist (276, "Fleetwood Mac");
+//       ChinookRunner.deleteArtist(276);
     
     }
    
