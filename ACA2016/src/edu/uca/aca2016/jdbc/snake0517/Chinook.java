@@ -5,8 +5,11 @@
  */
 package edu.uca.aca2016.jdbc.snake0517;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.sql.SQLException;
+import java.nio.file.Paths;
 
 /**
  *
@@ -21,7 +24,10 @@ public class Chinook {
      */
     public static void main(String[] args) throws IOException, SQLException {
         ChinookManager Chinook = new ChinookManager();
-//        Chinook.addArtist("Jimmy");
+        File Artists = new File ("C:\\Users\\brela\\Desktop\\Artists.csv");
+ 
+        Chinook.batchLoadArtist(Artists, 0);
+//        Chinook.addArtist("Jimmy")
 //        Chinook.getArtist("jimmy");
 //        Chinook.updateArtist(334, "Charles");
 //        Chinook.deleteArtist(334);
