@@ -194,24 +194,24 @@ public class ChinookManager {
     public void batchLoadArtist(File csv, int Col) throws FileNotFoundException, IOException, SQLException {
 
         PreparedStatement ps = null;
-//        String sql = "INSERT INTO Artist (Name) VALUES (?)";
-        String file = "C:\\Users\\jeffb\\Desktop\\Artist List.csv";
-//        BufferedReader br = null;
-//        StringTokenizer st = new StringTokenizer(file, ",");
-//        logger.info(file);
         String line = "";
         String splitC = ",";
+        String sql = "INSERT INTO Artist (Name) VALUES (?)";
+        ps = con.prepareStatement(sql);
 
         try (BufferedReader br = new BufferedReader(new FileReader(csv))) {
 
             while ((line = br.readLine()) != null) {
                 String[] name = line.split(splitC);
-
-                System.out.println("Artist Name: " + name[1]);
-
+                logger.info("Artist Name: " + name[Col]);
+                ps.setObject(1, Col);
+                ps.addBatch();
+                ps.executeBatch();
+                logger.info("Added Artists: '" + Col);
             }
         } catch (IOException ex) {
             logger.severe("IO Exception: " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 }

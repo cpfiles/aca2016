@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.lang.String;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  *
@@ -25,7 +27,7 @@ public class DB_Runner {
      */
     public static void main(String[] args) throws SQLException, IOException {
         ChinookManager CM = new ChinookManager();
-        String file = "C:\\Users\\jeffb\\Desktop\\Artist List.csv";
+        File csv = new File ("‪‪C:\\Users\\jeffb\\Desktop\\ArtistList.csv");
 
 //        CM.addArtist("Benny Goodman");
 //        System.out.println("---------------------------------------------");
@@ -36,7 +38,8 @@ public class DB_Runner {
 //        CM.deleteArtist(276);
 //        System.out.println("---------------------------------------------");
         
-//        CM.batchLoadArtist("C:\\Users\\jeffb\\Desktop\\Artist List.csv", 0);
+        CM.batchLoadArtist(csv, 2);
+//        System.out.println("Artist Name: " + name[Col]);
         
     }
 }
