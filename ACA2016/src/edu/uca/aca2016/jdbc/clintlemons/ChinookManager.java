@@ -5,6 +5,7 @@
  */
 package edu.uca.aca2016.jdbc.clintlemons;
 
+import java.io.BufferedReader;
 import java.io.File;
 import static java.io.FileDescriptor.out;
 import java.util.Properties;
@@ -18,10 +19,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.sqlite.*;
 import java.util.Dictionary;
 import java.util.logging.*;
 import java.util.logging.Logger;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 //import static javax.swing.text.html.HTML.Tag.SELECT;
 import jdk.nashorn.internal.runtime.ScriptRuntime;
@@ -39,14 +43,12 @@ public class ChinookManager {
     Statement stmt = null;
     ResultSet rs = null;
     
-    //this.con = DriverManager.getConnection("dbconnection");
     /**
      *loads properties file
      * @param dbconnection
      * @throws java.sql.SQLException
      * 
      */
-   // String db = System.getProperty("ChinookManager.properties" + ("Chinook_Sqlite.sqlite"));
     public void ChinookManager (){
         FileInputStream in;
         try{
@@ -92,8 +94,8 @@ public class ChinookManager {
         }
     }
     /**
-     *
-     * @param Name
+     *Get Artist Name
+     * @param  Name
      * @return
      * @throws SQLException
      */
@@ -108,9 +110,10 @@ public class ChinookManager {
                     Logger.getLogger("connection time-out");
                 }
             try {
+            String query= ("INSERT INTO ARTIST (Name)VALUES(?,?)");
             con.prepareStatement("String Name %NaMe%");
             ps.setString(1, Name.toUpperCase());
-            rs = ps.executeQuery();
+            rs = ps.executeQuery(query);
             if (rs.next()){
                rs.getInt("ArtistId");
             }
@@ -126,6 +129,7 @@ public class ChinookManager {
             }
             return this.ArtistId;
     }   
+    
     public boolean updateArtist(int ArtistId, String Name) throws SQLException{
             PreparedStatement ps = null;
             boolean update = false;
@@ -137,11 +141,12 @@ public class ChinookManager {
                     Logger.getLogger("connection time-out");
                 }
             try {
-            con.prepareStatement("String Name %NaMe%");
+            String query= ("UPDATE ARTIST (Name)VALUES(?,?)");
+            con.prepareStatement("UPDATE ARTIST WHERE ARTIST ");
             ps.setString(1, Name.toUpperCase());
             ps.setInt(2, ArtistId);
-            int Id = ps.executeUpdate();
-            if(Id == 2){
+            ps.executeUpdate(query);
+            if(ArtistId == 1){
                 update = true;
             }        
             } catch (SQLException ex) {
@@ -152,10 +157,10 @@ public class ChinookManager {
             }
             return update;
     }
-    public boolean deleteArtist(int ArtistId){
+    public boolean deleteArtist(int ArtistId) throws SQLException{
            PreparedStatement ps = null;
             boolean update = false;
-            rs = stmt.executeQuery("SELECT*FROM Artist WHERE UPPER (Name)=(?)");
+            rs = stmt.executeQuery("DELETE FROM Artist"+ "WHERE ArtistId =(?)");
             if (!con.isValid(30)) {
             } else {
                     con.rollback();
@@ -166,7 +171,7 @@ public class ChinookManager {
             con.prepareStatement("String Name %NaMe%");
             ps.setInt(1, ArtistId);
             int Id = ps.executeUpdate();
-            if(Id == 1){
+            if(ArtistId == 1){
                 update = true;
             }        
             } catch (SQLException ex) {
@@ -175,6 +180,21 @@ public class ChinookManager {
                 if (ps !=null);
                 ps.close();
             }return update;    
+    }
+    /**
+     *BatchLoadArtist
+     * @param f
+     * @param Col
+     */
+    public void BatchLoadArtist(File f, int Col){
+        //for col (param) 0,2 --ex of the key valued pairs being passed to you to be read by csv reader.
+        //String[] Artists = line.split(",");
+        //artists[collection]
+        //           ^index 0
+        f = new File("Artist.csv");
+        //BufferedReader br = new BufferedReader(BatchLoadArtist("Artist.csv",int));
+        HashMap csv = new HashMap(defaultProperties);
+        
     }
 }
     
