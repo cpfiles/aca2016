@@ -131,6 +131,13 @@ public class ChinookManager {
             return this.ArtistId;
     }   
     
+    /**
+     *
+     * @param ArtistId
+     * @param Name
+     * @return
+     * @throws SQLException
+     */
     public boolean updateArtist(int ArtistId, String Name) throws SQLException{
             PreparedStatement ps = null;
             boolean update = false;
@@ -158,6 +165,13 @@ public class ChinookManager {
             }
             return update;
     }
+
+    /**
+     *
+     * @param ArtistId
+     * @return
+     * @throws SQLException
+     */
     public boolean deleteArtist(int ArtistId) throws SQLException{
            PreparedStatement ps = null;
             boolean update = false;
@@ -197,17 +211,16 @@ public class ChinookManager {
         f = new File("Artist.csv");
         HashMap<String, Integer>hm= new
         HashMap<String, Integer>(); 
-        try{
-            stmt = con.createStatement(
-            ResultSet.TYPE_SCROLL_INSENSITIVE,
-            ResultSet.CONCUR_UPDATABLE);
-            Path inpath = Paths.get("resources","config","clintlemons","Artist.cov");
-            hm.put(k, Col)
-        
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        hm.get(f)
+//        try{
+//            stmt = con.createStatement(
+//            ResultSet.TYPE_SCROLL_INSENSITIVE,
+//            ResultSet.CONCUR_UPDATABLE);
+//            Path inpath = Paths.get("resources","config","clintlemons","Artist.csv");
+//            
+//        } catch (SQLException ex) {
+//            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 }
     
