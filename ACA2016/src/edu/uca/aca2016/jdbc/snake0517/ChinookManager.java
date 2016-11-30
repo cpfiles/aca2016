@@ -197,6 +197,9 @@ public class ChinookManager {
                 ArtSet = line.split(cvsSplitBy);
                 logger.log(Level.INFO, "Return Artist Name: {0}", ArtSet[col]);
                 ps = con.prepareStatement(sql);
+                ps.addBatch(ArtSet[col]);
+                ps.executeBatch();
+                ps.close();
 
             }
         } finally {
