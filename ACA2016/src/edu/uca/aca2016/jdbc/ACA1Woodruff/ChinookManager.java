@@ -32,6 +32,7 @@ public class ChinookManager {
     private Properties Chinook = new Properties();
 //    private Object Chinook;
 //    private String chk;
+    private boolean q;
 
     public ChinookManager() throws IOException, SQLException {
         FileInputStream in = null;
@@ -80,7 +81,6 @@ public class ChinookManager {
      * @return
      * @thrown SQLException
      */
-
     public int getArtist(String artist_name) throws SQLException {
         PreparedStatement ps = null;
         int ArtistId = -1;
@@ -138,7 +138,7 @@ public class ChinookManager {
         }
         logger.log(Level.INFO, "Return Artist Name: {0}", Name);
 
-        return update;
+        return q;
     }
 
     /**
@@ -147,21 +147,19 @@ public class ChinookManager {
      * @return
      * @thrown SQLException
      */
-
     public boolean deleteArtist(int Id) throws SQLException {
         PreparedStatement ps = null;
-        boolean update = false;
+        boolean q = false;
 //        PreparedStatement qs = null;
         String sql = "DELETE FROM Artist WHERE ArtistId = ?";
 //        String chk = "SELECT * FROM Artist WHERE ArtistId = ?"; 
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, Id);
-             int rtrn = ps.executeUpdate();
+            int rtrn = ps.executeUpdate();
             if (rtrn == 1) {
-                update = true;
-        }
-            
+                q = true;
+            }
 
         } catch (SQLException ex) {
             logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -169,14 +167,23 @@ public class ChinookManager {
             if (ps != null) {
                 ps.close();
             }
-
         }
-        return update;
+        return q;
     }
 }
-public void 
+    public void loadBatchArtist (File f, int column) throws FileNotFoundException, SQLException {
+        PreparedStatement ps = null;
+        String line = "";
+        String SplitBy = ",";
 
-public boolean saveOrUpdate(MonitoredData mData) {
+        try {
+            BufferReader br = new BufferedReader (new FileReader(f));
+            String sql = "INSERT INTO Artist WHERE Values = (?)";
+            ps = con.prepareStatement(sql);
+        }
+    }
+
+    public boolean saveOrUpdate(MonitoredData mData) {
         try {
             PreparedStatement prep;
             String timeID = this.getTimeLastRowID();
@@ -217,66 +224,69 @@ public boolean saveOrUpdate(MonitoredData mData) {
             conn.setAutoCommit(true);
 
             return true;
-
+     
         } catch (SQLException ex) {
-            Logger.getLogger(HistoricalDatabase.class.getName()).log(
+            Logger.getLogger(HistoricalDatabase.class
+
+
+            .getName()).log(
                     Level.SEVERE, null, ex);
         }
         return false;
     }
 
-public boolean saveOrUpdate(MonitoredData mData) {
-    try {
-        PreparedStatement prep;
-        String timeID = this.getTimeLastRowID();
-        conn.setAutoCommit(false);
-        for (CpuData o : mData.getCpu()) {
-            prep = this.conn.prepareStatement(INSERT_CPU_USAGE);
-            prep.setObject(1, this.nodeID);
-            prep.setObject(2, timeID);
-            prep.setObject(3, o);
-            prep.addBatch();
-            // saveOrUpdateToDatabase(String.format(INSERT_CPU_USAGE,
-            // this.nodeID, timeID, o.toString()));
-        }
-        prep.executeBatch();
-        for (DiskData o : mData.getDisk()) {
-            prep = this.conn.prepareStatement(INSERT_DISK_USAGE);
-            prep.setObject(1, this.nodeID);
-            prep.setObject(2, timeID);
-            prep.setObject(3, o);
-            prep.addBatch();
-            // saveOrUpdateToDatabase(String.format(INSERT_DISK_USAGE,
-            // this.nodeID, timeID, o.toString()));
-        }
-        prep.executeBatch();
-        for (NetworkData o : mData.getNet()) {
-            prep = this.conn.prepareStatement(INSERT_NETWORK_USAGE);
-            prep.setObject(1, this.nodeID);
-            prep.setObject(2, timeID);
-            prep.setObject(3, o);
-            prep.addBatch();
-            // saveOrUpdateToDatabase(String.format(INSERT_NETWORK_USAGE,
-            // this.nodeID, timeID, o.toString()));
-
-        }
-        prep.executeBatch();
-        prep = this.conn.prepareStatement(INSERT_MEMORY_USAGE);
-        prep.setObject(1, this.nodeID);
-        prep.setObject(2, timeID);
-        prep.setObject(3, o);
-        prep.executeUpdate();
-        // saveOrUpdateToDatabase(String.format(INSERT_MEMORY_USAGE,
-        // this.nodeID, timeID, mData.getMem().toString()));
-
-        conn.setAutoCommit(true);
-        return true;
-
-    } catch (SQLException ex) {
-        Logger.getLogger(HistoricalDatabase.class.getName()).log(
-                Level.SEVERE, null, ex);
-    }
-    return false;
-}
-You may need to modify those SQL query defined in the constants.
-
+//public boolean saveOrUpdate(MonitoredData mData) {
+//    try {
+//        PreparedStatement prep;
+//        String timeID = this.getTimeLastRowID();
+//        conn.setAutoCommit(false);
+//        for (CpuData o : mData.getCpu()) {
+//            prep = this.conn.prepareStatement(INSERT_CPU_USAGE);
+//            prep.setObject(1, this.nodeID);
+//            prep.setObject(2, timeID);
+//            prep.setObject(3, o);
+//            prep.addBatch();
+//            // saveOrUpdateToDatabase(String.format(INSERT_CPU_USAGE,
+//            // this.nodeID, timeID, o.toString()));
+//        }
+//        prep.executeBatch();
+//        for (DiskData o : mData.getDisk()) {
+//            prep = this.conn.prepareStatement(INSERT_DISK_USAGE);
+//            prep.setObject(1, this.nodeID);
+//            prep.setObject(2, timeID);
+//            prep.setObject(3, o);
+//            prep.addBatch();
+//            // saveOrUpdateToDatabase(String.format(INSERT_DISK_USAGE,
+//            // this.nodeID, timeID, o.toString()));
+//        }
+//        prep.executeBatch();
+//        for (NetworkData o : mData.getNet()) {
+//            prep = this.conn.prepareStatement(INSERT_NETWORK_USAGE);
+//            prep.setObject(1, this.nodeID);
+//            prep.setObject(2, timeID);
+//            prep.setObject(3, o);
+//            prep.addBatch();
+//            // saveOrUpdateToDatabase(String.format(INSERT_NETWORK_USAGE,
+//            // this.nodeID, timeID, o.toString()));
+//
+//        }
+//        prep.executeBatch();
+//        prep = this.conn.prepareStatement(INSERT_MEMORY_USAGE);
+//        prep.setObject(1, this.nodeID);
+//        prep.setObject(2, timeID);
+//        prep.setObject(3, o);
+//        prep.executeUpdate();
+//        // saveOrUpdateToDatabase(String.format(INSERT_MEMORY_USAGE,
+//        // this.nodeID, timeID, mData.getMem().toString()));
+//
+//        conn.setAutoCommit(true);
+//        return true;
+//
+//    } catch (SQLException ex) {
+//        Logger.getLogger(HistoricalDatabase.class.getName()).log(
+//                Level.SEVERE, null, ex);
+//    }
+//    return false;
+//}
+//You may need to modify those SQL query defined in the constants.
+//
