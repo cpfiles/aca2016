@@ -5,6 +5,7 @@
  */
 package edu.uca.aca2016.jdbc.CarterFliss;
 
+import java.io.File;
 import java.sql.*;
 
 /**
@@ -26,7 +27,9 @@ public class ChinookRunner {
 //        t.addArtist("GWAR");
 //        System.out.println("ArtistId = " + t.getArtist("gwar"));
 //        System.out.println("Update was Successful? " + t.updateArtist(276, "The Casualties"));
-        System.out.println("Delete was Successful? " + t.deleteArtist(276));     
+//        System.out.println("Delete was Successful? " + t.deleteArtist(276));
+          File testCSV = new File("C:\\Users\\Carter\\Documents\\artistsheet1.csv");
+          t.batchLoadArtist(testCSV, 0);
               
         
     }

@@ -5,14 +5,21 @@
  */
 package edu.uca.aca2016.jdbc.CarterFliss;
 
+import java.io.BufferedReader;
 import java.sql.*;
 import java.io.File;
 import java.util.Properties;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,7 +36,7 @@ public class ChinookManager {
     private Connection con = null;
     private Properties defaultProperties = new Properties();
     private PreparedStatement ps = null;
-    
+
     //constructor for class
     public ChinookManager() throws SQLException {
         Path inpath = null;
@@ -47,7 +54,7 @@ public class ChinookManager {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, "Exception reading properties file", ex);
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
-        //closes prepared statements
+            //closes prepared statements
         } finally {
             if (in != null) {
                 try {
@@ -58,6 +65,7 @@ public class ChinookManager {
             }
         }
     }
+
     //Adds artist to database, defaulting to last id value
     public void addArtist(String artistName) throws SQLException {
         try {
@@ -67,7 +75,7 @@ public class ChinookManager {
             this.ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
-        //closes prepared statements
+            //closes prepared statements
         } finally {
             if (this.ps != null) {
                 this.ps.close();
@@ -75,6 +83,7 @@ public class ChinookManager {
         }
 
     }
+
     //gets ArtistId from database based on artist's Name
     public int getArtist(String artistName) throws SQLException {
         //initializing int id to auto-"fail"
@@ -93,11 +102,11 @@ public class ChinookManager {
             if (rs.next()) {
                 id = -1;
             }
-        //in case of SQLException, method will fail and id will = -1, to signify error
+            //in case of SQLException, method will fail and id will = -1, to signify error
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             id = -1;
-        //closes prepared statements
+            //closes prepared statements
         } finally {
             if (this.ps != null) {
                 this.ps.close();
@@ -105,37 +114,38 @@ public class ChinookManager {
         }
         return id;
     }
+
     //updates artist in database based on ArtistId parameter
     public boolean updateArtist(int id, String name) throws SQLException {
         boolean artistUpdated;
-        
+
         try {
-            
-            
+
             //updates the artist & saves ps.executUpdate return value
             String sql = "UPDATE Artist SET Name = (?) WHERE ArtistId = (?)";
             this.ps = this.con.prepareStatement(sql);
             this.ps.setString(1, name);
             this.ps.setInt(2, id);
-            int recCheck = this.ps.executeUpdate();            
+            int recCheck = this.ps.executeUpdate();
             //checks recCheck's return value to get appropriate return boolean
             if (recCheck == 1) {
                 artistUpdated = true;
             } else {
                 artistUpdated = false;
             }
-        //in case of SQLException, method will fail and artist isn't updated
+            //in case of SQLException, method will fail and artist isn't updated
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             artistUpdated = false;
-        //closes prepared statements
+            //closes prepared statements
         } finally {
             if (this.ps != null) {
-                this.ps.close();                
+                this.ps.close();
             }
         }
         return artistUpdated;
     }
+
     //deletes an artist from database and returns whether deletion was successful
     public boolean deleteArtist(int id) throws SQLException {
         boolean artistDeleted;
@@ -155,7 +165,7 @@ public class ChinookManager {
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             artistDeleted = false;
-        //closes prepared statements    
+            //closes prepared statements    
         } finally {
             if (this.ps != null) {
                 this.ps.close();
@@ -163,6 +173,40 @@ public class ChinookManager {
         }
 
         return artistDeleted;
+    }
+
+    public void batchLoadArtist(File inCSV, int col) throws SQLException {
+        String sql = "INSERT INTO Artist (Name) VALUES (?)";
+        String line = "";
+        String splitBy = ",";
+        String[] set = null;
+
+        final int batchSize = 1000;
+        int count = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(inCSV))) {
+            while ((line = br.readLine()) != null) {
+                set = line.split(splitBy);
+                for (String name : set) {
+                    this.ps = this.con.prepareStatement(sql);
+                    this.ps.setString(1, set[col]);
+                    this.ps.addBatch();
+                    if (++count % batchSize == 0) {
+                        this.ps.executeBatch();
+                    }
+                }
+                this.ps.executeBatch();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, "Exception reading CSV file", ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        } finally {
+            if (this.ps != null) {
+                this.ps.close();
+            }
+        }
+
     }
 
 }
