@@ -19,7 +19,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
 /**
@@ -191,6 +190,14 @@ public class ChinookManager {
         return update;
     }
 
+    /**
+     *
+     * @param csv Read in the CSV file.
+     * @param Col Specific column to read from the CSV file.
+     * @throws FileNotFoundException Exception if file is not found.
+     * @throws IOException Exception if the path is not working.
+     * @throws SQLException Exception if the DB cannot be connected to.
+     */
     public void batchLoadArtist(File csv, int Col) throws FileNotFoundException, IOException, SQLException {
 
         PreparedStatement ps = null;
@@ -204,14 +211,14 @@ public class ChinookManager {
             while ((line = br.readLine()) != null) {
                 String[] name = line.split(splitC);
                 logger.info("Artist Name: " + name[Col]);
-                ps.setObject(1, Col);
+                ps.setObject(1, name[Col]);
                 ps.addBatch();
-                ps.executeBatch();
-                logger.info("Added Artists: '" + Col);
+                logger.info("Added Artists: '" + name[Col]);
             }
+            ps.executeBatch();
+
         } catch (IOException ex) {
             logger.severe("IO Exception: " + ex.getMessage());
-            ex.printStackTrace();
         }
     }
 }
