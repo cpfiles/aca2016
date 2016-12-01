@@ -28,8 +28,8 @@ public class ChinookRunner {
 //        System.out.println("ArtistId = " + t.getArtist("gwar"));
 //        System.out.println("Update was Successful? " + t.updateArtist(276, "The Casualties"));
 //        System.out.println("Delete was Successful? " + t.deleteArtist(276));
-          File testCSV = new File("C:\\Users\\Carter\\Documents\\artistsheet1.csv");
-          t.batchLoadArtist(testCSV, 0);
+          File testCSV = new File("C:\\Users\\Carter\\Documents\\artistsheet2.csv");
+          t.batchLoadArtist(testCSV, 1);
               
         
     }
