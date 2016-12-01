@@ -5,13 +5,17 @@
  */
 package edu.uca.aca2016.jdbc.jrob582;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
 import java.sql.*;
+import static java.sql.DriverManager.getConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.sqlite.JDBC;
@@ -179,8 +183,43 @@ public class ChinookManager {
         }
         return false;
     }
-//        public void batchLoadArtist(,int col){
-//            
-//        }
-}
 
+    /**
+     *
+     * @param Artist
+     * @param col
+     * @throws FileNotFoundException
+     * @throws SQLException
+     * @throws IOException
+     */
+    public void batchLoadArtist(File Artist, int col) throws FileNotFoundException, SQLException, IOException {
+        PreparedStatement ps = null;
+        String sql = "INSERT into Artist (Name) VALUES(?)";
+        BufferedReader br = null;
+        String line = "";
+        String cvsSplitBy = ",";
+        String[] ArtSet;
+        ps = con.prepareStatement(sql);
+
+        try {
+
+            br = new BufferedReader(new FileReader(Artist));
+
+            while ((line = br.readLine()) != null) {
+
+                ArtSet = line.split(cvsSplitBy);
+
+                ps.setString(1, ArtSet[col]);
+                ps.addBatch();
+
+            }
+            ps.executeBatch();
+            ps.close();
+
+        } finally {
+            if (br != null) {
+                br.close();
+            }
+        }
+    }
+}
