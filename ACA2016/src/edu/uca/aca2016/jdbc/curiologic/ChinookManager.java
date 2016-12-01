@@ -5,11 +5,13 @@
  */
 package edu.uca.aca2016.jdbc.curiologic;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.sql.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -92,17 +94,17 @@ public class ChinookManager {
             }
             if (rs.next()) {
                 ArtistId = -1;
-           }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
 
             if (ppst != null) {
                 ppst.close();
-            }            
+            }
         }
         logger.log(Level.INFO, "artist id is {0}", ArtistId);
-        return ArtistId;      
+        return ArtistId;
     }
 
     /* updates the artist name in the database*/
@@ -117,8 +119,7 @@ public class ChinookManager {
             int rows = ppst.executeUpdate();
             if (rows != 1) {
                 return false;
-          }
-            else {
+            } else {
                 return true;
             }
 
@@ -132,9 +133,9 @@ public class ChinookManager {
             logger.log(Level.INFO, "artist name is {0}", artistName);
         }
         return update;
-        
+
     }
-    
+
 
     /* deletes artist from list with given artist ID*/
     public boolean artistDelete(int artistId) throws SQLException {
@@ -148,20 +149,45 @@ public class ChinookManager {
             ppst = con.prepareStatement(sql);
             ppst.setInt(1, artistId);
             int rowd = ppst.executeUpdate();
-             if (rowd != 1) {
+            if (rowd != 1) {
                 return false;
-         }
-            else {
+            } else {
                 return true;
-             }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (ppst != null) {
                 ppst.close();
             }
-             logger.log(Level.INFO, "Deleted {0}", artistId);
+            logger.log(Level.INFO, "Deleted {0}", artistId);
         }
-         return false;
+        return false;
+    }
+
+    public void BatchLoadArtist(File music, int Col) throws FileNotFoundException, IOException, SQLException {
+        PreparedStatement ppst = null;
+        BufferedReader br = null;
+        String line = "";
+        String csvSplitBy = ",";
+        String[] Band;
+        String sql = "INSERT INTO Artist(Name)VALUES (?)";
+        ppst = con.prepareStatement(sql);
+        try {
+            br = new BufferedReader(new FileReader(music));
+            while ((line = br.readLine()) != null) {
+                Band = line.split(csvSplitBy);
+                ppst.setString(1, Band[Col]);
+                logger.log(Level.INFO, "added {0}", Band[Col]);
+                ppst.addBatch();
+            }
+            ppst.executeBatch();
+            ppst.close();
+
+        } finally {
+            if (br != null) {
+                br.close();
+            }
+        }
     }
 }
