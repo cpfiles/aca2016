@@ -81,6 +81,55 @@ public class ChinookManagerTest {
 //}//this.instance.addArtist(Name);
        //this.testaddArtist("1", "Leonard Cohen");
        //return ("Name");
+
+    /**
+     * Test of getArtist method, of class ChinookManager.
+     */
+    @Test
+    public void testGetArtist() throws Exception {
+        System.out.println("getArtist");
+        String Name = "";
+        ChinookManager instance = new ChinookManager();
+        int expResult = 0;
+        int result = instance.getArtist(Name);
+        assertEquals("ArtistId", "Name");
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of updateArtist method, of class ChinookManager.
+     */
+    @Test
+    public void testUpdateArtist() throws Exception {
+        System.out.println("updateArtist");
+        int ArtistId = 0;
+        String Name = "";
+        ChinookManager instance = new ChinookManager();
+        boolean expResult = false;
+        boolean result = instance.updateArtist(ArtistId, Name);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of deleteArtist method, of class ChinookManager.
+     */
+    @Test
+    public void testDeleteArtist() {
+        System.out.println("deleteArtist");
+        int ArtistId = 0;
+        ChinookManager instance = new ChinookManager();
+        boolean expResult = false;
+        boolean result = instance.deleteArtist(ArtistId);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+    public void testBatchLoader(){
+        
+    }
       
     }   
     
