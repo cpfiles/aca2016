@@ -6,6 +6,7 @@
 package edu.uca.aca2016.jdbc.ACA1Woodruff;
 
 
+import java.io.File;
 import java.sql.SQLException;
 import java.io.IOException;
 
@@ -22,9 +23,10 @@ public class ChinookRunner {
      */
     public static void main(String[] args) throws IOException, SQLException {
     ChinookManager ChinookRunner = new ChinookManager();
-    ChinookRunner.addArtist("Fleetwood Mack");
+    File ARWMusicList = new File ("C:\\Users\\awood\\OneDrive\\ARWMusicList.csv");
+//    ChinookRunner.addArtist("Fleetwood Mack");
 //    ChinookRunner.getArtist ("Fleetwood Mack");
-    ChinookRunner.updateArtist (276, "Fleetwood Mac");
+//    ChinookRunner.updateArtist (276, "Fleetwood Mac");
 //       ChinookRunner.deleteArtist(276);
     
     }
