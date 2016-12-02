@@ -5,9 +5,11 @@
  */
 package edu.uca.aca2016.jdbc.ACA1Woodruff;
 
-//import edu.uca.aca2016.config.PropertiesExample;*/
+
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
-//import java.io.FileNotFoundException;*/
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,8 +32,6 @@ public class ChinookManager {
     private static final Logger logger = Logger.getLogger(ChinookManager.class.getName());
 
     private Properties Chinook = new Properties();
-//    private Object Chinook;
-//    private String chk;
     private boolean q;
 
     public ChinookManager() throws IOException, SQLException {
@@ -170,123 +170,34 @@ public class ChinookManager {
         }
         return q;
     }
-}
-    public void loadBatchArtist (File f, int column) throws FileNotFoundException, SQLException {
+
+    public void loadBatchArtist(File Artist, int col) throws IOException, SQLException {
         PreparedStatement ps = null;
+        String sql = "INSERT Into Artist (Name) Values (?)";
+        BufferedReader br = null;
         String line = "";
-        String SplitBy = ",";
-
+        String csvSplitBy = ",";
+        String [] ArtSet;
+        ps = con.prepareStatement(sql);
         try {
-            BufferReader br = new BufferedReader (new FileReader(f));
-            String sql = "INSERT INTO Artist WHERE Values = (?)";
-            ps = con.prepareStatement(sql);
+            
+            br = new BufferedReader(new FileReader(Artist));
+            while ((line = br.readLine()) !=null) {
+                
+                ArtSet = line.split (csvSplitBy);
+                logger.log(Level.INFO, "Return Artist Name: {0}", ArtSet[col]);
+                
+                ps.setString(1, ArtSet[col]);
+                ps.addBatch();
+            }
+            ps.executeBatch();
+            ps.close();
+
+        } finally {
+            if (br != null) {
+                br.close();
+            }
+          }
         }
     }
 
-    public boolean saveOrUpdate(MonitoredData mData) {
-        try {
-            PreparedStatement prep;
-            String timeID = this.getTimeLastRowID();
-
-            for (CpuData o : mData.getCpu()) {
-                prep = this.conn.prepareStatement(String.format(
-                        INSERT_CPU_USAGE, this.nodeID, timeID, o.toString()));
-                prep.addBatch();
-                // saveOrUpdateToDatabase(String.format(INSERT_CPU_USAGE,
-                // this.nodeID, timeID, o.toString()));
-            }
-            for (DiskData o : mData.getDisk()) {
-                prep = this.conn.prepareStatement(String.format(
-                        INSERT_DISK_USAGE, this.nodeID, timeID, o.toString()));
-                prep.addBatch();
-                // saveOrUpdateToDatabase(String.format(INSERT_DISK_USAGE,
-                // this.nodeID, timeID, o.toString()));
-
-            }
-            for (NetworkData o : mData.getNet()) {
-                prep = this.conn.prepareStatement(String
-                        .format(INSERT_NETWORK_USAGE, this.nodeID, timeID, o
-                                .toString()));
-                prep.addBatch();
-                // saveOrUpdateToDatabase(String.format(INSERT_NETWORK_USAGE,
-                // this.nodeID, timeID, o.toString()));
-
-            }
-
-            prep = this.conn.prepareStatement(String.format(
-                    INSERT_MEMORY_USAGE, this.nodeID, timeID, mData.getMem()
-                            .toString()));
-            // saveOrUpdateToDatabase(String.format(INSERT_MEMORY_USAGE,
-            // this.nodeID, timeID, mData.getMem().toString()));
-
-            conn.setAutoCommit(false);
-            int[] r = prep.executeBatch();
-            conn.setAutoCommit(true);
-
-            return true;
-     
-        } catch (SQLException ex) {
-            Logger.getLogger(HistoricalDatabase.class
-
-
-            .getName()).log(
-                    Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
-//public boolean saveOrUpdate(MonitoredData mData) {
-//    try {
-//        PreparedStatement prep;
-//        String timeID = this.getTimeLastRowID();
-//        conn.setAutoCommit(false);
-//        for (CpuData o : mData.getCpu()) {
-//            prep = this.conn.prepareStatement(INSERT_CPU_USAGE);
-//            prep.setObject(1, this.nodeID);
-//            prep.setObject(2, timeID);
-//            prep.setObject(3, o);
-//            prep.addBatch();
-//            // saveOrUpdateToDatabase(String.format(INSERT_CPU_USAGE,
-//            // this.nodeID, timeID, o.toString()));
-//        }
-//        prep.executeBatch();
-//        for (DiskData o : mData.getDisk()) {
-//            prep = this.conn.prepareStatement(INSERT_DISK_USAGE);
-//            prep.setObject(1, this.nodeID);
-//            prep.setObject(2, timeID);
-//            prep.setObject(3, o);
-//            prep.addBatch();
-//            // saveOrUpdateToDatabase(String.format(INSERT_DISK_USAGE,
-//            // this.nodeID, timeID, o.toString()));
-//        }
-//        prep.executeBatch();
-//        for (NetworkData o : mData.getNet()) {
-//            prep = this.conn.prepareStatement(INSERT_NETWORK_USAGE);
-//            prep.setObject(1, this.nodeID);
-//            prep.setObject(2, timeID);
-//            prep.setObject(3, o);
-//            prep.addBatch();
-//            // saveOrUpdateToDatabase(String.format(INSERT_NETWORK_USAGE,
-//            // this.nodeID, timeID, o.toString()));
-//
-//        }
-//        prep.executeBatch();
-//        prep = this.conn.prepareStatement(INSERT_MEMORY_USAGE);
-//        prep.setObject(1, this.nodeID);
-//        prep.setObject(2, timeID);
-//        prep.setObject(3, o);
-//        prep.executeUpdate();
-//        // saveOrUpdateToDatabase(String.format(INSERT_MEMORY_USAGE,
-//        // this.nodeID, timeID, mData.getMem().toString()));
-//
-//        conn.setAutoCommit(true);
-//        return true;
-//
-//    } catch (SQLException ex) {
-//        Logger.getLogger(HistoricalDatabase.class.getName()).log(
-//                Level.SEVERE, null, ex);
-//    }
-//    return false;
-//}
-//You may need to modify those SQL query defined in the constants.
-//
