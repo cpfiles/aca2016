@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  * @author xulix
  */
 
-/* establishes connection to database*/
+/** establishes connection to database*/
 public class ChinookManager {
 
     private Properties ChinookManager = new Properties();
@@ -36,7 +36,7 @@ public class ChinookManager {
         con = DriverManager.getConnection(ChinookManager.getProperty("db.connection"));
     }
 
-    /* loads the database properties to connect to*/
+    /** loads the database properties to connect to*/
     private void loadChinookManager() {
         FileInputStream in = null;
 
@@ -60,7 +60,9 @@ public class ChinookManager {
         }
     }
 
-    /* Adds artist to database*/
+    /** Adds artist to database
+     * @param addArtist
+     * @throws java.sql.SQLException*/
     public void addArtist(String addArtist) throws SQLException {
 
         PreparedStatement ppst = null;
@@ -79,7 +81,10 @@ public class ChinookManager {
         }
     }
 
-    /* gets artist id if 0 or more than 1 returns -1*/
+    /** gets artist id if 0 or more than 1 returns -
+     * @param Name is the name of artist
+     * @return gives the artist ID that was retrieved
+     * @throws java.sql.SQLException*/
     public int getArtist(String Name) throws SQLException {
         PreparedStatement ppst = null;
         int ArtistId = -1;
@@ -107,7 +112,11 @@ public class ChinookManager {
         return ArtistId;
     }
 
-    /* updates the artist name in the database*/
+    /** updates the artist name in the database
+     * @param artistId is the ID to be updated
+     * @param artistName Name of Artist
+     * @return boolean to show if the database updated
+     * @throws java.sql.SQLException*/
     public boolean updateArtist(int artistId, String artistName) throws SQLException {
         PreparedStatement ppst = null;
         boolean update = false;
@@ -137,7 +146,10 @@ public class ChinookManager {
     }
 
 
-    /* deletes artist from list with given artist ID*/
+    /** deletes artist from list with given artist I
+     * @param artistId is the artist ID to be deleted
+     * @return returns boolean for if the ID was deleted
+     * @throws java.sql.SQLException*/
     public boolean artistDelete(int artistId) throws SQLException {
 
         PreparedStatement ppst = null;
@@ -164,7 +176,13 @@ public class ChinookManager {
         }
         return false;
     }
-
+/**
+ * batch loads CSV file into the Database with chosen column
+     * @param music is CSV file to be loaded
+     * @param Col is the column to be loaded into database
+     * @throws java.io.FileNotFoundException
+     * @throws java.sql.SQLException
+ */
     public void BatchLoadArtist(File music, int Col) throws FileNotFoundException, IOException, SQLException {
         PreparedStatement ppst = null;
         BufferedReader br = null;
