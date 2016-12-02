@@ -7,7 +7,6 @@ package edu.uca.aca2016.jdbc.clintlemons;
 
 import java.io.BufferedReader;
 import java.io.File;
-import static java.io.FileDescriptor.out;
 import java.util.Properties;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,30 +14,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import static java.lang.System.in;
 import java.sql.*;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import org.sqlite.*;
-import java.util.Dictionary;
 import java.util.logging.*;
-import java.util.logging.Logger;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.HashMap;
-import java.util.ResourceBundle;
-import java.util.Scanner;
-//import static javax.swing.text.html.HTML.Tag.SELECT;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
-//import static org.apache.commons.net.imap.IMAPClient.SEARCH_CRITERIA.FROM;
-import org.sqlite.SQLiteConnection;
-import org.sqlite.jdbc4.JDBC4PreparedStatement;
 /**
  *
  * @author Username
  */
 public class ChinookManager {
-    Connection con = null;
+    Connection con;
     private final Properties defaultProperties =new Properties();
     int ArtistId = -1;
     Statement stmt = null;
@@ -47,8 +31,6 @@ public class ChinookManager {
     
     /**
      *loads properties file
-     * @param dbconnection
-     * @throws java.sql.SQLException
      * 
      */
     public void ChinookManager (){
@@ -77,7 +59,6 @@ public class ChinookManager {
      * @param Name
      */
     public void addArtist(String Name){
-       PreparedStatement ps =null;
         try {con=DriverManager.getConnection(defaultProperties.getProperty("db.connection"));
         }
         catch (SQLException ex) {
@@ -89,11 +70,9 @@ public class ChinookManager {
                ps.setString(1, Name);
                ps.executeUpdate(query);
                in.close();
-           } catch (SQLException ex) {
+           } catch (SQLException | IOException ex) {
                Logger.getLogger(ChinookManager.class.getName()).log(Level.WARNING, null, ex);
-           } catch (IOException ex) {
-            Logger.getLogger(ChinookManager.class.getName()).log(Level.WARNING, null, ex);
-        }
+           }
     }
     /**
      *Get Artist Name
@@ -102,9 +81,7 @@ public class ChinookManager {
      * @throws SQLException
      */
     public int getArtist(String Name) throws SQLException{
-        int ArtistId = -1;
-        PreparedStatement ps = null;
-        rs = stmt.executeQuery("SELECT*FROM Artist WHERE UPPER (Name)=(?)"); //LIKE %NaMe% = Name");
+        rs = stmt.executeQuery("SELECT*FROM Artist WHERE UPPER (Name)=(?)"); 
             if (!con.isValid(30)) {
             } else {
                     con.rollback();
@@ -123,7 +100,7 @@ public class ChinookManager {
                return ArtistId=-1;
             }
             }catch (SQLException ex) {
-               Logger.getLogger(ChinookManager.class.getName()).log(Level.WARNING, null, ex);
+               Logger.getLogger("Exception!"+ChinookManager.class.getName()).log(Level.WARNING, null, ex);
             }
             finally {
                 if (ps !=null);
@@ -139,33 +116,42 @@ public class ChinookManager {
      * @return
      * @throws SQLException
      */
-    public boolean updateArtist(int ArtistId, String Name) throws SQLException{
-            PreparedStatement ps = null;
-            boolean update = false;
-            rs = stmt.executeQuery("SELECT*FROM Artist WHERE UPPER (Name)=(?)");
-            if (!con.isValid(30)) {
-            } else {
-                    con.rollback();
-                    con.close();
-                    Logger.getLogger("connection time-out");
-                }
-            try {
-            String query= ("UPDATE ARTIST (Name)VALUES(?,?)");
-            con.prepareStatement("UPDATE ARTIST WHERE ARTIST ");
-            ps.setString(1, Name.toUpperCase());
-            ps.setInt(2, ArtistId);
-            ps.executeUpdate(query);
-            if(ArtistId == 1){
-                update = true;
-            }        
-            } catch (SQLException ex) {
-            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
-        }       finally {
-                if (ps !=null);
-                ps.close();
+    public boolean updateArtist(int ArtistId, String Name){
+                boolean update = false;    
+            try {rs = stmt.executeQuery("SELECT*FROM Artist WHERE UPPER (Name)=(?)");
+                if (!con.isValid(30)) {
+            } 
+                else {
+                con.rollback();
+                con.close();
+                Logger.getLogger("connection time-out");
             }
-            return update;
-    }
+        } catch (SQLException ex) {
+            Logger.getLogger("Exception"+ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                try {
+                    String query= ("UPDATE ARTIST (Name)VALUES(?,?)");
+                    ps =con.prepareStatement("UPDATE ARTIST WHERE ARTIST ");
+                    ps.setString(1, Name.toUpperCase());
+                    ps.setInt(2, ArtistId);
+                    ps.executeUpdate(query);
+                    if(ArtistId == 1){
+                        update = true;
+                    }        
+                } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        }  finally {
+                    try {
+                        if(ps !=null);
+                        ps.close();
+                        con.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger("Exception!"+ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                return update;
+        }
+    
     /**
      *
      * @param ArtistId
@@ -173,7 +159,6 @@ public class ChinookManager {
      * @throws SQLException
      */
     public boolean deleteArtist(int ArtistId) throws SQLException{
-           PreparedStatement ps = null;
             boolean update = false;
             rs = stmt.executeQuery("DELETE FROM Artist"+ "WHERE ArtistId =(?)");
             if (!con.isValid(30)) {
@@ -189,11 +174,13 @@ public class ChinookManager {
             if(ArtistId == 1){
                 update = true;
             }        
-            } catch (SQLException ex) {
-            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
-        }       finally {
+            } 
+            catch (SQLException ex) {
+            Logger.getLogger("Exception!"+ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+            }   finally {
                 if (ps !=null);
                 ps.close();
+                con.close();
             }return update;    
     }
     /**
@@ -201,8 +188,8 @@ public class ChinookManager {
      * @param f
      * @param Col
      */
-    public void BatchLoadArtist(File f, int Col) throws IOException{      
-        String query = "INSERT INTO ARTIST (Name)VALUES(?)";
+    public void BatchLoadArtist(File f, int Col){      
+        String query = "INSERT INTO ARTIST (Name)VALUES(?)"+"";
         String line = "";
         String cvsSplitBy = ",";
         String[] set = null;
@@ -210,8 +197,8 @@ public class ChinookManager {
         int count = 0;
         
         try (BufferedReader br = new BufferedReader(new FileReader(f))) {
-            while ((line = br.readLine()) != null) {
-                set = line.split(cvsSplitBy);
+            while ((query = br.readLine()) != null) {
+                set = query.split(cvsSplitBy);
                 
             }   for(String name : set){
                 this.ps = this.con.prepareStatement(query);
@@ -221,11 +208,10 @@ public class ChinookManager {
 		ps.executeBatch();
                 }
                 ps.close();
-                con.close();
-                        
+                con.close();         
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger("Exception!"+ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
                 
