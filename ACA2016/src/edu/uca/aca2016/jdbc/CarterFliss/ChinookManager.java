@@ -174,16 +174,25 @@ public class ChinookManager {
 
         return artistDeleted;
     }
-
+    
+    /**method to insert multiple artists to database from CSV file,
+     * takes in CSV file and column number from file as parameters
+     * @param inCSV
+     * @param col
+     * @throws SQLException 
+     */
     public void batchLoadArtist(File inCSV, int col) throws SQLException {
+        //defining sql string fro this.ps and other elements for reading file
         String sql = "INSERT INTO Artist (Name) VALUES (?)";
         String line = "";
         String splitBy = ",";
         String[] set = null;
-
+        //defining ints to provide upper limit on how many batches execute at once
         final int batchSize = 1000;
         int count = 0;
-
+        //buffered reader takes in inCSV and reads line by line (split by commas)
+        //and adds to String[] set before making Prepared Statements for each
+        //artist in line
         try (BufferedReader br = new BufferedReader(new FileReader(inCSV))) {
             while ((line = br.readLine()) != null) {
                 set = line.split(splitBy);
@@ -191,17 +200,22 @@ public class ChinookManager {
                     this.ps = this.con.prepareStatement(sql);
                     this.ps.setString(1, set[col]);
                     this.ps.addBatch();
+                    //if statement executes batches when it reaches 1000 to
+                    //provide better speed
                     if (++count % batchSize == 0) {
                         this.ps.executeBatch();
                     }
                 }
+                //executes remeaining batches and closes BufferedReader
                 this.ps.executeBatch();
-            }
+                br.close();
+            }  //various error loggers
         } catch (IOException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, "Exception reading CSV file", ex);
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         } finally {
+            //closes this.ps Prepared Statement
             if (this.ps != null) {
                 this.ps.close();
             }
