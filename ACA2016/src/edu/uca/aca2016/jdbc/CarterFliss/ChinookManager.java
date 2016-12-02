@@ -200,7 +200,7 @@ public class ChinookManager {
                     this.ps = this.con.prepareStatement(sql);
                     this.ps.setString(1, set[col]);
                     this.ps.addBatch();
-                    //if statement executes batches when it reaches 1000 to
+                    //if statement executes every 1000 batches to
                     //provide better speed
                     if (++count % batchSize == 0) {
                         this.ps.executeBatch();
