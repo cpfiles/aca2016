@@ -38,11 +38,12 @@ import org.sqlite.jdbc4.JDBC4PreparedStatement;
  * @author Username
  */
 public class ChinookManager {
-    Connection con;
+    Connection con = null;
     private final Properties defaultProperties =new Properties();
     int ArtistId = -1;
     Statement stmt = null;
     ResultSet rs = null;
+    PreparedStatement ps = null;
     
     /**
      *loads properties file
@@ -165,7 +166,6 @@ public class ChinookManager {
             }
             return update;
     }
-
     /**
      *
      * @param ArtistId
@@ -201,131 +201,32 @@ public class ChinookManager {
      * @param f
      * @param Col
      */
-    public void BatchLoadArtist(File f, int Col){
-        //for col (param) 0,2 --ex of the key valued pairs being passed to you to be read by csv reader.
-        //String[] Artists = line.split(",");
-        //artists[collection]
-        //           ^index 0
-        //BufferedReader br = new BufferedReader(BatchLoadArtist("Artist.csv",int));
-        //Connect and read file
-        f = new File("Artist.csv");
-        HashMap<String, Integer>hm= new
-        HashMap<String, Integer>(); 
-        hm.get(f)
-//        try{
-//            stmt = con.createStatement(
-//            ResultSet.TYPE_SCROLL_INSENSITIVE,
-//            ResultSet.CONCUR_UPDATABLE);
-//            Path inpath = Paths.get("resources","config","clintlemons","Artist.csv");
-//            
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    }
-}
-    
-
-
-//       logger.info("Added artist'"+"'Leonard Cohen"+"' to the database");
-       //PreparedStatement.
-
-//        public int getArtist(String name){
-//            
-//        }
-
-//                logger.info("not implemented");
-//        return (-1:2);
-    
-
-//        private Properties prop=new Properties(){
-//                String Connection = prop.getProperty("ChinookManager.properties");
-//                System.out.println("Connection Successful");
+    public void BatchLoadArtist(File f, int Col) throws IOException{      
+        String query = "INSERT INTO ARTIST (Name)VALUES(?)";
+        String line = "";
+        String cvsSplitBy = ",";
+        String[] set = null;
+        final int batchSize = 1000;
+        int count = 0;
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+            while ((line = br.readLine()) != null) {
+                set = line.split(cvsSplitBy);
                 
-//        try {
-//            prop.load(in);
-//        } catch (IOException ex) {
-//            Logger.getLogger(ChinookManager.class.getName()).log(Level.WARNING, null, ex);
-//        }
-//        try {
-//            in.close();
-//        } catch (IOException ex) {
-//            Logger.getLogger(ChinookManager.class.getName()).log(Level.INFO, null, ex);
-//     Connection con;
-//    public ChinookManager() throws SQLException {
-//        this.con = DriverManager.getConnection("ChinookManager.properties");   
-//    }
-//    public void addArtist(String Artist, int ArtistID){
-//        
-//    }}
-//} public void insertRow(String coffeeName, int supplierID,
-//                      float price, int sales, int total)
-//    throws SQLException {
-//
-//    Statement stmt = null;
-//    try {
-//        stmt = con.createStatement(
-//            ResultSet.TYPE_SCROLL_SENSITIVE
-//            ResultSet.CONCUR_UPDATABLE);
-//
-//        ResultSet uprs = stmt.executeQuery(
-//            "SELECT * FROM " + dbName +
-//            ".COFFEES");
-//
-//        uprs.moveToInsertRow();
-//        uprs.updateString("COF_NAME", coffeeName);
-//        uprs.updateInt("SUP_ID", supplierID);
-//        uprs.updateFloat("PRICE", price);
-//        uprs.updateInt("SALES", sales);
-//        uprs.updateInt("TOTAL", total);
-//
-//        uprs.insertRow();
-//        uprs.beforeFirst();
-//    } catch (SQLException e ) {
-//        JDBCTutorialUtilities.printSQLException(e);
-//    } finally {
-//        if (stmt != null) { stmt.close(); }
-//    }
-//}
-       //SQL ex here:
-       // INSERT INTO Album (AlbumId, Title, ArtistId) 
-       //VALUES (1, 'Waiting for the miracle', 2)
-       //
-       //1,2,3 (?,?,?)        
-    //public void ConnectAndLoadDefaultProperties("Chinook_db") {
-       // try {
-           // String db = "C:\\Users\\Username\\Documents\\Chinook_db\\Chinook_Sqlite.sql";  
-     //  Connection con = DriverManager.getConnection("Chinook_db");
-      // public void DefaultProperties(){
-            //String  == ("C:\Users\Username\Documents\NetBeansProjects\aca2016\ACA2016\resources\config\clintlemons");
-           // defaultProperties = ("ChinookManager.properties");
-           // Path file = file.get("C:\Users\Username\Documents\NetBeansProjects\aca2016\ACA2016\resources\config\clintlemons\ChinookManager.properties");
- 
-            //ResultSet rs = stmt.executeQuery("SELECT * FROM Album");
-          //  Statement stmt = con.createStatement("Album");
-            // in = new FileInputStream(inpath.toFile());
-            //  this.defaultProperties.load();
-            // in.close();
-            // } catch (SQLException ex) {
-            //  Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);     
-//        default.FileInputStream = ("ChinookManager.properties") {
-//        this.toString();
-//        default.Properties = 
-//        
-//    }
-//  
-//            
- // @cpfiles ex---public void addArtist(String name){
-        //         logger.info("Added artist'"+name+"' to the database");
-    //}
-   // @cpfiles ex ---public int getArtist(String name)
-   //                logger.info("not implemented");
-   //                  return -1:
-    //}
-//    //@cpfiles ex was on or around line 31 
-//       private static final Logger logger = Logger.getLogger(ChinookManager.class.getName());
-
-
-    //this.con = load.DriverManager
-   // public void main connectChinookManager() {
-        //this.con = DriverManager.getConnection((jdbc:sqlite:)) + load.ChinookManager.properties);
-//        public void ChinookManager(){
+            }   for(String name : set){
+                this.ps = this.con.prepareStatement(query);
+                this.ps.setString(1,set[Col]);
+                ps.addBatch();
+                if(++count % batchSize == 0) {
+		ps.executeBatch();
+                }
+                ps.close();
+                con.close();
+                        
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+                
+}
