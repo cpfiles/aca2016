@@ -5,7 +5,11 @@
  */
 package edu.uca.aca2016.jdbc.sethdumas;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -47,7 +51,6 @@ public class ChinookManager {
     //addArtist has a single parameter for the artist’s name. 
     //This method should insert a row into the Artist database table 
     //in order to make a new Artist record.
-    
     /**
      * @param ArtistName
      * @throws SQLException
@@ -84,7 +87,6 @@ public class ChinookManager {
      * @return
      * @throws SQLException
      */
-
     public int getArtist(String ArtistName) throws SQLException {
         PreparedStatement ps = null;
         int ArtistId = -1;
@@ -113,14 +115,13 @@ public class ChinookManager {
     //artist with the name provided. The method 
     //should return a boolean; true if the 
     //update was successful, false otherwise. 
-    
+
     /**
      * @param ArtistId
      * @param ArtistName
      * @return
      * @throws java.sql.SQLException
      */
-
     public boolean upadteArtist(int ArtistId, String ArtistName) throws SQLException {
         PreparedStatement ps = null;
         boolean update = false;
@@ -147,13 +148,11 @@ public class ChinookManager {
     }
 
     //Method to delete an Artist
-    
     /**
      * @param ArtistId
      * @return
      * @throws java.sql.SQLException
      */
-    
     public boolean deleteArtist(int ArtistId) throws SQLException {
         PreparedStatement ps = null;
         boolean update = false;
@@ -177,5 +176,32 @@ public class ChinookManager {
         }
         return update;
 
+    }
+
+    //A method to read in a CSV file and update the artist column
+    /**
+     * @param csvFile Read csv file
+     * @param Column THe column to read from csv file
+     * @throws SQLException
+     */
+    public void batchLoadArtist(File csvFile, int Column) throws SQLException {
+
+        PreparedStatement ps = null;
+        String sql = "INSERT INTO Artist (Name) VALUES (?)";
+        ps = con.prepareStatement(sql);
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            String line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] artist = line.split(",");
+                logger.info("Artist Name: " + artist[Column]);
+                ps.setObject(1, artist[Column]);
+                ps.addBatch();
+                logger.log(Level.INFO, "Added Artist: {0}", artist[Column]);
+            }
+            ps.executeBatch();
+        } catch (IOException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
