@@ -206,9 +206,8 @@ public class ChinookManager {
                         this.ps.executeBatch();
                     }
                 }
-                //executes remeaining batches and closes BufferedReader
-                this.ps.executeBatch();
-                br.close();
+                //executes remeaining batches 
+                this.ps.executeBatch();                
             }  //various error loggers
         } catch (IOException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, "Exception reading CSV file", ex);
