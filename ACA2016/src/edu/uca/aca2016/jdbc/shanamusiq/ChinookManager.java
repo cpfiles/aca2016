@@ -7,9 +7,11 @@ package edu.uca.aca2016.jdbc.shanamusiq;
 
 import edu.uca.aca2016.config.PropertiesExample;
 import edu.uca.aca2016.jdbc.JDBCExample;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -20,6 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -142,7 +145,7 @@ public class ChinookManager {
             ps = con.prepareStatement(sql);
             ps.setString(1, artistName);
             ps.setInt(2, artistId);
-            
+
             int rs = ps.executeUpdate();
             if (rs == 1) {
                 return true;
@@ -166,15 +169,46 @@ otherwise.
             String sql = "DELETE FROM Artist WHERE artistId = ?";
             ps = con.prepareStatement(sql);
             ps.setInt(1, artistId);
-            
+
             int rs = ps.executeUpdate();
             if (rs == 1) {
-                return true;
+            
             }
         } catch (SQLException ex) {
             Logger.getLogger(JDBCExample.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+            return true;
     }
 
+    /**
+     * This method reads the first column of the CSV file and loads it into the
+     * database. Update artist column.
+     *
+     * @param csvFile
+     * @param col
+     * @throws SQLException
+     */
+    public void batchLoadArtist(File csvFile, int col) throws SQLException {
+        BufferedReader br = null;
+        int i;
+        PreparedStatement ps = null;
+        try {
+            br = new BufferedReader(new FileReader(csvFile));
+            String line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] artist = line.split(",");
+                String sql = "INSERT into Artist (Name) VALUES (?)";
+                ps.setString(1, artist[col]);
+                ps.addBatch();
+            }
+            ps.executeBatch();
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 }
+
