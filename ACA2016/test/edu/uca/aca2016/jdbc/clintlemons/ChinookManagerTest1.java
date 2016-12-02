@@ -27,9 +27,9 @@ import static org.junit.Assert.*;
  *
  * @author Username
  */
-public class ChinookManagerTest {
+public class ChinookManagerTest1 {
     
-    public ChinookManagerTest() {
+    public ChinookManagerTest1() {
     }
     
     @BeforeClass
