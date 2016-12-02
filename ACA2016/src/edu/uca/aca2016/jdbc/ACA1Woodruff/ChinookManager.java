@@ -150,9 +150,8 @@ public class ChinookManager {
     public boolean deleteArtist(int Id) throws SQLException {
         PreparedStatement ps = null;
         boolean q = false;
-//        PreparedStatement qs = null;
         String sql = "DELETE FROM Artist WHERE ArtistId = ?";
-//        String chk = "SELECT * FROM Artist WHERE ArtistId = ?"; 
+ 
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, Id);
