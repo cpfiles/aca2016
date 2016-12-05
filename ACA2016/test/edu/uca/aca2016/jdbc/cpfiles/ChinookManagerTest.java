@@ -1,7 +1,9 @@
 package edu.uca.aca2016.jdbc.cpfiles;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -90,8 +92,8 @@ public class ChinookManagerTest{
         Statement s = this.con.createStatement();
         ResultSet rs = s.executeQuery("SELECT * FROM Artist WHERE Name = 'Buddy Guy'");
         
-        rs.next();
-        assertEquals(4, rs.getInt("ArtistId"));
+        boolean r = rs.next();
+        assertEquals(true, r);
     }
 
     /**
@@ -134,5 +136,35 @@ public class ChinookManagerTest{
         
         boolean r = rs.next();
         assertEquals(false, r);
+    }
+    
+    /**
+     * Test of deleteArtist method, of class ChinookManager.
+     */
+    @Test
+    public void testBatchLoadArtist() throws SQLException, IOException{
+        File csv = File.createTempFile("chinook", "csv");
+        csv.deleteOnExit();
+        
+        PrintWriter outputStream = new PrintWriter(new FileWriter(csv));
+        outputStream.write("Prince,Bob Cavallo\n");
+        outputStream.write("Queen,Jim Beach\n");
+        outputStream.write("Sly and the Family Stone,David Kapralik\n");
+        outputStream.close();
+        
+        ChinookManager instance = new ChinookManager();
+        instance.batchLoadArtist(csv, 0);
+
+        Statement s = this.con.createStatement();
+        ResultSet rs = s.executeQuery("SELECT * FROM Artist WHERE Name = 'Prince'");
+        
+        boolean r = rs.next();
+        assertEquals(true, r);
+        
+        s = this.con.createStatement();
+        rs = s.executeQuery("SELECT * FROM Artist WHERE Name = 'Sly and the Family Stone'");
+        
+        r = rs.next();
+        assertEquals(true, r);
     }
 }
