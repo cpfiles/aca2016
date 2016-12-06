@@ -38,7 +38,7 @@ public class ChinookManager {
      */
     public ChinookManager() throws SQLException {
         try {
-            Path inpath = Paths.get("resources", "config", "jeffbanksz4l", "ChinookManager.properties");
+            Path inpath = Paths.get("C:\\Users\\jeffb\\Documents\\NetBeansProjects\\aca2016\\ACA2016\\resources\\config\\jeffbanksz4l\\ChinookManager.properties");
             FileInputStream in = new FileInputStream(inpath.toFile());
             Properties cmProperties = new Properties();
             cmProperties.load(in);
