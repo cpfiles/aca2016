@@ -1,7 +1,10 @@
 package edu.uca.aca2016.jdbc.cpfiles;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -175,5 +179,31 @@ public class ChinookManager{
         }
         
         return ret;
+    }
+    
+    public void batchLoadArtist(File csv, int column) {
+        String line = "";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csv))) {
+            PreparedStatement ps = this.con.prepareStatement("INSERT INTO Artist (Name) VALUES (?)");
+            
+            while ((line = br.readLine()) != null) {
+                String[] pieces = line.split(",");
+                ps.setString(1, pieces[column]);
+                ps.addBatch();
+                
+                logger.info("Adding " + pieces[column] + " to the batch." );
+            }
+            
+            int[] results = ps.executeBatch();
+            
+            ps.close();
+        } 
+        catch (IOException ex) {
+            logger.severe("IO Exception: " + ex.getMessage());
+        }
+        catch(SQLException ex){
+            logger.severe("SQL Issue: " + ex.getMessage());
+        }
     }
 }
