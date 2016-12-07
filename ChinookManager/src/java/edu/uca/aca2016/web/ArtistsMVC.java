@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author cfiles
  */
-public class Artists extends HttpServlet{
+public class ArtistsMVC extends HttpServlet{
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -57,70 +58,25 @@ public class Artists extends HttpServlet{
         else if (mid.equals("301")) {
             message = "Artist was not deleted.";
         }
-
-        try(PrintWriter out = response.getWriter()){
-            
-            ChinookManager cm = new ChinookManager();
-            HashMap<Integer, String> artists = cm.getArtists();
-            
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Chinook Artist Manager</title>");    
-            out.println("<style>body { font-family: Verdana, Geneva, sans-serif; }</style>");
-            out.println("</head>");
-            out.println("<body>");
-            
-            if (!message.isEmpty()) {
-                out.println("<span style='color: red;'>" + message + "</span>");
-            }
-            
-            if (dothis != null && dothis.equals("Delete")) {
-                int id = Integer.parseInt(request.getParameter("id"));
-                String name = cm.getArtistName(id);
-                
-                out.println("<h1>Delete Artist</h1>");
-                out.println("<form method=\"post\">");
-                out.println("<input type=\"hidden\" name=\"id\" value=\"" + id + "\">");
-                out.println("Are you sure you want to delete artist \"" + name + "\"?");
-                out.println("<input type=\"submit\" value=\"Delete\" name=\"action\">");
-                out.println("</form>");
-            }
-            else if (dothis != null && dothis.equals("Edit")) {
-                int id = Integer.parseInt(request.getParameter("id"));
-                String name = cm.getArtistName(id);
-                
-                out.println("<h1>Edit Artist</h1>");
-                out.println("<form method=\"post\">");
-                out.println("<input type=\"hidden\" name=\"id\" value=\"" + id + "\">");
-                out.println("Artist Name: <input type=\"text\" name=\"name\" value=\"" + name + "\">");
-                out.println("<input type=\"submit\" value=\"Edit\" name=\"action\">");
-                out.println("</form>");
-            }
-            else {
-                out.println("<h1>Add an Artist</h1>");
-                out.println("<form method=\"post\">");
-                out.println("Artist Name: <input type=\"text\" name=\"name\">");
-                out.println("<input type=\"submit\" value=\"Add\" name=\"action\">");
-                out.println("</form>");
-            }
-            
-            out.println("<h1>Manage Artist</h1>");
-            out.println("<table border='1'><tr><th>ID</th><th>Name</th><th>Action</th></tr>");
-            
-            for(Map.Entry<Integer, String> artist : artists.entrySet()) {
-                out.println("<tr><td>" + artist.getKey() + "</td><td>" + artist.getValue() + 
-                    "</td><td><a href='?do=Edit&id="+ artist.getKey() +
-                    "'>Edit</a> <a href='?do=Delete&id="+ artist.getKey() +"'>Delete</a></td></tr>");
-            }
-            
-            out.println("</table>");
-            
-            out.println("</body>");
-            out.println("</html>");
-            
-            cm.close();
+        
+        ChinookManager cm = new ChinookManager();
+        HashMap<Integer, String> artists = cm.getArtists();
+        
+        request.setAttribute("artists", artists);
+        request.setAttribute("dothis", dothis);
+        request.setAttribute("message", message);
+        
+        String id = request.getParameter("id");
+        
+        if (id != null && !id.isEmpty()) {
+            request.setAttribute("id", id);
+            request.setAttribute("artist_name", cm.getArtistName(Integer.parseInt(id)));
         }
+
+        RequestDispatcher rd = request.getRequestDispatcher("/artists_mvc.jsp");
+        rd.include(request, response);
+        
+        cm.close();
     }
 
     /**
