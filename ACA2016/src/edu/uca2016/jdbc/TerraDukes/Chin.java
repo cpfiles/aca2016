@@ -19,8 +19,8 @@ public class Chin {
      */
     public static void main(String[] args) throws SQLException {
        ChinookManager Chi= new ChinookManager();
-File Artist= new File ("C:\\Users\\DueTe\\Desktop\\ART.csv");
-Chi.batchLoadArtist(Artist, 0);
+//File Artist= new File ("C:\\Users\\DueTe\\Desktop\\ART.csv");
+//Chi.batchLoadArtist(Artist, 0);
 //Chi.addArtist("Prince");
 //Chi.getArtist("PRince");
 //Chi.updateArtist(276, "Michael Jackson");
