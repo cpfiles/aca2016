@@ -15,8 +15,8 @@ public class Genre {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    ChinookGenreManager Ch = new ChinookGenreManager();
+        
     
+    ChinookGenreManager Ch = new ChinookGenreManager();
+    }
 }
