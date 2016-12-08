@@ -34,12 +34,7 @@ import java.nio.file.Paths;
  */
 public class ChinookManager {
 
-    public static void main(String[] args) throws SQLException {
-//ChinookManager Chi= new ChinookManager();
-//File Artist= new File ("C:\\Users\\DueTe\\Desktop\\ART.csv");
-//Chi.batchLoadArtist(Artist, 0);
-//Chi.addArtist("Prince");
-    }
+    
     /**
      * Establish Connection to the database. IQ & SQL Exception thrown
      *
@@ -47,17 +42,18 @@ public class ChinookManager {
      */
     private Connection con;
 
-    private Properties defaultProperties = new Properties();
+    private Properties Chin = new Properties();
 
     public ChinookManager() {
         try {
             Path inpath = Paths.get("resources", "config", "TerraDukes", "ChinookManager.properties");
             FileInputStream in = new FileInputStream(inpath.toFile());
-            Properties props = new Properties();
-            props.load(in);
+           
+            this.Chin.load(in);
+            this.con = DriverManager.getConnection(Chin.getProperty("db.connection"));
             in.close();
 
-            con = DriverManager.getConnection(props.getProperty("db.connection"));
+            
         } catch (FileNotFoundException ex) {
 
         } catch (IOException ex) {
@@ -69,10 +65,7 @@ public class ChinookManager {
 
     /*create method  connect-and delete- add/get/update/deleteArtist-single parameter for name.
      */
-    public void connectAndDelete(String url) throws SQLException {
-        Connection con = null;
-        PreparedStatement ps = null;
-    }
+    
 
     public void addArtist(String Artistname) throws SQLException {
         PreparedStatement ps = null;
@@ -143,11 +136,7 @@ public class ChinookManager {
         
     }
 
-    private boolean deleteArtist(int id) {
-
-        return false;
-
-    }
+   
 
     public void batchLoadArtist(File Artist, int col) {
         try {
