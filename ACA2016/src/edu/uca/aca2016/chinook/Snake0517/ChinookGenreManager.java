@@ -28,7 +28,7 @@ public class ChinookGenreManager {
 
     public ChinookGenreManager() {
         try {
-            Enumeration<URL> url = ChinookGenreManager.class.getClassLoader().getResources("config/Snake0517/ChinookGenreManager.properties");
+            Enumeration<URL> url = ChinookGenreManager.class.getClassLoader().getResources("config/Snake0517/ChinookManager.properties");
             InputStream stream = new FileInputStream(url.nextElement().getPath());
             Properties props = new Properties();
             props.load(stream);
