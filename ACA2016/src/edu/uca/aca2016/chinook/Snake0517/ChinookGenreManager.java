@@ -35,10 +35,11 @@ public class ChinookGenreManager {
         
         try {
             Enumeration<URL> url = ChinookGenreManager.class.getClassLoader().getResources("config/Snake0517/ChinookManager.properties");
-            InputStream stream = new FileInputStream(url.nextElement().getPath());
-            Properties props = new Properties();
-            props.load(stream);
-            stream.close();
+            Properties props;
+            try (InputStream stream = new FileInputStream(url.nextElement().getPath())) {
+                props = new Properties();
+                props.load(stream);
+            }
 
             logger.log(Level.INFO, "Connecting to database: {0}", props.getProperty("db.connection"));
 
@@ -77,10 +78,10 @@ public class ChinookGenreManager {
     
     public void addGenre(String name) {
         try{
-            PreparedStatement ps = this.con.prepareStatement("INSERT INTO Genre (Name) VALUES(?)");
-            ps.setString(1, name);
-            ps.executeUpdate();
-            ps.close();
+            try (PreparedStatement ps = this.con.prepareStatement("INSERT INTO Genre (Name) VALUES(?)")) {
+                ps.setString(1, name);
+                ps.executeUpdate();
+            }
         }
         catch(SQLException ex){
             logger.log(Level.SEVERE, "Issue adding genre: {0}", ex.getMessage());
