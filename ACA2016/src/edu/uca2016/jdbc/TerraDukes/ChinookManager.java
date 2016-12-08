@@ -35,7 +35,10 @@ import java.nio.file.Paths;
 public class ChinookManager {
 
     public static void main(String[] args) throws SQLException {
-
+//ChinookManager Chi= new ChinookManager();
+//File Artist= new File ("C:\\Users\\DueTe\\Desktop\\ART.csv");
+//Chi.batchLoadArtist(Artist, 0);
+//Chi.addArtist("Prince");
     }
     /**
      * Establish Connection to the database. IQ & SQL Exception thrown
@@ -73,7 +76,7 @@ public class ChinookManager {
 
     public void addArtist(String Artistname) throws SQLException {
         PreparedStatement ps = null;
-        String sql = "INSERT into Artistname (Name) VALUES(?)";
+        String sql = "INSERT into Artist (Name) VALUES(?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, Artistname);
@@ -92,7 +95,7 @@ public class ChinookManager {
         int id = -1;
         try {
 
-            String sql = "INSERT into Artist (Name) VALUES(?)";
+            String sql = "SELECT * from Artist where UPPER (Name) = (?)";
             ps = con.prepareStatement(sql);
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
@@ -137,8 +140,7 @@ public class ChinookManager {
         }
         ps.setString(1, "john@example.com");
         ps.executeUpdate();
-        ChinookManager CM = new ChinookManager();
-        CM.addArtist("MJB");
+        
     }
 
     private boolean deleteArtist(int id) {
@@ -150,7 +152,7 @@ public class ChinookManager {
     public void batchLoadArtist(File Artist, int col) {
         try {
             PreparedStatement ps = null;
-            String sql = "INSERT into Artistname (Name) VALUES(?)";
+            String sql = "INSERT into Artist (Name) VALUES(?)";
             BufferedReader br = null;
             String line = "";
             String cvsSplitBy = ",";
