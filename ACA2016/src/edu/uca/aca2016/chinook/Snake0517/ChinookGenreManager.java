@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -61,7 +62,7 @@ public class ChinookGenreManager {
         try{
             Statement s = this.con.createStatement();
             
-            ResultSet rs = s.executeQuery("SELECT * FROM Artist");
+            ResultSet rs = s.executeQuery("SELECT * FROM Genre");
             
             while (rs.next()) {
                 Genre.put(rs.getInt("GenreID"), rs.getString("Name"));
@@ -74,4 +75,44 @@ public class ChinookGenreManager {
         return Genre;
     }
     
+    public void addGenre(String name) {
+        try{
+            PreparedStatement ps = this.con.prepareStatement("INSERT INTO Genre (Name) VALUES(?)");
+            ps.setString(1, name);
+            ps.executeUpdate();
+            ps.close();
+        }
+        catch(SQLException ex){
+            logger.log(Level.SEVERE, "Issue adding genre: {0}", ex.getMessage());
+        }
+        
+        logger.log(Level.INFO, "Added genre ''{0}'' to the database ", name);
+    }
+    
+     public String getGenreName(int id) {
+        String ret = null;
+
+        try{
+      
+            PreparedStatement ps = this.con.prepareStatement("SELECT * FROM Genre WHERE ArtistId = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            
+         
+            if (rs.next()) {
+                ret = rs.getString("Name");
+                logger.info("Search by id for genre '" + id + "' yielded an name of " + ret);
+            }
+            else {
+                logger.info("Search for genre '" + id + "' yielded no results");
+            }
+        }
+        catch(SQLException ex){
+            logger.severe("Issue searching for genre: " + ex.getMessage());
+        }
+
+       
+        
+        return ret;
+    }
 }
