@@ -94,7 +94,7 @@ public class ChinookGenreManager {
 
         try{
       
-            PreparedStatement ps = this.con.prepareStatement("SELECT * FROM Genre WHERE ArtistId = ?");
+            PreparedStatement ps = this.con.prepareStatement("SELECT * FROM Genre WHERE GenreId = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             
