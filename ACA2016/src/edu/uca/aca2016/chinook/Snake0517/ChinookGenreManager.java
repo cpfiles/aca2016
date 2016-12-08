@@ -101,17 +101,62 @@ public class ChinookGenreManager {
          
             if (rs.next()) {
                 ret = rs.getString("Name");
-                logger.info("Search by id for genre '" + id + "' yielded an name of " + ret);
+                logger.log(Level.INFO, "Search by id for genre ''{0}'' yielded an name of {1}", new Object[]{id, ret});
             }
             else {
-                logger.info("Search for genre '" + id + "' yielded no results");
+                logger.log(Level.INFO, "Search for genre ''{0}'' yielded no results", id);
             }
         }
         catch(SQLException ex){
-            logger.severe("Issue searching for genre: " + ex.getMessage());
+            logger.log(Level.SEVERE, "Issue searching for genre: {0}", ex.getMessage());
         }
 
        
+        
+        return ret;
+    }
+      public boolean updateGenre(int id, String name) {
+        boolean ret = false;
+        
+        try{
+            PreparedStatement ps = this.con.prepareStatement("UPDATE Genre SET Name = ? WHERE GenreID = ?");
+            ps.setString(1, name);
+            ps.setInt(2, id);
+            int ra = ps.executeUpdate();
+            
+            if (ra == 1) {
+                ret = true;
+                logger.log(Level.INFO, "Updated genre with ID {0} set name to ''{1}''", new Object[]{id, name});
+            }
+            else {
+                logger.log(Level.WARNING, "Update genre with ID {0} had an undesired result and changed {1} records", new Object[]{id, ra});
+            }
+        }
+        catch(SQLException ex){
+            logger.log(Level.SEVERE, "Issue updating genre: {0}", ex.getMessage());
+        }
+        
+        return ret;
+    }
+      public boolean deleteGenre(int id) {
+        boolean ret = false;
+        
+        try{
+            PreparedStatement ps = this.con.prepareStatement("DELETE FROM Genre WHERE GenreID = ?");
+            ps.setInt(1, id);
+            int ra = ps.executeUpdate();
+            
+            if (ra == 1) {
+                ret = true;
+                logger.log(Level.INFO, "Deleted genre with ID {0}", id);
+            }
+            else {
+                logger.log(Level.WARNING, "Delete genre with ID {0} had an undesired result and changed {1} records", new Object[]{id, ra});
+            }
+        }
+        catch(SQLException ex){
+            logger.log(Level.SEVERE, "Issue deleting genre: {0}", ex.getMessage());
+        }
         
         return ret;
     }
