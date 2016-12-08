@@ -27,6 +27,7 @@ public class ChinookGenreManager {
     private static final Logger logger = Logger.getLogger(ChinookGenreManager.class.getName());
 
     public ChinookGenreManager() {
+        System.out.print("I AM HERE");
         try {
             Enumeration<URL> url = ChinookGenreManager.class.getClassLoader().getResources("config/Snake0517/ChinookManager.properties");
             InputStream stream = new FileInputStream(url.nextElement().getPath());
