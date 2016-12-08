@@ -5,7 +5,6 @@
  */
 package edu.uca.aca2016.chinook.TerraDukes;
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,8 +30,10 @@ import java.util.logging.Logger;
  * @author DueTe
  */
 public class ChinookGenreManager {
-Connection con = null;
-private static final Logger logger = Logger.getLogger(ChinookGenreManager.class.getName());
+
+    Connection con = null;
+    private static final Logger logger = Logger.getLogger(ChinookGenreManager.class.getName());
+
     public ChinookGenreManager() {
         try {
             // attempt to read a "known" properties file that is on the classpath
@@ -52,13 +53,101 @@ private static final Logger logger = Logger.getLogger(ChinookGenreManager.class.
             }
 
         } catch (IOException ex) {
-        Logger.getLogger(ChinookGenreManager.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (ClassNotFoundException ex) {
-        Logger.getLogger(ChinookGenreManager.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (SQLException ex) {
-        Logger.getLogger(ChinookGenreManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ChinookGenreManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ChinookGenreManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookGenreManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+
+    public HashMap<Integer, String> getGenre() {
+
+        HashMap<Integer, String> Genre = new HashMap<>();
+
+        try {
+            Statement s = this.con.createStatement();
+
+            ResultSet rs = s.executeQuery("SELECT * FROM GENRE");
+
+            while (rs.next()) {
+                Genre.put(rs.getInt("GenreID"), rs.getString("Name"));
+            }
+        } catch (SQLException ex) {
+            logger.severe("SQL Issue: " + ex.getMessage());
+        }
+
+        return Genre;
     }
+
+    public String getGenreName(int id) {
+        String ret = null;
+
+        try{
+            // attempt to find the artist by id
+            PreparedStatement ps = this.con.prepareStatement("SELECT * FROM Genre WHERE GenreId = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            
+            // if there is a record, get the artist id to return
+            if (rs.next()) {
+                ret = rs.getString("Genre");
+                logger.info("Search by id for Genre '" + id + "' yielded an name of " + ret);
+            }
+            else {
+                logger.info("Search for Genre '" + id + "' yielded no results");
+            }
+        }
+        catch(SQLException ex){
+            logger.severe("Issue searching for Genre: " + ex.getMessage());
+        }
+
+        // send back null or the name
+        return ret;
+    }
+        
+        public boolean updateGenre(int id, String name) {
+        boolean ret = false;
+        
+        try{
+            PreparedStatement ps = this.con.prepareStatement("UPDATE Genre SET Name = ? WHERE GenreID = ?");
+            ps.setString(1, name);
+            ps.setInt(2, id);
+            int ra = ps.executeUpdate();
+            
+            if (ra == 1) {
+                ret = true;
+                logger.info("Updated Genre with ID " + id + " set name to '" + name + "'");
+            }
+            else {
+                logger.warning("Update Genre with ID " + id + " had an undesired result and changed " + ra + " records");
+            }
+        }
+        catch(SQLException ex){
+            logger.severe("Issue updating Genre: " + ex.getMessage());
+        }
+        
+        return ret;
+    }
+       public boolean deleteGenre(int id) {
+        boolean ret = false;
+
+        try {
+            PreparedStatement ps = this.con.prepareStatement("DELETE FROM Genre WHERE GenreID = ?");
+            ps.setInt(1, id);
+            int ra = ps.executeUpdate();
+
+            if (ra == 1) {
+                ret = true;
+                logger.info("Deleted Genre with ID " + id);
+            } else {
+                logger.warning("Delete Genre with ID " + id + " had an undesired result and changed " + ra + " records");
+            }
+        } catch (SQLException ex) {
+            logger.severe("Issue deleting Genre: " + ex.getMessage());
+        }
+
+        return ret;
+    } 
+    
 }
-
-
