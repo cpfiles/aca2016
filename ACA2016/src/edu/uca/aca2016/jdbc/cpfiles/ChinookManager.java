@@ -40,7 +40,7 @@ public class ChinookManager{
     public ChinookManager(){
         try{
             // attempt to read a "known" properties file that is on the classpath
-            Enumeration<URL> url = ChinookManager.class.getClassLoader().getResources("config/cpfiles/ChinookManager.properties");
+            Enumeration<URL> url = ChinookManager.class.getClassLoader().getResources("config/clintlemons/ChinookManager.properties");
             InputStream stream = new FileInputStream(url.nextElement().getPath());
             Properties props = new Properties();
             props.load(stream);
