@@ -94,7 +94,7 @@ public class ChinookManager {
                 id = -1;
 
             }
-            
+
         } catch (SQLException ex) {
 
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,23 +107,50 @@ public class ChinookManager {
         return id;
     }
 
-    public void updateArtist(int id, String name) {
-        String sql = "UPDATE ARTIST SET Email = ? WHERE Email= ?";
-        ps.setString(1, "john@example.com");
-        ps.setString(2, "example@example.com");
-        ps.executeUpdate();
-    }
+    public boolean updateArtist(int id, String name) {
+        PreparedStatement ps = null;
 
-    public void deleteArtist(int id, String name) throws SQLException {
-
-        String sql = "DELETE ARTIST = ?";
+        String sql = "UPDATE Artist Set Name = (?) WHERE ArtistId = (?)";
+        boolean x = false;
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setInt(2, id);
+            int rs = ps.executeUpdate();
+            if (rs == 1) {
+                x = true;
+
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ps.setString(1, "john@example.com");
-        ps.executeUpdate();
+        logger.log(Level.INFO, "Return Artist Name:  {0}", name);
+
+        return x;
+
+    }
+
+    public boolean deleteArtist(int id) throws SQLException {
+        PreparedStatement ps = null;
+
+        String sql = "DELETE FROM Artist WHERE ArtistId = (?)";
+        boolean x = false;
+        try {
+            ps = con.prepareStatement(sql);
+
+            ps.setInt(1, id);
+            int rs = ps.executeUpdate();
+            if (rs == 1) {
+                x = true;
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return x;
 
     }
 
