@@ -5,7 +5,6 @@
  */
 package edu.uca.aca2016.jdbc.clintlemons;
 
-import edu.uca.aca2016.jdbc.cpfiles.ChinookManager;
 import java.io.File;
 import org.junit.After;
 import org.junit.AfterClass;
