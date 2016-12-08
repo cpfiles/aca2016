@@ -12,9 +12,13 @@ import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Properties;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -35,20 +39,39 @@ public class ChinookGenreManager {
             props.load(stream);
             stream.close();
 
-            logger.info("Connecting to database: " + props.getProperty("db.connection"));
+            logger.log(Level.INFO, "Connecting to database: {0}", props.getProperty("db.connection"));
 
             Class.forName("org.sqlite.JDBC");
             if (this.con == null) {
                 con = DriverManager.getConnection(props.getProperty("db.connection"));
             }
         } catch (FileNotFoundException ex) {
-            logger.severe("File Not Found: " + ex.getMessage());
+            logger.log(Level.SEVERE, "File Not Found: {0}", ex.getMessage());
         } catch (IOException ex) {
-            logger.severe("IO Exception: " + ex.getMessage());
+            logger.log(Level.SEVERE, "IO Exception: {0}", ex.getMessage());
         } catch (SQLException ex) {
-            logger.severe("SQL Issue: " + ex.getMessage());
+            logger.log(Level.SEVERE, "SQL Issue: {0}", ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            logger.severe("Class not found: " + ex.getMessage());
+            logger.log(Level.SEVERE, "Class not found: {0}", ex.getMessage());
         }
     }
+    public HashMap<Integer, String> getGenre() {
+        HashMap<Integer, String> Genre = new HashMap<>();
+        
+        try{
+            Statement s = this.con.createStatement();
+            
+            ResultSet rs = s.executeQuery("SELECT * FROM Artist");
+            
+            while (rs.next()) {
+                Genre.put(rs.getInt("GenreID"), rs.getString("Name"));
+            }
+        }
+        catch(SQLException ex){
+            logger.log(Level.SEVERE, "SQL Issue: {0}", ex.getMessage());
+        }
+        
+        return Genre;
+    }
+    
 }
