@@ -11,6 +11,7 @@ package edu.uca2016.jdbc.TerraDukes;
  * @author DueTe
  */
 import edu.uca.aca2016.config.PropertiesExample;
+import java.io.BufferedReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ import java.io.File;
 import static java.io.FileDescriptor.in;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import static java.lang.System.in;
 import java.nio.file.Path;
@@ -35,11 +37,11 @@ public class ChinookManager {
     public static void main(String[] args) throws SQLException {
 
     }
-  /**
-    * Establish Connection to the database. IQ & SQL Exception thrown
-    *
-    *
-    */
+    /**
+     * Establish Connection to the database. IQ & SQL Exception thrown
+     *
+     *
+     */
     private Connection con;
 
     private Properties defaultProperties = new Properties();
@@ -68,7 +70,6 @@ public class ChinookManager {
         Connection con = null;
         PreparedStatement ps = null;
     }
-    
 
     public void addArtist(String Artistname) throws SQLException {
         PreparedStatement ps = null;
@@ -145,6 +146,37 @@ public class ChinookManager {
         return false;
 
     }
+
+    public void batchLoadArtist(File Artist, int col) {
+        try {
+            PreparedStatement ps = null;
+            String sql = "INSERT into Artistname (Name) VALUES(?)";
+            BufferedReader br = null;
+            String line = "";
+            String cvsSplitBy = ",";
+            ps = con.prepareStatement(sql);
+            String[] ArtList;
+            try {
+
+                br = new BufferedReader(new FileReader(Artist));
+                while ((line = br.readLine()) != null) {
+                    ArtList = line.split(cvsSplitBy);
+
+                    ps.setString(1, ArtList[col]);
+                    ps.addBatch();
+
+                }
+                ps.executeBatch();
+                ps.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
-
-
