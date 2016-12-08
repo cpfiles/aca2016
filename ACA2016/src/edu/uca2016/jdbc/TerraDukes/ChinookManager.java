@@ -85,13 +85,16 @@ public class ChinookManager {
 
             String sql = "SELECT * from Artist where UPPER (Name) = (?)";
             ps = con.prepareStatement(sql);
-            ps.setString(1, name);
+            ps.setString(1, name.toUpperCase());
             ResultSet rs = ps.executeQuery();
-
-            id = rs.getInt("ArtistId");
+            if (rs.next()) {
+                id = rs.getInt("ArtistId");
+            }
             if (rs.next()) {
                 id = -1;
+
             }
+            
         } catch (SQLException ex) {
 
             Logger.getLogger(ChinookManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -100,6 +103,7 @@ public class ChinookManager {
                 ps.close();
             }
         }
+        logger.log(Level.INFO, "Return Artist Id: {0}", id);
         return id;
     }
 
