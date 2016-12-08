@@ -10,18 +10,17 @@ package edu.uca2016.jdbc.TerraDukes;
  *
  * @author DueTe
  */
-import edu.uca.aca2016.config.PropertiesExample;
 import java.io.BufferedReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.io.File;
-import static java.io.FileDescriptor.in;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import static java.lang.System.in;
+
 import java.nio.file.Path;
 import java.sql.*;
 import java.util.Properties;
@@ -34,39 +33,35 @@ import java.nio.file.Paths;
  */
 public class ChinookManager {
 
-    
     /**
      * Establish Connection to the database. IQ & SQL Exception thrown
      *
      *
      */
-    private Connection con;
-
+    Connection con;
+    private static final Logger logger = Logger.getLogger(ChinookManager.class.getName());
     private Properties Chin = new Properties();
 
     public ChinookManager() {
         try {
             Path inpath = Paths.get("resources", "config", "TerraDukes", "ChinookManager.properties");
             FileInputStream in = new FileInputStream(inpath.toFile());
-           
+
             this.Chin.load(in);
-            this.con = DriverManager.getConnection(Chin.getProperty("db.connection"));
+            this.con = DriverManager.getConnection(Chin.getProperty("db.connections"));
+
+            logger.log(Level.INFO, "Connecting to database: {0}", Chin.getProperty("db.connections"));
             in.close();
 
-            
         } catch (FileNotFoundException ex) {
 
-        } catch (IOException ex) {
-
-        } catch (SQLException ex) {
+        } catch (IOException | SQLException ex) {
 
         }
     }
 
     /*create method  connect-and delete- add/get/update/deleteArtist-single parameter for name.
      */
-    
-
     public void addArtist(String Artistname) throws SQLException {
         PreparedStatement ps = null;
         String sql = "INSERT into Artist (Name) VALUES(?)";
@@ -108,14 +103,6 @@ public class ChinookManager {
         return id;
     }
 
-    public Connection getCon() {
-        return con;
-    }
-
-    public Properties getDefaultProperties() {
-        return defaultProperties;
-    }
-
     public void updateArtist(int id, String name) {
         String sql = "UPDATE ARTIST SET Email = ? WHERE Email= ?";
         ps.setString(1, "john@example.com");
@@ -133,10 +120,8 @@ public class ChinookManager {
         }
         ps.setString(1, "john@example.com");
         ps.executeUpdate();
-        
-    }
 
-   
+    }
 
     public void batchLoadArtist(File Artist, int col) {
         try {
