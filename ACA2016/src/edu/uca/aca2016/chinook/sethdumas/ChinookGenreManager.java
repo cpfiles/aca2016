@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Properties;
@@ -55,5 +57,6 @@ public class ChinookGenreManager{
             logger.severe("Class not found: " + ex.getMessage());
         }
     }
+    
 }
     
