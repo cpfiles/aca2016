@@ -5,6 +5,8 @@
  */
 package edu.uca.aca2016.chinook.Snake0517;
 
+import java.util.HashMap;
+
 /**
  *
  * @author brela
@@ -18,5 +20,6 @@ public class Genre {
         
     
     ChinookGenreManager Ch = new ChinookGenreManager();
+        HashMap<Integer, String> genre = Ch.getGenre();
     }
 }
