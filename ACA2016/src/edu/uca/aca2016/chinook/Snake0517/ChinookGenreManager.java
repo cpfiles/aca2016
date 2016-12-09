@@ -31,6 +31,9 @@ public class ChinookGenreManager {
     Connection con = null;
     private static final Logger logger = Logger.getLogger(ChinookGenreManager.class.getName());
 
+    /**
+     *
+     */
     public ChinookGenreManager() {
         
         try {
@@ -57,6 +60,11 @@ public class ChinookGenreManager {
             logger.log(Level.SEVERE, "Class not found: {0}", ex.getMessage());
         }
     }
+
+    /**
+     *
+     * @return
+     */
     public HashMap<Integer, String> getGenre() {
         HashMap<Integer, String> Genre = new HashMap<>();
         
@@ -76,11 +84,20 @@ public class ChinookGenreManager {
         return Genre;
     }
     
-    public void addGenre(String name) {
+    /**
+     *
+     * @param name
+     * @return 
+     */
+    public boolean addGenre(String name) {
+     boolean  ret = false;
         try{
             try (PreparedStatement ps = this.con.prepareStatement("INSERT INTO Genre (Name) VALUES(?)")) {
                 ps.setString(1, name);
-                ps.executeUpdate();
+                int ra = ps.executeUpdate();
+                if (ra == 1) {
+                    ret = true;
+                }
             }
         }
         catch(SQLException ex){
@@ -88,9 +105,16 @@ public class ChinookGenreManager {
         }
         
         logger.log(Level.INFO, "Added genre ''{0}'' to the database ", name);
+        
+        return ret;
     }
     
-     public String getGenreName(int id) {
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public String getGenreName(int id) {
         String ret = null;
 
         try{
@@ -116,7 +140,14 @@ public class ChinookGenreManager {
         
         return ret;
     }
-      public boolean updateGenre(int id, String name) {
+
+    /**
+     *
+     * @param id
+     * @param name
+     * @return
+     */
+    public boolean updateGenre(int id, String name) {
         boolean ret = false;
         
         try{
@@ -139,7 +170,13 @@ public class ChinookGenreManager {
         
         return ret;
     }
-      public boolean deleteGenre(int id) {
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public boolean deleteGenre(int id) {
         boolean ret = false;
         
         try{
