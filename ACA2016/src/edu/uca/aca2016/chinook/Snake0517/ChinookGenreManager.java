@@ -66,7 +66,7 @@ public class ChinookGenreManager {
      * @return
      */
     public HashMap<Integer, String> getGenre() {
-        HashMap<Integer, String> Genre = new HashMap<>();
+        HashMap<Integer, String> genre = new HashMap<>();
         
         try{
             Statement s = this.con.createStatement();
@@ -74,14 +74,14 @@ public class ChinookGenreManager {
             ResultSet rs = s.executeQuery("SELECT * FROM Genre");
             
             while (rs.next()) {
-                Genre.put(rs.getInt("GenreID"), rs.getString("Name"));
+                genre.put(rs.getInt("GenreID"), rs.getString("Name"));
             }
         }
         catch(SQLException ex){
             logger.log(Level.SEVERE, "SQL Issue: {0}", ex.getMessage());
         }
         
-        return Genre;
+        return genre;
     }
     
     /**
