@@ -20,6 +20,7 @@ public class Genre {
         
     
     ChinookGenreManager Ch = new ChinookGenreManager();
-        HashMap<Integer, String> genre = Ch.getGenre();
+   Ch.deleteGenre(27);
+
     }
 }
