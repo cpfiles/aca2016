@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uca.aca2016.config;
+package edu.uca2016.jdbc.TerraDukes;
 
 /**
  *
  * @author DueTe
  */
-public class PropertiesExample {
+class rs {
+
+    static boolean next() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
-
