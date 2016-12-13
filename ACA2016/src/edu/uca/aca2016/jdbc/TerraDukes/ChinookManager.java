@@ -4,7 +4,7 @@ C:\Users\DueTe\Downloads\ChinookDatabase1.4_Sqlite
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uca2016.jdbc.TerraDukes;
+package edu.uca.aca2016.jdbc.TerraDukes;
 
 /**
  *
