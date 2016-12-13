@@ -57,9 +57,9 @@ public class GenreManager extends HttpServlet{
         }
         
         ChinookGenreManager cm = new ChinookGenreManager();
-        HashMap<Integer, String> artists = cm.getGenre();
+        HashMap<Integer, String> genres = cm.getGenre();
         
-        request.setAttribute("artists", artists);
+        request.setAttribute("genres", genres);
         request.setAttribute("dothis", dothis);
         request.setAttribute("message", message);
         
@@ -70,7 +70,7 @@ public class GenreManager extends HttpServlet{
             request.setAttribute("genre_name", cm.getGenreName(Integer.parseInt(id)));
         }
 
-        RequestDispatcher rd = request.getRequestDispatcher("/artists_mvc.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/Genre_MVC.jsp");
         rd.include(request, response);
         
        
