@@ -2,19 +2,27 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>Artists</servlet-name>
-        <servlet-class>edu.uca.aca2016.web.Artists</servlet-class>
+        <servlet-class>edu.uca.aca2016.web.Genre</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ArtistsMVC</servlet-name>
-        <servlet-class>edu.uca.aca2016.web.ArtistsMVC</servlet-class>
+        <servlet-class>edu.uca.aca2016.web.GenreMVC</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Genre</servlet-name>
+        <servlet-class>edu.uca.aca2016.web.jeffbanksz4l.Genre</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Artists</servlet-name>
-        <url-pattern>/Artists</url-pattern>
+        <servlet-name>Genre</servlet-name>
+        <url-pattern>/Genre</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ArtistsMVC</servlet-name>
-        <url-pattern>/ArtistsMVC</url-pattern>
+        <servlet-name>GenreMVC</servlet-name>
+        <url-pattern>/GenreMVC</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Genre</servlet-name>
+        <url-pattern>/Genre</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
