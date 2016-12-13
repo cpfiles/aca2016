@@ -5,15 +5,17 @@ package edu.uca.aca2016.stereo.coopecor;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Cory's HP Pavilion
  */
-import edu.uca.aca2016.interfaces.Stereo;
+import edu.uca.aca2016.interfaces.StereoExtended;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
-public class MyStereo implements Stereo {
+public class MyStereo implements StereoExtended {
 
     //create variables
     private int track;
@@ -23,11 +25,13 @@ public class MyStereo implements Stereo {
     private boolean paused;
     private boolean loaded;
     private boolean shuffle;
-    private int maxTrack;
-    private int minTrack;
+    private final int maxTrack = 1000;
+    private final int minTrack = 1;
     private boolean straight;
 
-    //initalize variables
+    /**
+     * Default Constructor
+     */
     public MyStereo() {
         loaded = false;
         stopped = false;
@@ -37,27 +41,25 @@ public class MyStereo implements Stereo {
         straight = false;
         track = 0;
         totalTrack = 0;
-        maxTrack = 1000;
-        minTrack = 1;
     }
 
     //When USB is loaded it should play the first track.
     //Assume straight play mode
     @Override
-    public void loadUSB() {
+    public void loadUSB()
+    {
         Random rand = new Random();
-        track = rand.nextInt(maxTrack) + 1;
-        totalTrack++;
+        totalTrack = rand.nextInt(maxTrack) + 1;
+        track++;
         playing = true;
         straight = true;
+        loaded = true;
     }
 
     //Answering if the USB has been loaded.
     //Assume that it has and will play
     @Override
     public boolean isUSBLoaded() {
-        loaded = true;
-        straight = true;
         return loaded;
     }
 
@@ -69,17 +71,21 @@ public class MyStereo implements Stereo {
         playing = false;
         paused = false;
         track = 0;
+        totalTrack = 0;
+        loaded = false;
     }
 
     //Want to know what the current track is now
     @Override
-    public int currentTrackNumber() {
+    public int currentTrackNumber()
+    {
         return track;
     }
 
     //Want to know what the total track number that was loaded
     @Override
-    public int totalTrackCount() {
+    public int totalTrackCount()
+    {
         return totalTrack;
 
     }
@@ -103,7 +109,8 @@ public class MyStereo implements Stereo {
 
     //Allows Play to stop. Once pressed the track will start at 1.
     @Override
-    public void stop() {
+    public void stop()
+    {
         stopped = true;
         playing = false;
         paused = false;
@@ -112,7 +119,8 @@ public class MyStereo implements Stereo {
 
     //Allows Pause
     @Override
-    public void pause() {
+    public void pause()
+    {
         stopped = false;
         playing = false;
         paused = true;
@@ -121,64 +129,78 @@ public class MyStereo implements Stereo {
     //Allows for track to skip forward by 1 if in straight play mode
     @Override
     public void nextTrack() {
-        if ((playing == true) && (loaded == true)) {
-             if (straight == true){
-             track++;
-             if (track > totalTrack){
-                 track = minTrack;
-             }
+        if (isUSBLoaded()) {
+            if (straight) {
+                track++;
+                if (track > totalTrack) {
+                    track = minTrack;
+                }
+            } else {
+                Random rand = new Random();
+                track = rand.nextInt(totalTrack) + 1;
             }
-            else{   Random rand = new Random();
-                    track = rand.nextInt(totalTrack) + 1;
-                    }
         }
     }
 
-    //Allows for track to skip back by 1 if in straight play mode
+    /**
+     * Allows for track to skip back by 1 if in straight play mode
+     **/
     @Override
-    public void previousTrack() {
-        if ((playing == true) && (loaded == true)) {
-             if (straight == true){
-             track--;
-             if (track < minTrack){
-                 track = totalTrack;
-             }
+    public void previousTrack() 
+    {
+        if (isUSBLoaded()) 
+        {
+            if (straight) 
+            {
+                track--;
+                if (track < minTrack) 
+                {
+                    track = totalTrack;
+                }
             }
-            else{   Random rand = new Random();
-                    track = rand.nextInt(totalTrack) + 1;
-                    }
+            else
+            {
+                Random rand = new Random();
+                track = rand.nextInt(totalTrack) + 1;
+            }
         }
     }
 
     //Answering question is USB files playing
     @Override
-    public boolean isPlaying() {
+    public boolean isPlaying() 
+    {
         return playing;
     }
 
-    //Answering question is USB files that was playing paused
+    
+    /**
+     * Answering question is USB files that was playing paused
+     * 
+     **/
     @Override
-    public boolean isPaused() {
+    public boolean isPaused()
+    {
         return paused;
     }
 
-    //Main function that calls my functions from Stereo Class
-    public static void main(String[] args) {
-        Stereo stereo = new MyStereo();
-        stereo.loadUSB();
-        stereo.currentTrackNumber();
-        stereo.enableShufflePlayMode();
-        stereo.enableStraightPlayMode();
-        stereo.isPaused();
-        stereo.isPlaying();
-        stereo.isUSBLoaded();
-        stereo.loadUSB();
-        stereo.nextTrack();
-        stereo.pause();
-        stereo.previousTrack();
-        stereo.stop();
-        stereo.totalTrackCount();
-        stereo.unloadUSB();
+    @Override
+    public void loadTrackList(File trackListSource) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void play() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<String> getTrackList() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCurrentTrackFileName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
