@@ -5,6 +5,8 @@
  */
 package edu.uca.aca2016.chinook.jeffbanksz4l;
 
+import java.sql.SQLException;
+
 
 /**
  *
@@ -14,11 +16,15 @@ public class Genre_Runner {
 
     /**
      * @param args the command line arguments
+     * @throws java.sql.SQLException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         
         ChinookGenreManager CM = new ChinookGenreManager();
-                
+        CM.getGenres();
+        CM.addGenre("Gospel");
+        CM.getGenreName(24);
+        CM.updateGenre(26, "Worship");
+        CM.deleteGenre(26);
     }
-    
 }
