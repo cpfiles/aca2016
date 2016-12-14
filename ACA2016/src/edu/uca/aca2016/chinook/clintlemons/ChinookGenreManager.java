@@ -25,8 +25,11 @@ import java.util.logging.Logger;
  * @author Username
  */
 public class ChinookGenreManager {
+    
         Connection con = null;
+        
          static final Logger logger = Logger.getLogger(ChinookGenreManager.class.getName());
+         
     public ChinookGenreManager() {
         try{
             // attempt to read a "known" properties file that is on the classpath
@@ -81,8 +84,12 @@ public class ChinookGenreManager {
         }
         return Genres;
     }
+    
+        //method adds genre name
         public boolean addGenre(String name) {
-            boolean ret = false;
+            
+        boolean ret = false;
+            
         try{
             PreparedStatement ps = this.con.prepareStatement("INSERT INTO Genre (Name) VALUES(?)");
             ps.setString(1,name);
@@ -102,7 +109,13 @@ public class ChinookGenreManager {
         } 
         return ret;
     }
+        /**
+         * 
+         * @param id
+         * @returns genre name
+         */
         public String getGenreName(int id) {
+            
         String ret = null;
 
         try{
@@ -127,7 +140,14 @@ public class ChinookGenreManager {
         // send back null or the name
         return ret;
     }
+        /**
+         * 
+         * @param id
+         * @param name
+         * @returns true if genre id and name were successfully updated
+         */
         public boolean updateGenre(int id, String name) {
+            
         boolean ret = false;
         
         try{
@@ -150,8 +170,13 @@ public class ChinookGenreManager {
         
         return ret;
     }
-            
+        /**
+         * 
+         * @param id
+         * @returns true if genre was successfully deleted
+         */   
         public boolean deleteGenre(int id) {
+            
         boolean ret = false;
         
         try{
