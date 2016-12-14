@@ -4,9 +4,17 @@
         <servlet-name>Artists</servlet-name>
         <servlet-class>edu.uca.aca2016.web.Artists</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>GenreManager</servlet-name>
+        <servlet-class>edu.uca.aca2016.web.curiologic.GenreManager</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Artists</servlet-name>
         <url-pattern>/Artists</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>GenreManager</servlet-name>
+        <url-pattern>/Genre</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
