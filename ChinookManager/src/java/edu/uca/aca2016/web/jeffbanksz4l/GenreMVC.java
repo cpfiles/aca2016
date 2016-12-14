@@ -112,9 +112,9 @@ public class GenreMVC extends HttpServlet {
                 try {
                     String name = request.getParameter("name");
                     int id = Integer.parseInt(request.getParameter("id"));
-                    
+
                     boolean ret = cm.updateGenre(id, name);
-                    
+
                     if (ret) {
                         mid = "200";
                     } else {
@@ -126,9 +126,9 @@ public class GenreMVC extends HttpServlet {
             } else if (action.equals("Delete")) {
                 try {
                     int id = Integer.parseInt(request.getParameter("id"));
-                    
+
                     boolean ret = cm.deleteGenre(id);
-                    
+
                     if (ret) {
                         mid = "300";
                     } else {
