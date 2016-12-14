@@ -25,6 +25,6 @@ public class Genre_Runner {
         CM.addGenre("Gospel");
         CM.getGenreName(24);
         CM.updateGenre(26, "Worship");
-        CM.deleteGenre(26);
+        CM.deleteGenre(13);
     }
 }

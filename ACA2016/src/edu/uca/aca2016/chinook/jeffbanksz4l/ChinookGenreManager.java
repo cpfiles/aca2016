@@ -136,9 +136,6 @@ public class ChinookGenreManager {
             if (rs.next()) {
                 GenreName = rs.getString("Name");
             }
-            if (rs.next()) {
-                GenreName = null;
-            }
 
         } catch (SQLException ex) {
             logger.severe("SQL Exception: " + ex.getMessage());
