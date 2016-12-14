@@ -15,7 +15,7 @@
     <body>
 
         <c:if test="${not empty message}">
-            <span style="color: red;">${message}</span>
+            <span style="color: green;">${message}</span>
         </c:if>
 
         <form method="post">
