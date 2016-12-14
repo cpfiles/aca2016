@@ -64,6 +64,7 @@ public class ChinookGenreManager {
         }
     }
 //*
+
     public HashMap<Integer, String> getGenre() {
 
         HashMap<Integer, String> Genre = new HashMap<>();
@@ -86,53 +87,50 @@ public class ChinookGenreManager {
     public String getGenreName(int id) {
         String ret = null;
 
-        try{
+        try {
             // attempt to find the artist by id
             PreparedStatement ps = this.con.prepareStatement("SELECT * FROM Genre WHERE GenreId = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            
+
             // if there is a record, get the artist id to return
             if (rs.next()) {
                 ret = rs.getString("Genre");
                 logger.info("Search by id for Genre '" + id + "' yielded an name of " + ret);
-            }
-            else {
+            } else {
                 logger.info("Search for Genre '" + id + "' yielded no results");
             }
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             logger.severe("Issue searching for Genre: " + ex.getMessage());
         }
 
         // send back null or the name
         return ret;
     }
-        
-        public boolean updateGenre(int id, String name) {
+
+    public boolean updateGenre(int id, String name) {
         boolean ret = false;
-        
-        try{
+
+        try {
             PreparedStatement ps = this.con.prepareStatement("UPDATE Genre SET Name = ? WHERE GenreID = ?");
             ps.setString(1, name);
             ps.setInt(2, id);
             int ra = ps.executeUpdate();
-            
+
             if (ra == 1) {
                 ret = true;
                 logger.info("Updated Genre with ID " + id + " set name to '" + name + "'");
-            }
-            else {
+            } else {
                 logger.warning("Update Genre with ID " + id + " had an undesired result and changed " + ra + " records");
             }
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             logger.severe("Issue updating Genre: " + ex.getMessage());
         }
-        
+
         return ret;
     }
-       public boolean deleteGenre(int id) {
+
+    public boolean deleteGenre(int id) {
         boolean ret = false;
 
         try {
@@ -151,27 +149,5 @@ public class ChinookGenreManager {
         }
 
         return ret;
-
-//    boolean deleteGenre(int id) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-//    boolean updateGenre(int id, String name) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    boolean deleteGenre(int id) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    String getGenreName(int id) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    HashMap<Integer, String> getGenre() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-
 }
-
-
