@@ -19,10 +19,10 @@ public class GenreRunner {
     public static void main(String[] args) {
         // TODO code application logic here
         ChinookGenreManager gm = new ChinookGenreManager();
-        HashMap <Integer, String> x = gm.getGenres();
-        for(String y : x.values()){
-            System.out.println(y);
-        }
+//        HashMap <Integer, String> x = gm.getGenres();
+//        for(String y : x.values()){
+//            System.out.println(y);
+//        }
 //        gm.addGenre("Thrash Metal");
 //        gm.getGenreName(26);
 //        gm.updateGenre(26, "Death Metal");
