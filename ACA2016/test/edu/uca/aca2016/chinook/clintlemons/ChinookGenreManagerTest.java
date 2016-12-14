@@ -37,7 +37,6 @@ public class ChinookGenreManagerTest {
     @After
     public void tearDown() {
     }
-
     /**
      * Test of getGenres method, of class ChinookGenreManager.
      */
@@ -53,7 +52,6 @@ public class ChinookGenreManagerTest {
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
-
     /**
      * Test of addGenre method, of class ChinookGenreManager.
      */
@@ -68,7 +66,6 @@ public class ChinookGenreManagerTest {
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
-
     /**
      * Test of getGenreName method, of class ChinookGenreManager.
      */
@@ -83,7 +80,6 @@ public class ChinookGenreManagerTest {
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
-
     /**
      * Test of updateGenre method, of class ChinookGenreManager.
      */
@@ -93,13 +89,12 @@ public class ChinookGenreManagerTest {
         int id = 1;
         String name = "Jazzy";
         ChinookGenreManager instance = new ChinookGenreManager();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.updateGenre(id, name);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
-
     /**
      * Test of deleteGenre method, of class ChinookGenreManager.
      */
