@@ -7,6 +7,7 @@ package edu.uca.aca2016.chinook.curiologic;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 /**
  *
@@ -19,6 +20,7 @@ public class ChinookGenreRunner {
      */
     public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
         ChinookGenreManager cgm = new ChinookGenreManager();
+        // cgm.getGenres();
        // cgm.getGenreName(3);
        //   cgm.addGenre("rumba");
        // cgm.updateGenre(26, "samba");

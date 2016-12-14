@@ -47,8 +47,12 @@ public class ChinookGenreManager {
         } catch (IOException ex) {
             log.info(ex.getMessage());
         }
-    }public HashMap<Integer, String> getGenre() {
-       HashMap<Integer, String> artists = new HashMap<>();
+        /**
+         c@reates HaahMap for genre
+         */
+        
+    }public HashMap<Integer, String> getGenres() {
+       HashMap<Integer, String> Genre = new HashMap<>();
        
        try{
            Statement s = this.con.createStatement();
@@ -56,14 +60,14 @@ public class ChinookGenreManager {
            ResultSet rs = s.executeQuery("SELECT * FROM Genre");
            
            while (rs.next()) {
-               artists.put(rs.getInt("GenreID"), rs.getString("Name"));
+               Genre.put(rs.getInt("GenreID"), rs.getString("Name"));
            }
        }
        catch(SQLException ex){
            log.severe("SQL Issue: " + ex.getMessage());
        }
-       
-       return artists;
+       log.info("music styles" + Genre);
+       return Genre;
    } 
     public boolean addGenre(String name) {
         boolean ret = false;
@@ -94,12 +98,14 @@ public String getGenreName(int id) {
         String ret = null;
 
         try{
-            // attempt to find the artist by id
+            /**
+             looks for genre by ID
+             */
             PreparedStatement ps = this.con.prepareStatement("SELECT * FROM Genre WHERE GenreId = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             
-            // if there is a record, get the artist id to return
+            
             if (rs.next()) {
                 ret = rs.getString("Name");
                 log.info("Search  id for genre '" + id + "' genre of " + ret);
@@ -112,7 +118,7 @@ public String getGenreName(int id) {
             log.severe("Issue searching for genre: " + ex.getMessage());
         }
 
-        // send back null or the name
+        
         return ret;
     }
  public boolean updateGenre(int id, String name) {
@@ -126,10 +132,10 @@ public String getGenreName(int id) {
             
             if (ra == 1) {
                 ret = true;
-                log.info("Updated artist with ID " + id + " set name to '" + name + "'");
+                log.info("Updated Genre with ID " + id + " set name to '" + name + "'");
             }
             else {
-                log.warning("Update artist with ID " + id + " had an undesired result and changed " + ra + " records");
+                log.warning("Update Genre with ID " + id + " had an undesired result and changed " + ra + " records");
             }
         }
         catch(SQLException ex){
@@ -160,5 +166,9 @@ public String getGenreName(int id) {
         }
         
         return ret;
+    }
+
+    public void close() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
