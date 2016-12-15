@@ -14,7 +14,7 @@
     </servlet-mapping>
      <servlet-mapping>
         <servlet-name>GenreManager</servlet-name>
-        <url-pattern>/Genre</url-pattern>
+        <url-pattern>/GenreManager</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
