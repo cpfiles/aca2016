@@ -225,12 +225,18 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public void loadTrackList(File trackListSource) throws IOException {
+        if (trackListSource == null || !trackListSource.exists()) {
+            throw new IOException("Cannot read the input file");
+        }
+
         try (Scanner s = new Scanner(new BufferedReader(new FileReader(trackListSource)))) {
             while (s.hasNextLine()) {
                 tracks.add(s.nextLine());
             }
-        } catch (IOException e) {
-            System.err.println("Caught IOException" + e.getMessage());
+            isPlaying = true;
+            current_track = 1;
+            number_of_tracks = tracks.size();
+            isUSBLoaded = true;
         }
     }
 
@@ -264,7 +270,7 @@ public class MyStereo implements StereoExtended {
      */
     @Override
     public String getCurrentTrackFileName() {
-        return this.tracks.get(--current_track);
+        return this.tracks.get(current_track - 1);
     }
 
 }

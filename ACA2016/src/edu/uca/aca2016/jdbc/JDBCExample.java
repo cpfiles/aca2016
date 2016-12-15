@@ -15,9 +15,11 @@ import java.util.logging.Logger;
  * @author cfiles
  */
 public class JDBCExample{
+private Connection con;
 
     public void connectToAndQueryDatabase(String url) throws SQLException{
         Connection con = DriverManager.getConnection(url);
+        
 
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM Customer WHERE CustomerID > 55");
