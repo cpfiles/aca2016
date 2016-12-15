@@ -12,6 +12,16 @@
         <servlet-name>Artists</servlet-name>
         <url-pattern>/Artists</url-pattern>
     </servlet-mapping>
+        <servlet>
+        <servlet-name>ChinookManagerServlet</servlet-name>
+        <servlet-class>edu.uca.aca2016.web.jrob582.ChinookManagerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ChinookManagerServlet</servlet-name>
+        <url-pattern>/ChinookManagerServlet</url-pattern>
+    </servlet-mapping>
+   
+    
     <servlet-mapping>
         <servlet-name>ArtistsMVC</servlet-name>
         <url-pattern>/ArtistsMVC</url-pattern>
