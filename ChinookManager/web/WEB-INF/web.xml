@@ -4,25 +4,9 @@
         <servlet-name>Artists</servlet-name>
         <servlet-class>edu.uca.aca2016.web.Artists</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>clintlemons</servlet-name>
-        <servlet-class>edu.uca.aca2016.web.clintlemons</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Genre</servlet-name>
-        <servlet-class>clintlemons.Genre</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>Artists</servlet-name>
         <url-pattern>/Artists</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>clintlemons</servlet-name>
-        <url-pattern>/clintlemons</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Genre</servlet-name>
-        <url-pattern>/Genre</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
