@@ -5,7 +5,6 @@
  */
 package edu.uca.aca2016.chinook.shanamusiq;
 
-import edu.uca.aca2016.jdbc.cpfiles.ChinookManager;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,7 +29,7 @@ import java.util.logging.Logger;
 public class ChinookGenreManager {
 
     Connection con = null;
-    private static final Logger logger = Logger.getLogger(ChinookManager.class.getName());
+    private static final Logger logger = Logger.getLogger(ChinookGenreManager.class.getName());
 
     /**
      * Creates a connection to an instance of the Chinook database.
@@ -41,7 +40,7 @@ public class ChinookGenreManager {
     public ChinookGenreManager() {
         try {
             // attempt to read a "known" properties file that is on the classpath
-            Enumeration<URL> url = ChinookManager.class.getClassLoader().getResources("config/shanamusiq/ChinookManager.properties");
+            Enumeration<URL> url = ChinookGenreManager.class.getClassLoader().getResources("config/shanamusiq/ChinookManager.properties");
             InputStream stream = new FileInputStream(url.nextElement().getPath());
             Properties props = new Properties();
             props.load(stream);
