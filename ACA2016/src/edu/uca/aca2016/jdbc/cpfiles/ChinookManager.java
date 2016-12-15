@@ -28,6 +28,10 @@ import java.util.logging.Logger;
  * @author cfiles
  */
 public class ChinookManager{
+
+    public static void addGenre(String rock) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     Connection con = null;
     private static final Logger logger = Logger.getLogger(ChinookManager.class.getName());
     
@@ -270,4 +274,6 @@ public class ChinookManager{
             }
         }
     }
+
+
 }

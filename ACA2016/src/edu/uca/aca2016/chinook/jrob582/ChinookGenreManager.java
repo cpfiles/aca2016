@@ -65,12 +65,10 @@ public class ChinookGenreManager {
 
     /**
      *
-     * @param Genre
      * @return
      */
-    public HashMap<Integer, String> getGenre(HashMap<Integer, String> Genre) {
-        HashMap<Integer, String> GenreId;
-        GenreId = new HashMap<>();
+    public HashMap<Integer, String> getGenre() {
+        HashMap<Integer, String> Genre = new HashMap<>();
 
         try {
             Statement s = this.con.createStatement();
@@ -117,26 +115,22 @@ public class ChinookGenreManager {
     public String getGenreName(int id) {
         String ret = null;
 
-        try{
-         
+        try {
+
             PreparedStatement ps;
             ps = this.con.prepareStatement("SELECT * FROM Genre WHERE GenreId = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            
-        
+
             if (rs.next()) {
                 ret = rs.getString("Name");
                 logger.log(Level.INFO, "Search by id for genre ''{0}'' yielded an name of {1}", new Object[]{id, ret});
-            }
-            else {
+            } else {
                 logger.log(Level.INFO, "Search for genre ''{0}'' yielded no results", id);
             }
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Issue searching for genre: {0}", ex.getMessage());
         }
-
 
         return ret;
     }
@@ -149,26 +143,24 @@ public class ChinookGenreManager {
      */
     public boolean updateGenre(int id, String name) {
         boolean ret = false;
-        
-        try{
+
+        try {
             PreparedStatement ps;
             ps = this.con.prepareStatement("UPDATE Genre SET Name = ? WHERE GenreID = ?");
             ps.setString(1, name);
             ps.setInt(2, id);
             int ra = ps.executeUpdate();
-            
+
             if (ra == 1) {
                 ret = true;
                 logger.log(Level.INFO, "Updated genre with ID {0} set name to ''{1}''", new Object[]{id, name});
-            }
-            else {
+            } else {
                 logger.log(Level.WARNING, "Update genre with ID {0} had an undesired result and changed {1} records", new Object[]{id, ra});
             }
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Issue updating genre: {0}", ex.getMessage());
         }
-        
+
         return ret;
     }
 
@@ -179,28 +171,33 @@ public class ChinookGenreManager {
      */
     public boolean deleteGenre(int id) {
         boolean ret = false;
-        
-        try{
+
+        try {
             PreparedStatement ps;
             ps = this.con.prepareStatement("DELETE FROM Genre WHERE GenreID = ?");
             ps.setInt(1, id);
             int ra = ps.executeUpdate();
-            
+
             if (ra == 1) {
                 ret = true;
                 logger.log(Level.INFO, "Deleted genre with ID {0}", id);
-            }
-            else {
+            } else {
                 logger.log(Level.WARNING, "Delete genre with ID {0} had an undesired result and changed {1} records", new Object[]{id, ra});
             }
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Issue deleting genre: {0}", ex.getMessage());
         }
-        
+
         return ret;
     }
-    
-    
 
+    public void close() {
+        if (this.con != null) {
+            try {
+                this.con.close();
+            } catch (SQLException ex) {
+                logger.warning(ex.getMessage());
+            }
+        }
+    }
 }
