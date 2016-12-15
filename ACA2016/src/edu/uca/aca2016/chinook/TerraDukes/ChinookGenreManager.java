@@ -150,4 +150,23 @@ public class ChinookGenreManager {
 
         return ret;
     }
+
+    public void addGenre(String Genre) throws SQLException {
+        PreparedStatement ps = null;
+        String sql = "INSERT into Genre (Name) VALUES(?)";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, Genre);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ChinookGenreManager.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+        }
+    }
+    
+
+    
 }
