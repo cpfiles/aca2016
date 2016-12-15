@@ -8,6 +8,8 @@ package edu.uca.aca2016.chinook.CarterFliss;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -15,6 +17,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -32,8 +35,8 @@ public class ChinookGenreManager {
     public ChinookGenreManager(){
         try{
             // attempt to read a "known" properties file that is on the classpath
-            Path inpath = Paths.get("resources","config","CarterFliss", "ChinookManager.properties");
-            FileInputStream in = new FileInputStream(inpath.toFile());
+            Enumeration<URL> url = ChinookGenreManager.class.getClassLoader().getResources("config/CarterFliss/ChinookManager.properties");
+            InputStream in = new FileInputStream(url.nextElement().getPath());
             Properties props = new Properties();
             props.load(in);
             in.close();
