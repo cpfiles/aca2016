@@ -1,15 +1,21 @@
 package edu.uca.aca2016.jdbc.cpfiles;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -22,7 +28,7 @@ import java.util.logging.Logger;
  * @author cfiles
  */
 public class ChinookManager{
-    Connection con;
+    Connection con = null;
     private static final Logger logger = Logger.getLogger(ChinookManager.class.getName());
     
     /**
@@ -34,16 +40,19 @@ public class ChinookManager{
     public ChinookManager(){
         try{
             // attempt to read a "known" properties file that is on the classpath
-            Path inpath = Paths.get("resources","config","cpfiles", "ChinookManager.properties");
-            FileInputStream in = new FileInputStream(inpath.toFile());
+            Enumeration<URL> url = ChinookManager.class.getClassLoader().getResources("config/cpfiles/ChinookManager.properties");
+            InputStream stream = new FileInputStream(url.nextElement().getPath());
             Properties props = new Properties();
-            props.load(in);
-            in.close();
+            props.load(stream);
+            stream.close();
             
             logger.info("Connecting to database: " + props.getProperty("db.connection"));
             
             // the properties file loaded, attempt to connect using the value of the "db.connection" property
-            con = DriverManager.getConnection(props.getProperty("db.connection"));
+            Class.forName("org.sqlite.JDBC");
+            if (this.con == null) {
+                con = DriverManager.getConnection(props.getProperty("db.connection"));
+            }
         }
         catch(FileNotFoundException ex){
             logger.severe("File Not Found: " + ex.getMessage());
@@ -53,6 +62,9 @@ public class ChinookManager{
         }
         catch(SQLException ex){
             logger.severe("SQL Issue: " + ex.getMessage());
+        }
+        catch(ClassNotFoundException ex){
+            logger.severe("Class not found: " + ex.getMessage());
         }
     }
     
@@ -116,6 +128,32 @@ public class ChinookManager{
         return ret;
     }
     
+    public String getArtistName(int id) {
+        String ret = null;
+
+        try{
+            // attempt to find the artist by id
+            PreparedStatement ps = this.con.prepareStatement("SELECT * FROM Artist WHERE ArtistId = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            
+            // if there is a record, get the artist id to return
+            if (rs.next()) {
+                ret = rs.getString("Name");
+                logger.info("Search by id for artist '" + id + "' yielded an name of " + ret);
+            }
+            else {
+                logger.info("Search for artist '" + id + "' yielded no results");
+            }
+        }
+        catch(SQLException ex){
+            logger.severe("Issue searching for artist: " + ex.getMessage());
+        }
+
+        // send back null or the name
+        return ret;
+    }
+    
     /**
      * Updates an artist's name by the given id.
      * 
@@ -175,5 +213,61 @@ public class ChinookManager{
         }
         
         return ret;
+    }
+    
+    public void batchLoadArtist(File csv, int column) {
+        String line = "";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csv))) {
+            PreparedStatement ps = this.con.prepareStatement("INSERT INTO Artist (Name) VALUES (?)");
+            
+            while ((line = br.readLine()) != null) {
+                String[] pieces = line.split(",");
+                ps.setString(1, pieces[column]);
+                ps.addBatch();
+                
+                logger.info("Adding " + pieces[column] + " to the batch." );
+            }
+            
+            int[] results = ps.executeBatch();
+            
+            ps.close();
+        } 
+        catch (IOException ex) {
+            logger.severe("IO Exception: " + ex.getMessage());
+        }
+        catch(SQLException ex){
+            logger.severe("SQL Issue: " + ex.getMessage());
+        }
+    }
+    
+    public HashMap<Integer, String> getArtists() {
+        HashMap<Integer, String> artists = new HashMap<>();
+        
+        try{
+            Statement s = this.con.createStatement();
+            
+            ResultSet rs = s.executeQuery("SELECT * FROM Artist");
+            
+            while (rs.next()) {
+                artists.put(rs.getInt("ArtistID"), rs.getString("Name"));
+            }
+        }
+        catch(SQLException ex){
+            logger.severe("SQL Issue: " + ex.getMessage());
+        }
+        
+        return artists;
+    }
+    
+    public void close() {
+        if (this.con != null) {
+            try{
+                this.con.close();
+            }
+            catch(SQLException ex){
+                logger.warning(ex.getMessage());
+            }
+        }
     }
 }
