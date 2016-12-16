@@ -105,8 +105,8 @@ public class ChinookGenreManager {
             this.ps.setInt(1, IDpar);
             ResultSet rs = this.ps.executeQuery();
             if(rs.next()){
-                newGenre = rs.getString(1);
-                logger.info(rs.getString(1)+" was found.");
+                newGenre = rs.getString("Name");
+                logger.info(rs.getString("Name")+" was found.");
             }
         }catch (SQLException e){
             logger.severe(e.getMessage());
@@ -117,7 +117,7 @@ public class ChinookGenreManager {
     public boolean updateGenre (int IDpar, String namePar){
         boolean tf = false;
         try{
-            this.ps = this.con.prepareStatement("UPDATE Genre SET Name = (?) WHERE GenreId = (?)");
+            this.ps = this.con.prepareStatement("UPDATE Genre SET Name = ? WHERE GenreId = ?");
             this.ps.setString(1, namePar);
             this.ps.setInt(2, IDpar);
             int ga = this.ps.executeUpdate();
@@ -149,5 +149,15 @@ public class ChinookGenreManager {
             logger.severe(e.getMessage());
         }
         return tf;
+    }
+    public void close() {
+        if (this.con != null) {
+            try{
+                this.con.close();
+            }
+            catch(SQLException ex){
+                logger.warning(ex.getMessage());
+            }
+        }
     }
 }
