@@ -41,10 +41,10 @@ public class ChinookGenreManager {
             props.load(in);
             in.close();
             
-            logger.info("Connecting to database: " + props.getProperty("dbconnection"));
-            
+            logger.info("Connecting to database: " + props.getProperty("db.connection"));
+            Class.forName("org.sqlite.JDBC");
             // the properties file loaded, attempt to connect using the value of the "db.connection" property
-            con = DriverManager.getConnection(props.getProperty("dbconnection"));
+            con = DriverManager.getConnection(props.getProperty("db.connection"));
         }
         catch(FileNotFoundException ex){
             logger.severe("File Not Found: " + ex.getMessage());
@@ -54,6 +54,9 @@ public class ChinookGenreManager {
         }
         catch(SQLException ex){
             logger.severe("SQL Issue: " + ex.getMessage());
+        }
+        catch(ClassNotFoundException ex){
+            logger.severe("Class not found: " + ex.getMessage());            
         }
     }
     
