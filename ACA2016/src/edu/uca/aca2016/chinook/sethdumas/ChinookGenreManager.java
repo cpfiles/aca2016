@@ -199,4 +199,14 @@ public class ChinookGenreManager {
         return ret;
 
     }
+    public void close() {
+        if (this.con != null) {
+            try{
+                this.con.close();
+            }
+            catch(SQLException ex){
+                logger.warning(ex.getMessage());
+            }
+        }
+    }
 }
