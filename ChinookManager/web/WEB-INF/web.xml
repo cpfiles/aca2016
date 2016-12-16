@@ -8,6 +8,10 @@
         <servlet-name>ArtistsMVC</servlet-name>
         <servlet-class>edu.uca.aca2016.web.ArtistsMVC</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Genres</servlet-name>
+        <servlet-class>edu.uca.aca2016.web.Genres</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Artists</servlet-name>
         <url-pattern>/Artists</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>ArtistsMVC</servlet-name>
         <url-pattern>/ArtistsMVC</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Genres</servlet-name>
+        <url-pattern>/Genres</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
