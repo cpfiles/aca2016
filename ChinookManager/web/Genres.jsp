@@ -3,7 +3,7 @@
     Created on : Dec 15, 2016, 7:10:18 PM
     Author     : Carter
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -23,7 +23,7 @@
       <c:when test="${dothis eq 'Delete'}">
         <h1>Delete Genre</h1>
         <input type="hidden" name="id" value="${id}" />
-        Are you sure you want to delete genre "${genre_name}"
+        Are you sure you want to delete artist "${genre_name}"
         <input type="submit" value="Delete" name="action" />
       </c:when>
       <c:when test="${dothis eq 'Edit'}">
@@ -50,7 +50,7 @@
         </tr>
       </thead>
       <tbody>
-      <c:forEach items="${genres}" var="artist">
+      <c:forEach items="${genres}" var="genre">
         <tr>
           <td>${genre.key}</td>
           <td>${genre.value}</td>

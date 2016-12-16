@@ -12,12 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import edu.uca.aca2016.chinook.CarterFliss.ChinookGenreManager;
 import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServlet;
 
 /**
  *
  * @author Carter
  */
-public class Genres {
+public class Genres extends HttpServlet {
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
         response.setContentType("text/html;charset=UTF-8");
         
@@ -58,13 +59,13 @@ public class Genres {
         
         if (id != null && !id.isEmpty()) {
             request.setAttribute("id", id);
-            request.setAttribute("artist_name", gm.getGenreName(Integer.parseInt(id)));
+            request.setAttribute("genre_name", gm.getGenreName(Integer.parseInt(id)));
         }
 
-        RequestDispatcher rd = request.getRequestDispatcher("/genres.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/Genres.jsp");
         rd.include(request, response);
         
-        
+        gm.close();
     }
 
 protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
@@ -112,7 +113,7 @@ protected void doPost(HttpServletRequest request,HttpServletResponse response) t
             }
         }
         
-        
+        gm.close();
         
         response.sendRedirect(request.getRequestURI() + "?mid=" + mid);
 	}
