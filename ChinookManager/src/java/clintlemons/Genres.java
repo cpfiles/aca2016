@@ -49,13 +49,13 @@ public class Genres extends HttpServlet{
             message = "Genre was updated";
         }
         else if (mid.equals("201")) {
-            message = "Artist was not updated, name value was empty or incorrect or id was missing.";
+            message = "Genre was not updated, name value was empty or incorrect or id was missing.";
         }
         else if (mid.equals("300")) {
-            message = "Artist was deleted";
+            message = "Genre was deleted";
         }
         else if (mid.equals("201")) {
-            message = "Artist was not deleted.";
+            message = "Genre was not deleted.";
         }
 
         try(PrintWriter out = response.getWriter()){
@@ -82,7 +82,7 @@ public class Genres extends HttpServlet{
                 out.println("<h1>Delete Genre</h1>");
                 out.println("<form method=\"post\">");
                 out.println("<input type=\"hidden\" name=\"id\" value=\"" + id + "\">");
-                out.println("Are you sure you want to delete artist \"" + name + "\"?");
+                out.println("Are you sure you want to delete genre \"" + name + "\"?");
                 out.println("<input type=\"submit\" value=\"Delete\" name=\"action\">");
                 out.println("</form>");
             }
@@ -108,10 +108,10 @@ public class Genres extends HttpServlet{
             out.println("<h1>Manage Genre</h1>");
             out.println("<table border='1'><tr><th>ID</th><th>Name</th><th>Action</th></tr>");
             
-            for(Map.Entry<Integer, String> artist : artists.entrySet()) {
-                out.println("<tr><td>" + artist.getKey() + "</td><td>" + artist.getValue() + 
-                    "</td><td><a href='?do=Edit&id="+ artist.getKey() +
-                    "'>Edit</a> <a href='?do=Delete&id="+ artist.getKey() +"'>Delete</a></td></tr>");
+            for(Map.Entry<Integer, String> genre : Genres.entrySet()) {
+                out.println("<tr><td>" + genre.getKey() + "</td><td>" + genre.getValue() + 
+                    "</td><td><a href='?do=Edit&id="+ genre.getKey() +
+                    "'>Edit</a> <a href='?do=Delete&id="+ genre.getKey() +"'>Delete</a></td></tr>");
             }
             
             out.println("</table>");
@@ -136,7 +136,7 @@ public class Genres extends HttpServlet{
         String action = request.getParameter("action");
         String mid = "";
 
-        ChinookManager cm = new ChinookManager();
+        ChinookGenreManager cm = new ChinookGenreManager();
         
         if (action != null && !action.isEmpty()) {
             if (action.equals("Add")) {
