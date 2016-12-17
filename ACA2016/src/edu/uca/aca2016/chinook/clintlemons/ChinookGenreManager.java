@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package edu.uca.aca2016.chinook.clintlemons;
-
-import edu.uca.aca2016.jdbc.cpfiles.ChinookManager;
 import java.util.Enumeration;
 import java.io.*;
 import java.net.URL;
@@ -67,7 +65,7 @@ public class ChinookGenreManager {
      * @param Name
      * @return GenreID and Name 
      */
-    public HashMap<Integer, String> getGenres(int GenreID, String Name){
+    public HashMap<Integer, String> getGenres(){
         
         HashMap<Integer, String> Genres = new HashMap<>();
         try{
@@ -197,5 +195,16 @@ public class ChinookGenreManager {
         }
         
         return ret;
+    }
+
+        public void close() {
+        if (this.con != null) {
+            try{
+                this.con.close();
+            }
+            catch(SQLException ex){
+                logger.warning(ex.getMessage());
+            }
+        }
     }
 }
