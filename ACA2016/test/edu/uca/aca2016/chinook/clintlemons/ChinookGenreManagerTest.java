@@ -47,7 +47,7 @@ public class ChinookGenreManagerTest {
         String Name = "";
         ChinookGenreManager instance = new ChinookGenreManager();
         HashMap<Integer, String> expResult = null;
-        HashMap<Integer, String> result = instance.getGenres(GenreID, Name);
+        HashMap<Integer, String> result = instance.getGenres();
         //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
