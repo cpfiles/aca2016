@@ -20,7 +20,7 @@ public class Genre {
         
     
     ChinookGenreManager Ch = new ChinookGenreManager();
-   Ch.deleteGenre(27);
+  Ch.getGenre();
 
     }
 }
