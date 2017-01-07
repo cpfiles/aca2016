@@ -17,38 +17,38 @@ public class ArtistController{
     @Autowired
     ArtistDAO dao;
 
-    @RequestMapping("/artistform")
+    @RequestMapping("/artist/artistform")
     public ModelAndView showform(){
         return new ModelAndView("artistform","command",new Artist());
     }
 
-    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    @RequestMapping(value = "/artist/save",method = RequestMethod.POST)
     public ModelAndView save(@ModelAttribute("artist") Artist artist){
         dao.save(artist);
-        return new ModelAndView("redirect:/viewartist");
+        return new ModelAndView("redirect:/artist/viewartist");
     }
 
-    @RequestMapping("/viewartist")
+    @RequestMapping("/artist/viewartist")
     public ModelAndView viewartist(){
         List<Artist> list = dao.getArtistsList();
         return new ModelAndView("viewartist","list",list);
     }
 
-    @RequestMapping(value = "/editartist/{id}")
+    @RequestMapping(value = "/artist/editartist/{id}")
     public ModelAndView edit(@PathVariable int id){
         Artist artist = dao.getArtistById(id);
         return new ModelAndView("artisteditform","command",artist);
     }
     
-    @RequestMapping(value = "/editsave",method = RequestMethod.POST)
+    @RequestMapping(value = "/artist/editsave",method = RequestMethod.POST)
     public ModelAndView editsave(@ModelAttribute("artist") Artist artist){
         dao.update(artist);
-        return new ModelAndView("redirect:/viewartist");
+        return new ModelAndView("redirect:/artist/viewartist");
     }
 
-    @RequestMapping(value = "/deleteartist/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/artist/deleteartist/{id}",method = RequestMethod.GET)
     public ModelAndView delete(@PathVariable int id){
         dao.delete(id);
-        return new ModelAndView("redirect:/viewartist");
+        return new ModelAndView("redirect:/artist/viewartist");
     }
 }

@@ -9,7 +9,7 @@
   <body>
     <h1>Edit Artist</h1>  
     
-    <form:form method="POST" action="/ChinookSpring/editsave">    
+    <form:form method="POST" action="/ChinookSpring/artist/editsave">    
       <table >    
         <tr>  
           <td></td>    
