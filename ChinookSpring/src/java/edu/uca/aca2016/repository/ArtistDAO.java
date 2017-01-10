@@ -21,8 +21,11 @@ public class ArtistDAO {
     }
 
     public int save(Artist artist){
-        String sql = "INSERT INTO Artist (Name) values('" + artist.getName() + "')";
-        return template.update(sql);
+        String sql = "INSERT INTO Artist (Name) values(?)";
+        
+        Object[] values = {artist.getName()};
+
+        return template.update(sql, values);
     }
 
     public int update(Artist artist){
