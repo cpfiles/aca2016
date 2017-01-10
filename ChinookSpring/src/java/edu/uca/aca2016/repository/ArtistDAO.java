@@ -21,22 +21,22 @@ public class ArtistDAO {
     }
 
     public int save(Artist artist){
-        String sql = "INSERT INTO APP.\"Artist\" (\"Name\") values('" + artist.getName() + "')";
+        String sql = "INSERT INTO Artist (Name) values('" + artist.getName() + "')";
         return template.update(sql);
     }
 
     public int update(Artist artist){
-        String sql = "UPDATE APP.\"Artist\" SET \"Name\"='" + artist.getName() + "' WHERE \"ArtistId\" = " + artist.getId();
+        String sql = "UPDATE Artist SET Name='" + artist.getName() + "' WHERE ArtistId = " + artist.getId();
         return template.update(sql);
     }
 
     public int delete(int id){
-        String sql = "DELETE FROM APP.\"Artist\" WHERE \"ArtistId\"=" + id + "";
+        String sql = "DELETE FROM Artist WHERE ArtistId=" + id + "";
         return template.update(sql);
     }
 
     public List<Artist> getArtistsList(){
-        return template.query("SELECT * FROM APP.\"Artist\"",new RowMapper<Artist>(){
+        return template.query("SELECT * FROM Artist",new RowMapper<Artist>(){
             public Artist mapRow(ResultSet rs,int row) throws SQLException{
                 Artist a = new Artist();
                 a.setId(rs.getInt("ArtistId"));
@@ -47,7 +47,7 @@ public class ArtistDAO {
     }
 
     public Artist getArtistById(int id){
-        String sql = "SELECT \"ArtistId\" AS id, \"Name\" FROM APP.\"Artist\" WHERE \"ArtistId\" = ?";
+        String sql = "SELECT ArtistId AS id, Name FROM Artist WHERE ArtistId = ?";
         return template.queryForObject(sql,new Object[]{id},new BeanPropertyRowMapper<Artist>(Artist.class));
     }
 }
