@@ -29,13 +29,19 @@ public class ArtistDAO {
     }
 
     public int update(Artist artist){
-        String sql = "UPDATE Artist SET Name='" + artist.getName() + "' WHERE ArtistId = " + artist.getId();
-        return template.update(sql);
+        String sql = "UPDATE Artist SET Name=? WHERE ArtistId = ?";
+        
+        Object[] values = {artist.getName(), artist.getId()};
+        
+        return template.update(sql, values);
     }
 
     public int delete(int id){
-        String sql = "DELETE FROM Artist WHERE ArtistId=" + id + "";
-        return template.update(sql);
+        String sql = "DELETE FROM Artist WHERE ArtistId = ?";
+        
+        Object[] values = {id};
+        
+        return template.update(sql, values);
     }
 
     public List<Artist> getArtistsList(){
