@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.uca.aca2016.objects.Artist;
 import edu.uca.aca2016.repository.ArtistDAO;
+import java.util.HashMap;
 
 @Controller
 public class ArtistController{
@@ -30,8 +31,32 @@ public class ArtistController{
 
     @RequestMapping("/artist/viewartist")
     public ModelAndView viewartist(){
-        List<Artist> list = dao.getArtistsList();
-        return new ModelAndView("viewartist","list",list);
+        //List<Artist> list = dao.getArtistsList();
+        //return new ModelAndView("viewartist","list",list);
+        
+        return this.viewartist(1);
+    }
+    
+    @RequestMapping("/artist/viewartist/{pageid}")
+    public ModelAndView viewartist(@PathVariable int pageid){
+        int total = 25;
+        int start = 1;
+        
+        if(pageid != 1) {
+            start = (pageid-1) * total + 1;  
+        }  
+        
+        List<Artist> list = dao.getArtistsByPage(start, total);
+        
+        HashMap<String, Object> context = new HashMap<String, Object>();
+        context.put("list", list);
+        
+        int count = dao.getArtistsCount();
+        context.put("pages", Math.ceil((float)count/(float)total));
+        
+        context.put("page", pageid);
+
+        return new ModelAndView("viewartist", context);
     }
 
     @RequestMapping(value = "/artist/editartist/{id}")

@@ -25,6 +25,14 @@
       </tr>  
     </c:forEach>  
   </table> 
+
+  <div class="w3-padding-8">
+    <ul class="w3-pagination">
+      <c:forEach begin="1" end="${pages}" varStatus="p">  
+        <li><a class="<c:if test="${p.index eq page}">w3-green</c:if>" href="<c:url value="/artist/viewartist/${p.index}" />">${p.index}</a></li>
+      </c:forEach>
+    </ul>
+  </div>
     
   </div>
 
