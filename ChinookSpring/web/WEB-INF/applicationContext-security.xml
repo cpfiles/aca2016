@@ -5,22 +5,6 @@
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
-
-  <!--
-  <http auto-config="true" use-expressions="true">
-    <intercept-url pattern="/artistform**" access="hasRole('ROLE_USER')" />
-    <intercept-url pattern="/api/**" access="hasRole('ROLE_USER')" />
-  </http>
-
-  <authentication-manager>
-    <authentication-provider>
-      <user-service>
-        <user name="mkyong" password="123456" authorities="ROLE_USER" />
-      </user-service>
-    </authentication-provider>
-  </authentication-manager>
-  -->
-  
   
   <!-- enable use-expressions -->
   <http auto-config="true" use-expressions="true">
