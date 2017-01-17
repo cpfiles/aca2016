@@ -8,6 +8,18 @@
   </header>
 
   <div class="w3-row-padding w3-margin-bottom">
+    
+  <c:if test="${not empty message}">
+    <c:choose>
+      <c:when test="${message.type eq 'INFO'}">
+        <div class="w3-panel w3-border w3-pale-yellow w3-border-yellow"><p>${message.message}</p></div>
+      </c:when>
+      <c:when test="${message.type eq 'ERROR'}">
+        <div class="w3-panel w3-border w3-pale-red w3-border-red"><p>${message.message}</p></div>
+      </c:when>
+    </c:choose>
+    
+  </c:if>
 
   <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">  
     <tr>
