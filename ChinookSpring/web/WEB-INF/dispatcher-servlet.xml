@@ -28,7 +28,10 @@
     <property name="dataSource" ref="ds"></property>  
   </bean>  
   
-  <bean id="dao" class="edu.uca.aca2016.repository.ArtistDAO">  
+  <bean id="artist-dao" class="edu.uca.aca2016.repository.ArtistDAO">  
+    <property name="template" ref="jt"></property>  
+  </bean>
+  <bean id="album-dao" class="edu.uca.aca2016.repository.AlbumDAO">  
     <property name="template" ref="jt"></property>  
   </bean>  
 </beans>
