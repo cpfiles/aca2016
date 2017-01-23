@@ -32,13 +32,7 @@ public class AlbumController{
         //context.put("list", list);
         
         Album album = new Album();
-        
-        ArtistDAO adao = new ArtistDAO();
-        List<Artist> al = adao.getArtistsList();
-        logger.info("Artist list size: " + al.size());
-        album.setArtists(al);
-        
-        
+        album.setArtists(dao.getArtistsMap());
         
         return new ModelAndView("albumform","command",album);
     }
@@ -100,6 +94,9 @@ public class AlbumController{
     @RequestMapping(value = "/album/editalbum/{id}")
     public ModelAndView edit(@PathVariable int id){
         Album album = dao.getAlbumById(id);
+        
+        album.setArtists(dao.getArtistsMap());
+        
         return new ModelAndView("albumeditform","command",album);
     }
     

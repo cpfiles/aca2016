@@ -2,12 +2,15 @@ package edu.uca.aca2016.objects;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 public class Album implements Serializable {
     private int id;
     private String title;
+    private int artistid;
+    
     private Artist artist;
-    private List<Artist> artists;
+    private Map<Integer, String> artists;
 
     public Artist getArtist() {
         return artist;
@@ -33,11 +36,19 @@ public class Album implements Serializable {
         this.title = title;
     }
     
-    public List<Artist> getArtists() {
+    public void setArtistid(int i) {
+        artistid = i;
+    }
+
+    public int getArtistid() {
+        return artistid;
+    }
+    
+    public Map<Integer,String> getArtists() {
         return this.artists;
     }
     
-    public void setArtists(List<Artist> artists) {
+    public void setArtists(Map<Integer,String> artists) {
         this.artists = artists;
     }
     

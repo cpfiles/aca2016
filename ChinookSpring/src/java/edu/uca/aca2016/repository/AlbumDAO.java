@@ -13,6 +13,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import edu.uca.aca2016.objects.Album;
 import edu.uca.aca2016.objects.Artist;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 public class AlbumDAO{
@@ -23,18 +26,18 @@ public class AlbumDAO{
         this.template = template;
     }
 
-    public int save(Album artist){
-        String sql = "INSERT INTO Album (Title) values(?)";
+    public int save(Album album){
+        String sql = "INSERT INTO Album (Title, ArtistID) values(?, ?)";
 
-        Object[] values = {artist.getTitle()};
+        Object[] values = {album.getTitle(), album.getArtistid()};
 
         return template.update(sql,values);
     }
 
-    public int update(Album artist){
-        String sql = "UPDATE Album SET Title=? WHERE AlbumId = ?";
+    public int update(Album album){
+        String sql = "UPDATE Album SET Title=?, ArtistID=? WHERE AlbumId = ?";
 
-        Object[] values = {artist.getTitle(),artist.getId()};
+        Object[] values = {album.getTitle(), album.getArtistid(), album.getId()};
 
         return template.update(sql,values);
     }
@@ -59,15 +62,16 @@ public class AlbumDAO{
     }
 
     public Album getAlbumById(int id){
-        String sql = "SELECT AlbumId AS id, Title FROM Album WHERE AlbumId = ?";
+        String sql = "SELECT AlbumId AS id, Title, ArtistID FROM Album WHERE AlbumId = ?";
         return template.queryForObject(sql,new Object[]{id},new BeanPropertyRowMapper<Album>(Album.class));
     }
 
     public List<Album> getAlbumsByPage(int start, int total){
-        String sql = "SELECT album.albumid, album.title, artist.artistid, artist.name "
-                + "FROM album "
-                + "INNER JOIN artist ON artist.artistid = album.albumid "
-                + "LIMIT " + (start - 1) + "," + total;
+        String sql = "SELECT album.AlbumId, album.Title, artist.ArtistId, artist.Name " +
+                "FROM Album AS album " +
+                "INNER JOIN Artist AS artist ON artist.ArtistId = album.ArtistId " +
+                "ORDER BY artist.Name, album.Title " + 
+                "LIMIT " + (start - 1) + "," + total;
         return template.query(sql,new RowMapper<Album>(){
             public Album mapRow(ResultSet rs,int row) throws SQLException{
                 Album a = new Album();
@@ -93,5 +97,18 @@ public class AlbumDAO{
         }
         
         return 1;
+    }
+    
+    public Map<Integer,String> getArtistsMap() {
+        Map<Integer,String> artists = new LinkedHashMap<Integer,String>();
+        String sql = "SELECT ArtistID, Name FROM Artist ORDER BY Name";
+        
+        SqlRowSet rs = template.queryForRowSet(sql); 
+        
+        while(rs.next()){ 
+            artists.put(rs.getInt(1), rs.getString(2));
+        }
+        
+        return artists;
     }
 }
