@@ -4,8 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -13,14 +11,16 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import edu.uca.aca2016.objects.Album;
 import edu.uca.aca2016.objects.Artist;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 public class AlbumDAO{
 
     JdbcTemplate template;
+    
+    private static final Logger logger = Logger.getLogger(AlbumDAO.class.getName());
 
     public void setTemplate(JdbcTemplate template){
         this.template = template;
@@ -30,6 +30,8 @@ public class AlbumDAO{
         String sql = "INSERT INTO Album (Title, ArtistID) values(?, ?)";
 
         Object[] values = {album.getTitle(), album.getArtistid()};
+        
+        logger.info("Album DAO save values: " + values);
 
         return template.update(sql,values);
     }

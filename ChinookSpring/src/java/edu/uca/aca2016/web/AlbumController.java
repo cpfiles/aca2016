@@ -23,15 +23,27 @@ public class AlbumController{
     @Autowired
     AlbumDAO dao;
     
+    @Autowired
+    ArtistDAO adao = new ArtistDAO();
+    
     private static final Logger logger = Logger.getLogger(AlbumController.class.getName());
 
     @RequestMapping("/album/albumform")
     public ModelAndView showform(){
+        Album album = new Album();
+        album.setArtists(dao.getArtistsMap());
         
-        HashMap<String, Object> context = new HashMap<String, Object>();
-        //context.put("list", list);
+        return new ModelAndView("albumform","command",album);
+    }
+    
+    @RequestMapping("/album/albumform/{id}")
+    public ModelAndView showformWithArtist(@PathVariable int id){
+        Artist artist = adao.getArtistById(id);
         
         Album album = new Album();
+        album.setArtistid(id);
+        album.setArtist(artist);
+        
         album.setArtists(dao.getArtistsMap());
         
         return new ModelAndView("albumform","command",album);

@@ -33,6 +33,7 @@
         <td>
           <a href="<c:url value="/artist/editartist/${artist.id}" />"><button class="w3-btn w3-round w3-blue">Edit</button></a>
           <a href="<c:url value="/artist/deleteartist/${artist.id}" />"><button class="w3-btn w3-round w3-red">Delete</button></a>
+          <a href="<c:url value="/album/albumform/${artist.id}" />"><button class="w3-btn w3-round w3-green">Add Album</button></a>
         </td>  
       </tr>  
     </c:forEach>  

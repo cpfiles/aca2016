@@ -14,19 +14,33 @@
       <h2>Album Information</h2>
     </div>
 
-    <form:form method="post" action="save" cssClass="w3-container">
+    <form:form method="post" action="/ChinookSpring/album/save" cssClass="w3-container">
       <div class="w3-padding-8">
         <label><b>Title</b></label>
         <form:input path="title" cssClass="w3-input w3-border"  />
       </div>
       
-      <div class="w3-padding-8">
-        <label><b>Artist</b></label>
-        <form:select path="artistid" cssClass="w3-select w3-border">
-            <form:option value="-1">Select Artist</form:option>
-            <form:options items="${command.artists}"  />
-        </form:select>
-      </div>
+      <c:choose>
+      <c:when test="${not empty command.artist}">
+        <form:hidden path="artistid" />
+        <div class="w3-padding-8">
+          <label><b>Artist</b></label>
+          <div class="w3-panel w3-border">
+            <p><b>${command.artist.name}</b></p>
+          </div>
+         </div>
+      </c:when>
+      
+      <c:otherwise>
+        <div class="w3-padding-8">
+          <label><b>Artist</b></label>
+          <form:select path="artistid" cssClass="w3-select w3-border">
+              <form:option value="-1">Select Artist</form:option>
+              <form:options items="${command.artists}"  />
+          </form:select>
+        </div>
+      </c:otherwise>
+      </c:choose>
       
       <div class="w3-padding-8">
         <button type="submit" class="w3-btn w3-padding w3-blue" style="width:120px">Save</button>
