@@ -43,9 +43,16 @@
       
       <sec:authorize access="hasRole('ROLE_ADMIN')">
       <div class="w3-dropdown-hover">
-        <a href="<c:url value="/artist/viewartist" />" class="w3-padding w3-blue"><i class="fa fa-music fa-fw"></i>  Artists  <i class="fa fa-caret-down"></i></a>
+        <a href="<c:url value="/artist/viewartist" />" class="w3-padding"><i class="fa fa-music fa-fw"></i>  Artists  <i class="fa fa-caret-down"></i></a>
         <div class="w3-dropdown-content w3-white w3-card-4">
           <a class="w3-padding w3-dark-grey" href="<c:url value="/artist/artistform" />"><i class="fa fa-plus-square fa-fw"></i>  Add Artist</a>
+        </div>
+      </div>
+        
+      <div class="w3-dropdown-hover">
+        <a href="<c:url value="/album/viewalbum" />" class="w3-padding"><i class="fa fa-microphone fa-fw"></i>  Albums  <i class="fa fa-caret-down"></i></a>
+        <div class="w3-dropdown-content w3-white w3-card-4">
+          <a class="w3-padding w3-dark-grey" href="<c:url value="/album/albumform" />"><i class="fa fa-plus-square fa-fw"></i>  Add Album</a>
         </div>
       </div>
       </sec:authorize>
