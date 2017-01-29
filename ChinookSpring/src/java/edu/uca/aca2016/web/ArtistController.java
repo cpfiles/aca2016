@@ -12,24 +12,36 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.uca.aca2016.objects.Artist;
 import edu.uca.aca2016.objects.Message;
 import edu.uca.aca2016.repository.ArtistDAO;
+import edu.uca.aca2016.validation.ArtistValidator;
 import java.util.HashMap;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 @Controller
 public class ArtistController{
     @Autowired
     ArtistDAO dao;
     
+    @Autowired
+    private ArtistValidator artistValidator;
+    
     private static final Logger logger = Logger.getLogger(ArtistController.class.getName());
 
     @RequestMapping("/artist/artistform")
     public ModelAndView showform(){
-        return new ModelAndView("artistform","command",new Artist());
+        return new ModelAndView("artistform","artist",new Artist());
     }
 
     @RequestMapping(value = "/artist/save", method = RequestMethod.POST)
-    public ModelAndView save(@ModelAttribute("artist") Artist artist, HttpServletRequest request){
+    public ModelAndView save(@ModelAttribute("artist") @Valid Artist artist, BindingResult result, HttpServletRequest request){
+        if(result.hasErrors()){
+            return new ModelAndView("artistform", "artist", artist);
+        }
+        
         int r = dao.save(artist);
         
         Message msg = null;
@@ -47,9 +59,6 @@ public class ArtistController{
 
     @RequestMapping("/artist/viewartist")
     public ModelAndView viewartist(HttpServletRequest request){
-        //List<Artist> list = dao.getArtistsList();
-        //return new ModelAndView("viewartist","list",list);
-        
         return this.viewartist(1, request);
     }
     
@@ -85,11 +94,15 @@ public class ArtistController{
     @RequestMapping(value = "/artist/editartist/{id}")
     public ModelAndView edit(@PathVariable int id){
         Artist artist = dao.getArtistById(id);
-        return new ModelAndView("artisteditform","command",artist);
+        return new ModelAndView("artisteditform","artist",artist);
     }
     
     @RequestMapping(value = "/artist/editsave",method = RequestMethod.POST)
-    public ModelAndView editsave(@ModelAttribute("artist") Artist artist, HttpServletRequest request){
+    public ModelAndView editsave(@ModelAttribute("artist") @Valid Artist artist, BindingResult result, HttpServletRequest request){
+        if(result.hasErrors()){
+            return new ModelAndView("artisteditform", "artist", artist);
+        }
+        
         int r = dao.update(artist);
         
         Message msg = null;
@@ -120,5 +133,18 @@ public class ArtistController{
         request.getSession().setAttribute("message", msg);
         
         return new ModelAndView("redirect:/artist/viewartist");
+    }
+    
+    @InitBinder("artist")
+    public void initBinder(WebDataBinder webDataBinder){
+        webDataBinder.setValidator(artistValidator);
+    }
+    
+    public ArtistValidator getArtistValidator() {
+        return artistValidator;
+    }
+ 
+    public void setArtistValidator(ArtistValidator artistValidator) {
+        this.artistValidator = artistValidator;
     }
 }

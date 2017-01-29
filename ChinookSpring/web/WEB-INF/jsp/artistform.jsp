@@ -11,13 +11,14 @@
 
   <div class="w3-card-4">
     <div class="w3-container w3-blue">
-      <h2>Header</h2>
+      <h2>Artist Information</h2>
     </div>
 
-    <form:form method="post" action="save" cssClass="w3-container">
+    <form:form method="post" action="save" cssClass="w3-container" commandName="artist">
       <div class="w3-padding-8">
         <label><b>Name</b></label>
         <form:input path="name" cssClass="w3-input w3-border"  />
+        <form:errors path="name" cssClass="w3-red w3-padding-8 w3-panel" cssStyle="display: block; width: 100%; font-weight:bold;" />
       </div>
       
       <div class="w3-padding-8">

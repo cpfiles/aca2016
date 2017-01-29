@@ -14,10 +14,15 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
   
   <context:component-scan base-package="edu.uca.aca2016.web"></context:component-scan>  
+  <context:component-scan base-package="edu.uca.aca2016.validation"></context:component-scan>  
   
   <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
     <property name="prefix" value="/WEB-INF/jsp/"></property>  
     <property name="suffix" value=".jsp"></property>  
+  </bean>
+  
+  <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/WEB-INF/messages" />
   </bean>
   
   <mvc:resources mapping="/media/**" location="/media/" cache-period="10000" />
