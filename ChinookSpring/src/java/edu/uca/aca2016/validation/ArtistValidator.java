@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import edu.uca.aca2016.objects.Artist;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 @Component
 public class ArtistValidator implements Validator {
@@ -26,5 +27,9 @@ public class ArtistValidator implements Validator {
 		if(artist.getName().length() > 120) {
 			errors.rejectValue("name","artist.name.length");
 		}
+        
+        if (!artist.getName().matches("^[A-Za-z0-9]*$")) {
+            errors.rejectValue("name","artist.name.pattern");
+        }
 	}
 }
