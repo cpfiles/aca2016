@@ -39,4 +39,7 @@
   <bean id="album-dao" class="edu.uca.aca2016.repository.AlbumDAO">  
     <property name="template" ref="jt"></property>  
   </bean>  
+  <bean id="user-dao" class="edu.uca.aca2016.repository.UserDAO">  
+    <property name="template" ref="jt"></property>  
+  </bean>  
 </beans>
