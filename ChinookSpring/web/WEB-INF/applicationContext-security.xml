@@ -25,7 +25,7 @@
     
     <logout logout-success-url="/login?logout" logout-url="/j_spring_security_logout"  />
     
-    <csrf/>
+    <csrf disabled="true"/>
   </http>
 	
   <!-- select users and user_roles from database -->
