@@ -2,7 +2,7 @@
 
 This repository contains the source code resources for a Java bootcamp style course that was 
 taught in 2016 through the University of Central Arkansas' Arkansas Coding Academy. The course 
-curriculum was designed and developed by [Chad Files](https://www.chadfiles).
+curriculum was designed and developed by [Chad Files](https://www.chadfiles.com).
 
 ## Contents
 
